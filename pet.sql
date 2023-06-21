@@ -112,3 +112,13 @@ CREATE TABLE re_reple(
 );
 
 commit;
+
+ALTER TABLE MEMBERS MODIFY(mid NOT NULL);
+-- MEMBERS 테이블 mid 컬럼에 NOT NULL 제약조건 추가
+
+ALTER TABLE INTRODUCE ADD service VARCHAR2(300);
+-- 이용 가능 서비스 컬럼 추가
+
+ALTER TABLE WISH ADD wno NUMBER(8) PRIMARY KEY;
+-- 찜 목록 넘버 추가
+COMMIT;
