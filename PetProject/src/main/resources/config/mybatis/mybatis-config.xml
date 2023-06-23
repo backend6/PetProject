@@ -6,13 +6,13 @@
 
 	<!-- typeAlias 타입 별칭 설정 ================== -->
 	<typeAliases>
-	
+		<typeAlias type="com.find.model.SitterVO" alias="sitter" />
 	</typeAliases>
 	
 	
 	<!-- mapper 정의 ============================ -->
 	<mappers>
-	
+		<mapper resource="config/mybatis/mapper/SitterFindMapper.xml" />
 	</mappers>
 	
 </configuration>

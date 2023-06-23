@@ -16,6 +16,7 @@
 				num = 0;
 			}
 		})
+		
 	})
 </script>
 
@@ -32,97 +33,61 @@
 			<h2 style="font-weight: bold">펫시터 찾기</h2>
 		</div>
 		<div align="center" class="col-md-9 offset-md-2" id="search">
-		<!-- <form name="findDong" method="get" action=""> -->
+		<form name="findAddr" id="findAddr" method="get" action="find" onsubmit="return check()">
 			<table class="table table-borderless" id="searchT">
 				<tr>
 				<td style="width: 15%; vertical-align: middle;">지역 검색</td>
 				<td style="width: 70%;">
-					<input type="text" name="dong" id="dong" class="form-control"
+					<input type="text" name="addr" id="addr" class="form-control"
 							placeholder="동 이름을 입력하세요.(반포동)">
 				</td>
 				<td style="width: 15%;">
-					<button type="button" id="btnfindSitter" class="btn btn-success">검색</button>
+					<button id="btnfindSitter" class="btn btn-success">검색</button>
 				</td>
 				</tr>
 			</table>
-		<!-- </form> -->
+		</form>
 		
 	</div>
 		<div class="col-md-9 offset-md-2 ">
-			<div class="sitter">
-				<table class="table table-borderless">
-					<tr>
-						<td rowspan="6" style="vertical-align: middle; text-align:center; width: 30%;">
-							<img src="${myctx}/images/pet1.jpg" style="width: 200px">
-						</td>
-						<td style="font-size: 1em; font-weight: bold; padding: 5px; width: 60%;
-									vertical-align: middle">
-							닉네임 <!-- 전문가 인증이 되었다면 인증마크 --> 
-						</td>
-						<td style="text-align: right; width: 10%;">
-							<!-- 클릭하면 빨간 하트로 이미지 바뀜. 찜목록에 반영 해야 함-->
-							<img src="${myctx}/images/heart.png" class="heart" style="width: 25px">
-							
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2" style="font-size: 1.2em; font-weight: bold;">
-							<a href="${myctx}/shop/info">소개 제목</a>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2" style="font-size: 0.9em;">간단한 소개 (2~3줄)</td>
-					</tr>
-					<tr>
-						<td colspan="2" style="font-size: 0.9em; ">~~~~~</td>
-					</tr>
-					<tr>
-						<td colspan="2" style="font-size: 0.9em;">~~~~~</td>
-					</tr>
-					<tr>
-						<td style="font-size: 1em; font-weight: bold;">서울시 서초구 반포동</td>
-					</tr>
-					
-				</table>
-			</div>
-			
-			<div class="sitter">
-				<table class="table table-borderless">
-					<tr>
-						<td rowspan="6" style="vertical-align: middle; text-align:center; width: 30%">
-							<img src="../images/pet1.jpg" style="width: 200px">
-						</td>
-						<td style="font-size: 1em; font-weight: bold; width: 60%;
-									vertical-align: middle">
-							닉네임 <!-- 전문가 인증이 되었다면 인증마크 --> 
-						</td>
-						<td style="text-align: right; width: 10%;">
-							<!-- 클릭하면 빨간 하트로 이미지 바뀜. 찜목록에 반영 해야 함-->
-							<img src="../images/heart.png" class="heart" style="width: 25px">
-							
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2" style="font-size: 1.2em; font-weight: bold;">
-							<a href="#">소개 제목</a>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2" style="font-size: 0.9em;">간단한 소개 (2~3줄)</td>
-					</tr>
-					<tr>
-						<td colspan="2" style="font-size: 0.9em;">~~~~~</td>
-					</tr>
-					<tr>
-						<td colspan="2" style="font-size: 0.9em;">~~~~~</td>
-					</tr>
-					<tr>
-						<td style="font-size: 1em; font-weight: bold;">서울시 서초구 반포동</td>
-					</tr>
-					
-				</table>
-			</div>
-		
-		
+			<c:forEach var="item" items="${sitter}">
+				<div class="sitter">
+					<table class="table table-borderless">
+						<tr>
+							<td rowspan="6" style="vertical-align: middle; text-align:center; width: 30%;">
+								<img src="${myctx}/images/pet1.jpg" style="width: 200px">
+							</td>
+							<td style="font-size: 1em; font-weight: bold; padding: 5px; width: 60%;
+										vertical-align: middle">
+								<c:out value="${item.nickname}" /> <!-- 전문가 인증이 되었다면 인증마크 --> 
+							</td>
+							<td style="text-align: right; width: 10%;">
+								<!-- 클릭하면 빨간 하트로 이미지 바뀜. 찜목록에 반영 해야 함-->
+								<img src="${myctx}/images/heart.png" class="heart" style="width: 25px">
+								
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" style="font-size: 1.2em; font-weight: bold;">
+								<a href="${myctx}/shop/info"><c:out value="${item.title}" /></a>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" style="font-size: 0.9em;"><c:out value="${item.short_content}" /></td>
+						</tr>
+						<tr>
+							<td colspan="2" style="font-size: 0.9em; ">~~~~~</td>
+						</tr>
+						<tr>
+							<td colspan="2" style="font-size: 0.9em;">~~~~~</td>
+						</tr>
+						<tr>
+							<td style="font-size: 1em; font-weight: bold;"><c:out value="${item.addr}" /></td>
+						</tr>
+						
+					</table>
+				</div>
+			</c:forEach>
+
 		</div>
 </div>
