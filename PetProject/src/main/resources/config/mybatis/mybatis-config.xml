@@ -4,15 +4,16 @@
  "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
-	<!-- typeAlias 타입 별칭 설정 ================== -->
+	<!-- typeAlias 타입 별칭 설정 ============================= -->
 	<typeAliases>
-	
+		<typeAlias type="com.reviewboard.model.ReviewBoardVO" alias="ReviewBoard"/>
 	</typeAliases>
 	
 	
-	<!-- mapper 정의 ============================ -->
+	<!-- mapper 정의 =========================================  -->
 	<mappers>
-	
+		<mapper resource="config/mybatis/mapper/ReviewBoardMapper.xml" />
+		
 	</mappers>
 	
 </configuration>

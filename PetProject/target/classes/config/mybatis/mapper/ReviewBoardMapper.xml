@@ -1,0 +1,29 @@
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.reviewboard.mapper.ReviewBoardMapper">
+	
+	<insert id="insertReviewBoard" parameterType="ReviewBoard">
+		<selectKey keyProperty="rno" resultType="int" order="BEFORE">
+			SELECT reple_seq.nextval from dual
+		</selectKey>
+		INSERT INTO reple(rno,ino,nickname,wdate,title,content,rfile,star)
+		VALUES (#{rno},#{ino},#{nickname},SYSDATE,#{title},#{content},#{rfile},#{star})
+	</insert>
+	
+	<select id="selectReviewBoard" resultType="ReviewBoard">
+		SELECT * FROM reple order by rno desc
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+

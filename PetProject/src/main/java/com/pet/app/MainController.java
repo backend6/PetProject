@@ -11,9 +11,5 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class MainController {
 	
-	@GetMapping("/reviewBoard")
-	public String reviewBoard() {
-		
-		return "review/reviewBoard";
-	}
+
 }
