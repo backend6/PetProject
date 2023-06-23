@@ -3,4 +3,8 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="">
 	
+<<<<<<< HEAD
 </mapper>
+=======
+</mapper>
+>>>>>>> 4bbc369df60c56d6b032222313fd61f9701dc139

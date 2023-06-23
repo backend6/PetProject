@@ -1,0 +1,20 @@
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.find.mapper.SitterFindMapper">
+
+	<!-- 총 게시글 수 가져오기 -->
+	<select id="getTotalCount" resultType="_int">
+		select count(*) from introduce
+	</select>
+
+	<select id="selectByAll" resultType="sitter" parameterType="map">
+		select * from introduce 
+	</select>
+	
+	<select id="selectByAddr" resultType="sitter" parameterType="string">
+		select * from introduce where addr like '%' || #{value} || '%'
+	</select>
+		
+	
+</mapper>
