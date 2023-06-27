@@ -18,13 +18,13 @@ public class UserController {
 	@GetMapping("/joinG")
 	public String generalJoin() {
 		
-		return "login/register";
+		return "member/register";
 	}
 	
 	@GetMapping("/joinS")
 	public String sitterJoin() {
 		
-		return "login/registerSitter";
+		return "member/registerSitter";
 	}
 
 
