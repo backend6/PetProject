@@ -6,13 +6,13 @@
 
 	<!-- typeAlias 타입 별칭 설정 ================== -->
 	<typeAliases>
-	
+	<typeAlias type="com.user.model.UserVO" alias="user" />
 	</typeAliases>
 	
 	
 	<!-- mapper 정의 ============================ -->
 	<mappers>
-	
+	<mapper resource="config/mybatis/mapper/UserMapper.xml" />
 	</mappers>
 	
 </configuration>
