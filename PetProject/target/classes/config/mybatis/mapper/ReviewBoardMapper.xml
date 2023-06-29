@@ -15,6 +15,70 @@
 		SELECT * FROM reple order by rno desc
 	</select>
 
+	<select id="selectReviewByRno" resultType="ReviewBoard" parameterType="_int">
+		SELECT * FROM reple
+  		WHERE rno = #{rno}	
+	</select>
+
+	<select id="findNicknameByRno" resultType="java.lang.String" parameterType="_int">
+		SELECT i.nickname
+		FROM reple r JOIN introduce i 
+		ON r.ino = i.ino
+		WHERE r.rno = #{rno}
+	</select>
+
+
+	<!-- 댓글 -->
+	<select id="selectReplyByRno" resultType="Reply" parameterType="_int">
+		SELECT * FROM re_reple 
+		WHERE rno = #{rno}
+		order by rrno asc
+	</select>
+	
+	<insert id="insertReply" parameterType="Reply">
+		<selectKey keyProperty="rrno" resultType="int" order="BEFORE">
+			SELECT re_reple_seq.nextval from dual
+		</selectKey>
+		INSERT INTO re_reple(rrno, rno, nickname, content, wdate)
+		VALUES (#{rrno},#{rno},#{nickname},#{content},SYSDATE)
+	</insert>
+
+	<select id="getTotalReply" resultType="_int" parameterType="_int">
+		SELECT count(rrno) 
+		FROM re_reple
+		WHERE rno = #{rno}
+	</select>
+	
+	<!-- 글 수정 -->
+	<update id="updateReview" parameterType="ReviewBoard">
+		UPDATE reple set star=#{star},title=#{title},content=#{content}, rfile=#{rfile}
+		WHERE rno = #{rno}
+	</update>
+
+	<!-- 글 삭제 -->
+	<delete id="deleteReReview" parameterType="_int">
+	    DELETE FROM re_reple
+	    WHERE rno = #{rno}
+	</delete>
+	<delete id="deleteReview" parameterType="_int">
+	    DELETE FROM reple
+	    WHERE rno = #{rno}
+	</delete>
+
+	<!-- 리뷰 댓글 하나만 삭제 int deleteReply(int rrno); -->
+	<delete id="deleteReply" parameterType="_int">
+	    DELETE FROM re_reple
+	    WHERE rrno = #{rrno}
+	</delete>	
+	
+	<!-- 리뷰 댓글 수정 -->
+	<update id="updateReply" parameterType="Reply">
+		UPDATE re_reple 
+		SET content = #{content}
+		WHERE rrno = #{rrno}
+	</update>	
+	
+	
 </mapper>
 
 

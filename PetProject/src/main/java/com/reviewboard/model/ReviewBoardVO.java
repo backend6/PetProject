@@ -24,5 +24,6 @@ public class ReviewBoardVO {
 	private long filesize;
 	private String old_filename;//예전에 첨부한 파일명 -글수정시 필요
 	
+	private String st_nickname;
 
 }
