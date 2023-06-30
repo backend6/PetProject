@@ -63,6 +63,12 @@ public class SitterPageController {
 		
 		return "sitter/record";
 	}
+	
+	@GetMapping("/petInfo")
+	public String petInfo() {
+		
+		return "sitter/petInfo";
+	}
 		
 	@RequestMapping(value="/info", method=RequestMethod.POST)
 	public String joinProcess(Model m, @ModelAttribute SitterVO sitter,
@@ -100,6 +106,5 @@ public class SitterPageController {
 		m.addAttribute("loc",loc);
 		return "message";
 	}
-	
 	
 }

@@ -105,13 +105,27 @@ a{
 	padding: 5px;
 }
 
+.showInfo a:hover { 
+	cursor: pointer; 
+	font-weight: bold; 
+}
+
 
 </style>
 <script>
+
 	function del(){
 		/* DB 완료 후 수정할 곳 */
 		alert("a");
 	}
+	
+	/* 반려동물 정보 보여주는 팝업 띄우기 */
+	let win = null;
+	function open_info() {
+		win = window.open("${myctx}/sitter/petInfo", "petInfo", 
+						"width=600, height=500, left=300, top=150");
+	} 
+
 	/* 달력 */	
 	document.addEventListener('DOMContentLoaded', function() {
 		var calendarEl = document.getElementById('calendar');
@@ -188,7 +202,13 @@ a{
 		calendar.updateSize();
 	});
 	/* 달력 끝 */
+
 </script>
+	
+</script>
+
+
+
 <div class="v">
 	<div align="center" class="col-md-8 offset-md-2 my-4" >
 		<h2 style="font-weight: bold">마이페이지 (펫시터)</h2>
@@ -235,8 +255,8 @@ a{
 					<fmt:formatDate value="${schedule.sdate}" pattern="MM월 dd일"/>				
 					 ~ <fmt:formatDate value="${schedule.fdate}" pattern="MM월 dd일"/>
 				 </b></td>
-				<td width="25%">'${schedule.unickname}'님</td>
-				<td width="25%">'${schedule.pname}'</td>
+				<td width="25%" class="showInfo"><a onclick="open_info()">'${schedule.unickname}'님</a></td>
+        <td width="25%" class="showInfo"><a onclick="open_info()">'${schedule.pname}'</a></td>
 			</tr>			
 		</c:forEach>
 		</table>
