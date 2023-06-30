@@ -49,9 +49,9 @@
 			$('#addr').focus();
 			return;			
 		}
-		if($('#tag').val()==""){
+		if($('#tagValue').val()==""){
 			alert("태그를 입력하세요");
-			$('#tag').focus();
+			$('#tagValue').focus();
 			return;			
 		}		
 		var cnt=$('input[name=service]:checkbox:checked').length;
@@ -65,6 +65,11 @@
 			return;			
 		}
 		
+		var obj=$("[name=tagValue]");
+		const arr= obj.val().split(" ");
+		$('#tag').val(arr);
+		
+		
 		mf.submit();
 	}
 	
@@ -73,7 +78,7 @@
 	<div align="center" class="col-md-8 offset-md-2 my-4" >
 		<h2 style="font-weight: bold">펫시터 소개 등록</h2>
 	</div>
-	<form name="mf" action="info" method="post">
+	<form name="mf" action="info" method="post" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<td width="20%" class="m1"><b>소개 제목</b></td>
@@ -84,7 +89,7 @@
 			<tr>
 				<td width="20%" class="m1"><b>간단한 소개 (2~3줄)</b></td>
 				<td width="80%" class="m2">
-					<textarea class="form-control" name="simpleIntroduce" id="simpleIntroduce" rows="3" cols="65" 
+					<textarea class="form-control" name="short_content" id="short_content" rows="3" cols="65" 
 							placeholder="(글자 수)내로 간단한 소개를 입력해주세요."></textarea>
 				</td>
 			</tr>
@@ -97,8 +102,11 @@
 			<tr>
 				<td width="20%" class="m1"><b>태그</b></td>
 				<td width="80%" class="m2">
-					<input type="text" name="tag" id="tag" class="form-control"
+					<input type="text" name="tagValue" id="tagValue" class="form-control"
 					placeholder="예) #3인가구 #아파트 #단독주택 #반려동물 있어요 등">
+				</td>
+				<td>
+					<input type="hidden" name="tag" id="tag" value=""/>
 				</td>
 			</tr>
 			<tr>
@@ -161,14 +169,14 @@
 			<tr>
 				<td width="20%" class="m1"><b>소개 글</b></td>
 				<td width="80%" class="m2">
-					<textarea class="form-control" name="introduce" id="introduce" rows="10" cols="70"
+					<textarea class="form-control" name="content" id="content" rows="10" cols="70"
 							placeholder="(글자 수)내외로 소개글을 작성해주세요. 펫을 돌볼 집의 환경에 대해 자세하게 작성해주세요."></textarea>
 				</td>
 			</tr>
 			<tr>
 				<td width="20%" class="m1"><b>파일 업로드</b></td>
 				<td width="80%" class="m2">
-					<input type="file" name="title" id="title" class="form-control-file">
+					<input type="file" name="ufile" id="ufile" class="form-control-file">
 				</td>
 			</tr>			
 		</table>
