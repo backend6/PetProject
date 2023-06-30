@@ -1,5 +1,10 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: sulim
 Build-Jdk: 11.0.18
+=======
+Built-By: jaeryongkim
+Build-Jdk: 11.0.19
+>>>>>>> login-reg
 Created-By: Maven Integration for Eclipse
 
