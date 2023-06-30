@@ -124,8 +124,9 @@ input[type="file"] {
 	<div class="title" style="margin-top: 100px;">'펫시터 닉네임' 님과 함께하셨네요 !</div>
 	<div class="title" style="margin-bottom: 100px;">어떠셨나요? 후기를 남겨주세요 ♥</div>
 
-	<form action="${myctx}/insertReviewBoard" name="rb" id="rb" method="post" enctype="multipart/form-data">
-	<%-- <input type="hidden" name="nickname" value="${sessionScope.nickname}" /> 닉네임 전송해야해여--%>
+	<form action="${myctx}/updateReview" name="rb" id="rb" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="rno" value="${review.rno}" />
+		<%-- <input type="hidden" name="nickname" value="${sessionScope.nickname}" /> 닉네임 전송해야해여--%>
 		<div class="stars">만족하셨나요?</div>
 		<div class="form-group">
 			<select class="form-control" id="sel1" name="star">
@@ -147,13 +148,13 @@ input[type="file"] {
 		</div>
 
 		<div class="title2">제목</div>
-		<input type="text" id="title" name="title" required> 
+		<input type="text" id="title" name="title" value="${review.title}" required>
 		
 		<div class="title2">내용</div>
-		<textarea id="content" name="content" required></textarea>
+		<textarea id="content" name="content" required>${review.content}</textarea>
 
 		<div class="btn-div">
-			<button type="submit" onclick="review_check()" class="submit-button">리뷰 작성</button>
+			<button type="submit" class="submit-button">리뷰 수정</button>
 		</div>
 	</form>
 	</div>
