@@ -65,8 +65,9 @@ a { color: inherit; font-weight: bold; }
 </head>
 <body>
 	<div class="container">
+	
 		<h2>Login</h2>
-		<form action="/login" method="POST">
+		<form action="${myctx}/login" method="POST" onsubmit="return logincheck()">
 			<div class="form-group">
 				<label for="username">아 이 디 :</label> <input type="text"
 					id="username" name="username" required>
@@ -75,6 +76,11 @@ a { color: inherit; font-weight: bold; }
 			<div class="form-group">
 				<label for="password">비 밀 번 호 :</label> <input type="password"
 					id="password" name="password" required>
+			<label for="saveId">
+							<input type="checkbox" name="saveId"
+							<c:if test="${mid ne null and not empty mid}">checked</c:if>	
+							 id="saveId">아이디 저장
+						</label>				
 			</div>
 			<div class="form-group">
 				<input type="submit" value="Login">
@@ -83,6 +89,7 @@ a { color: inherit; font-weight: bold; }
 			
 			</div>
 				<div class="additional-links">
+				
 		<div>
 		<a href="${myctx}/check">회원가입</a>
 		
@@ -90,7 +97,8 @@ a { color: inherit; font-weight: bold; }
 		
 		<a href="${myctx}/forgot-id">아이디</a>
 		<a> / </a>
-		<a href="${myctx}/forgot-password">비밀번호 찾기</a>
+		<a href="${myctx}/forgot-password">비밀번호</a>
+		<a>찾기</a>
 		<!-- <a>찾기</a> -->
 	</div>
 			

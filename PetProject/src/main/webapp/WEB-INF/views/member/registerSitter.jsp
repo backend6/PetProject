@@ -58,7 +58,7 @@ input[type="email"] {
 	border-radius: 4px;
 }
 
-input[type="ph"] {
+input[type="tel"] {
 	width: 25%;
 	padding: 5px;
 	border: 1px solid #ccc;
@@ -114,6 +114,7 @@ input[type="submit"]:hover {
 		<div class="form-group">
 			<label for="id">아 이 디 :</label> <input type="text" id="id" name="id"
 				required>
+				
 			<button type="button" onclick="open_idcheck()"
 				class="btn btn-outline-info">중복체크</button>
 		</div>
@@ -133,11 +134,10 @@ input[type="submit"]:hover {
 				class="btn btn-outline-info">중복체크</button>
 		</div>
 		<div class="form-group">
-			<label for="email">이메일:</label> <input type="email" id="email"
-				name="email" required placeholder="E-mail"> <input
-				type="email" id="emailad" name="emailad" required
-				placeholder="직접 입력"> <select id="emailSelect"
-				name="emailSelect" onchange="updateEmailInput()">
+			<label for="email">이메일:</label> 
+			<input type="text" id="email"name="email" required placeholder="E-mail" style="width: 150px;"> 
+			<input type="text" id="emailad" name="emailad" required placeholder="직접 입력" style="width: 150px;"> 
+				<select id="emailSelect"name="emailSelect" onchange="updateEmailInput()">
 				<option value="@google.com">구글</option>
 				<option value="@naver.com">네이버</option>
 				<option value="@daum.net">다음</option>
@@ -166,9 +166,9 @@ input[type="submit"]:hover {
 		</div>
 		<div class="form-group">
 			<label for="phone"> 휴 대 폰 번 호 :</label> 
-			<input type="ph" id="ph1"name="ph1" required> 
-			<input type="ph" id="ph2" name="ph2"required>
-			<input type="ph" id="ph3" name="ph3" required>
+			<input type="tel" id="ph1"name="ph1" required> 
+			<input type="tel" id="ph2" name="ph2"required>
+			<input type="tel" id="ph3" name="ph3" required>
 			<button type="button" onclick="open_idcheck()"
 				class="btn btn-outline-info">본인인증</button>
 		</div>

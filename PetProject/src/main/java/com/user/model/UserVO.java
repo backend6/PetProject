@@ -5,11 +5,13 @@ import lombok.Data;
 @Data
 public class UserVO {
 	
+	
 	private String mid;
 	private String nickname;
 	private String pwd; 
 	private String email;
 	private String uname;
+	
 	
 	private String tel1;
 	private String tel2;
@@ -21,6 +23,8 @@ public class UserVO {
 	
 	private String slicense;
 	private String lfile;
+	private int idx;
+	private String post;
 
 	public UserVO() {
 		
@@ -33,6 +37,10 @@ public class UserVO {
 	public String getAllAddr() {
 		return addr1+" "+addr2;
 	}
+	
+//	public String getAllEmail() {
+//		return email+" "+emailad;
+//	}
 	
 	
 	

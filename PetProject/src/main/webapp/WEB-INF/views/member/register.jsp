@@ -3,7 +3,10 @@
 <%@ page session="false"%>
 
 <!-- js파일 참조-------------------------------- -->
-<script type="text/javascript" src="js/userCheck.js"></script>
+<script type="text/javascript" src="js/memberCheck.js"></script>
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="${myctx}/js/post.js"></script>
 <!-- ------------------------------------------ -->
 
 <style>
@@ -44,7 +47,7 @@ label {
 	margin-bottom: 5px;
 }
 
-input[type="text"], input[type="password"], input[type="address"] {
+input[type="text"], input[type="password"], input[type="address"],input[type="date"] {
 	width: 60%;
 	padding: 5px;
 	border: 1px solid #ccc;
@@ -58,7 +61,7 @@ input[type="email"] {
 	border-radius: 4px;
 }
 
-input[type="ph"] {
+input[type="tel"] {
 	width: 25%;
 	padding: 5px;
 	border: 1px solid #ccc;
@@ -79,7 +82,7 @@ textarea {
 	border-radius: 4px;
 }
 
-input[type="submit"] {
+#btn {
 	width: 90%;
 	padding: 10px;
 	background-color: #FFB600;
@@ -89,7 +92,7 @@ input[type="submit"] {
 	cursor: pointer;
 }
 
-input[type="submit"]:hover {
+#btn:hover {
 	background-color: #FFCD4A;
 }
 
@@ -110,34 +113,34 @@ input[type="submit"]:hover {
 	<h2>
 		<b>회 원 가 입</b>
 	</h2>
-	<form action="/register" method="POST">
+	<form name="form" action="${myctx}/joinG" method="POST">
 		<div class="form-group">
-			<label for="id">아 이 디 :</label> <input type="text" id="id" name="id"
+			<label for="id">아 이 디 :</label> <input type="text" id="id" name="mid"
 				required>
+
 			<button type="button" onclick="open_idcheck()"
 				class="btn btn-outline-info">중복체크</button>
 		</div>
 		<div class="form-group">
 			<label for="password">비 밀 번 호 :</label> <input type="password"
-				id="password" name="password" required
-				placeholder="8~16자 대,소,특수문자 모두 포함">
+				id="password" name="pwd" required placeholder="8~16자 대,소,특수문자 모두 포함">
 		</div>
 		<div class="form-group">
 			<label for="confirmPassword">비 밀 번 호 확 인 :</label> <input
-				type="password" id="confirmPassword" name="confirmPassword" required>
+				type="password" id="confirmPassword" name="confirmPwd" required>
 		</div>
 		<div class="form-group">
 			<label for="nickname">닉 네 임 :</label> <input type="text"
 				id="nickname" name="nickname" required placeholder="특수문자 사용 불가">
-			<button type="button" onclick="open_idcheck()"
+			<button type="button" onclick="open_nickcheck()"
 				class="btn btn-outline-info">중복체크</button>
 		</div>
 		<div class="form-group">
-			<label for="email">이메일:</label> <input type="email" id="email"
-				name="email" required placeholder="E-mail"> <input
-				type="email" id="emailad" name="emailad" required
-				placeholder="직접 입력"> <select id="emailSelect"
-				name="emailSelect" onchange="updateEmailInput()">
+			<label for="email">이메일:</label> <input type="text" id="email"
+				name="email" required placeholder="E-mail" style="width: 150px;">
+			<input type="text" id="emailad" name="emailad" required
+				placeholder="직접 입력" style="width: 150px;"> <select
+				id="emailSelect" name="emailSelect" onchange="updateEmailInput()">
 				<option value="@google.com">구글</option>
 				<option value="@naver.com">네이버</option>
 				<option value="@daum.net">다음</option>
@@ -162,31 +165,44 @@ input[type="submit"]:hover {
 		</script>
 		<div class="form-group">
 			<label for="name">이 름 :</label> <input type="text" id="name"
-				name="name" required>
+				name="uname" required>
 		</div>
 		<div class="form-group">
-			<label for="phone"> 휴 대 폰 번 호 :</label> 
-			<input type="ph" id="ph1"name="ph1" required> 
-			<input type="ph" id="ph2" name="ph2"required>
-			<input type="ph" id="ph3" name="ph3" required>
+			<label for="phone"> 휴 대 폰 번 호 :</label> <input type="tel" id="ph1"
+				name="tel1" required> <input type="tel" id="ph2" name="tel2"
+				required> <input type="tel" id="ph3" name="tel3" required>
 			<button type="button" onclick="open_idcheck()"
 				class="btn btn-outline-info">본인인증</button>
 		</div>
 		<div class="form-group">
-			<label for="dob">생 년 월 일 :</label> <input type="text" id="dob"
-				name="dob" required>
+			<label for="dob">생 년 월 일 :</label> <input type="date" id="dob"
+				name="birthday" required>
 		</div>
 		<div class="form-group">
-			<label for="address"> 주 소 :</label> <input type="text" id="address"
-				name="address" required>
-			<button type="button" onclick="open_idcheck()"
+			<label for="address"> 주 소 :</label> 
+			
+			<!-- <input type="text" id="address"
+				name="addr1" required>
+						<button type="button" onclick="open_idcheck()"
 				class="btn btn-outline-info">우편번호 찾기</button>
-			<input type="text" id="detailedAddress" name="detailedAddress"
-				required placeholder="상세주소 입력">
+			<input type="text" id="detailedAddress" name="addr2"
+				required placeholder="상세주소 입력"> -->
+			<input type="text" id="sample6_postcode" name="post"
+				placeholder="우편번호" style="width: 40%;" readonly> <input
+				type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"
+				class="btn btn-outline-info"><br> <input type="text"
+				id="sample6_address" name="addr1" placeholder="주소"
+				style="width: 70%" readonly><br> <input type="text"
+				id="sample6_detailAddress" name="addr2" placeholder="상세주소"
+				style="width: 70%"> <input type="text"
+				id="sample6_extraAddress" name="detail" placeholder="참고항목"
+				style="width: 70%" readonly>
 		</div>
 
 		<div class="form-group2">
-			<input type="submit" value="회 원 가 입">
+		
+			<button type="button" id="btn" onclick="member_check()">회 원
+				가 입</button>
 		</div>
 		<div class="error-message">
 			<!-- error message  -->
