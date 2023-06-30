@@ -32,6 +32,13 @@
 	
 	</script>
 	
+
+	
+	<!-- 폰트 적용 -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Cute+Font&family=Do+Hyeon&family=Dongle:wght@400;700&family=Hi+Melody&family=Orbit&family=Single+Day&display=swap" rel="stylesheet">
+	
 	<style>
 		.jumbotron {
 			background-color:#FFCD4A;
@@ -40,6 +47,56 @@
 		}
 		
 		#top { margin-bottom: 20px; }
+		
+		.navbar { font-family: 'omyu_pretty'; font-size: 1.3em;}
+		
+		
+		/* font-family: 'Black Han Sans', sans-serif;
+		font-family: 'Do Hyeon', sans-serif;
+		font-family: 'Dongle', sans-serif; */
+		
+		@font-face {
+		    font-family: 'omyu_pretty';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+		    font-weight: normal;
+		    font-style: normal;
+		}
+		
+		@font-face {
+		    font-family: 'KOTRAHOPE';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/KOTRAHOPE.woff2') format('woff2');
+		    font-weight: normal;
+		    font-style: normal;
+		}
+		
+		@font-face {
+		    font-family: 'GmarketSansMedium';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+		}
+		
+		@font-face {
+		    font-family: 'GangwonEduSaeeum_OTFMediumA';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEduSaeeum_OTFMediumA.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+		}
+		
+		@font-face {
+		    font-family: 'KCC-DodamdodamR';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/KCC-DodamdodamR.woff2') format('woff2');
+		    font-weight: normal;
+		    font-style: normal;
+		}
+		
+		@font-face {
+		    font-family: 'Goyang';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Goyang.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+		}
+		
 	</style>
 	
 </head>

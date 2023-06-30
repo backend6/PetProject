@@ -9,7 +9,7 @@
 .box {
     border: 3px solid pink;
     border-radius: 6px;
-    width: 220px;
+    width: 90%;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -49,37 +49,41 @@
 				</td>
 			</tr>
 		</table>
-		
-		<table style="width:80%;">
+	</div>
+	
+	<div class="col-md-11 offset-1">
+		<table style="width:100%; margin-bottom: 150px;">
 			<tr>
 				<td style="font-size: 1.3em;" colspan="3" ><b>펫시터</b></td>
 				<td style="text-align:right;"><a href="${myctx}/shop/find" class="more">더보기 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></td>
 			</tr>
 			<tr style="height:20px;"></tr>
 			<tr>
-			  	<td>
+			  	<td style="width:25%">
 			    	<div class="box">펫시터1</div>
 			 	</td>
-			  	<td>
+			  	<td style="width:25%">
 			    	<div class="box">펫시터2</div>
 			  	</td>
-			  	<td>
+			  	<td style="width:25%">
 			    	<div class="box">펫시터3</div>
 			  	</td>
-			  	<td>
+			  	<td style="width:25%">
 			    	<div class="box">펫시터4</div>
 			  	</td>
 			</tr>
 		</table>
+	</div>
 		<br>
 		<br>
-		<table style="width:80%;">
+	<div class="col-md-11 offset-1">
+		<table style="width:100%;">
 			<tr>
 				<td style="font-size: 1.3em;" colspan="4" ><b>이용 후기</b></td>
 			</tr>
 			<tr style="height:20px;"></tr>
 			<tr>
-			  	<td>
+			  	<td style="width:25%">
 			    	<div class="box">
 						<div>
 					    	<img src="resources/board_upload/${reviewBoard[0].rfile}" alt="리뷰 이미지" class="rounded">
@@ -89,7 +93,7 @@
 					    </div>
 			    	</div>
 			 	</td>
-			  	<td>
+			  	<td style="width:25%">
 			    	<div class="box">
 						<div>
 					    	<img src="resources/board_upload/${reviewBoard[1].rfile}" alt="리뷰 이미지" class="rounded">
@@ -98,7 +102,7 @@
 					    </div>
 			    	</div>
 			  	</td>
-			  	<td>
+			  	<td style="width:25%">
 			    	<div class="box">
 						<div>
 					    	<img src="resources/board_upload/${reviewBoard[2].rfile}" alt="리뷰 이미지" class="rounded">
@@ -107,7 +111,7 @@
 					    </div>
 			    	</div>
 			  	</td>
-			  	<td>
+			  	<td style="width:25%">
 			    	<div class="box">
 			    		(예시)<br>
 			    		[사진]<br>
