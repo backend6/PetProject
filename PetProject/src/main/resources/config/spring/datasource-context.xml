@@ -54,6 +54,7 @@
 	-->
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<mybatis-spring:scan base-package="com.reviewboard.mapper"/>
 =======
 	<mybatis-spring:scan base-package="com.find.mapper" />
@@ -62,5 +63,9 @@
 	<mybatis-spring:scan base-package="com.user.mapper" />
 
 >>>>>>> login-reg
+=======
+	<mybatis-spring:scan base-package="com.find.mapper, com.reviewboard.mapper" />
+
+>>>>>>> 128988a8697e0a13b8641ae3e1e240da8a550d1a
 
 </beans>

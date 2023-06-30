@@ -5,23 +5,26 @@
 <configuration>
 <<<<<<< HEAD
 
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+
 	<!-- typeAlias 타입 별칭 설정 ============================= -->
 	<typeAliases>
-<<<<<<< HEAD
 		<typeAlias type="com.reviewboard.model.ReviewBoardVO" alias="ReviewBoard"/>
-=======
 		<typeAlias type="com.find.model.SitterVO" alias="sitter" />
->>>>>>> 4bbc369df60c56d6b032222313fd61f9701dc139
+		<typeAlias type="com.find.model.WishVO" alias="wish" />
+		<typeAlias type="com.find.model.PagingVO" alias="paging" />
+		<typeAlias type="com.reviewboard.model.ReplyVO" alias="Reply"/>
+		<typeAlias type="com.find.model.SitterVO" alias="sitter" />
 	</typeAliases>
 	
 	
 	<!-- mapper 정의 =========================================  -->
 	<mappers>
-<<<<<<< HEAD
 		<mapper resource="config/mybatis/mapper/ReviewBoardMapper.xml" />
-		
-=======
 		<mapper resource="config/mybatis/mapper/SitterFindMapper.xml" />
+<<<<<<< HEAD
 >>>>>>> 4bbc369df60c56d6b032222313fd61f9701dc139
 =======
 	<settings>
@@ -37,6 +40,9 @@
 	<mappers>
 		<mapper resource="config/mybatis/mapper/UserMapper.xml" />
 >>>>>>> login-reg
+=======
+		<mapper resource="config/mybatis/mapper/WishMapper.xml" />
+>>>>>>> 128988a8697e0a13b8641ae3e1e240da8a550d1a
 	</mappers>
 
 </configuration>

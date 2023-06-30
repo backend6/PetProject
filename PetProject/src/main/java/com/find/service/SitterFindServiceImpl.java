@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.find.mapper.SitterFindMapper;
 import com.find.mapper.WishMapper;
+import com.find.model.PagingVO;
 import com.find.model.SitterVO;
 import com.find.model.WishVO;
 
@@ -23,45 +24,24 @@ public class SitterFindServiceImpl implements SitterFindService {
 	
 	
 	@Override
-	public int getTotalCount() {
+	public int getTotalCount(PagingVO paging) {
 
-		return this.sitterFindMapper.getTotalCount();
+		return this.sitterFindMapper.getTotalCount(paging);
 	}
 	
-	
-	@Override
-	public List<SitterVO> selectByAll(Map<String, Integer> map) {
-		
-		return this.sitterFindMapper.selectByAll(map);
-	}
 
 	@Override
 	public List<SitterVO> selectByAddr(String addr) {
 		
 		return this.sitterFindMapper.selectByAddr(addr);
 	}
-
 	
-	// wish ----------------------------------------------
 	
 	@Override
-	public int addWish(WishVO wish) {
-		// TODO Auto-generated method stub
-		return 0;
+	public List<SitterVO> selectPaging(PagingVO paging) {
+		
+		return this.sitterFindMapper.selectPaging(paging);
 	}
-
-	@Override
-	public int delWish(int wno) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public List<WishVO> selectWishList(String mid) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 
 
 }

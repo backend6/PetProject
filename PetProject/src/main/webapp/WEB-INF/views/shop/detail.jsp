@@ -6,6 +6,19 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <!-- --------------------------------------------- -->
 
+<!-- 웹소켓 관련 참조 -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/sockjs.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/stomp.min.js"></script>
+
+<script type="text/javascript">
+	let win = null;
+	function open_chat() {
+		win = window.open("../chat", "chat", "width=400, height=440, left=300, top=200");
+	} 
+</script>
+
 <style>
 #on, #under {
 	margin: 20px auto;
@@ -120,6 +133,8 @@ img {
 	float: right;
 }
 
+#chat:hover { background-color: #8ECEA3 }
+
 #locationSec {
 	padding: 25px;
 	line-height: 1.8;
@@ -231,7 +246,7 @@ img {
 		</td>
 		<td id="chatSec" height="30%" style="width:30%">
 			<span style="font-weight: bold; font-size: 20px;">채팅 가능 시간</span>
-			<button id="chat">채팅하기</button><br><br>
+			<button type="button" id="chat" onclick="open_chat()">채팅하기</button><br><br>
 			<span style="font-size: 17px;">월-금 00:00~00:00</span><br>
 			<span style="font-size: 17px;">주 말 00:00~00:00</span>
 		</td>

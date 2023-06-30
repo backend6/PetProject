@@ -71,6 +71,7 @@ textarea {
 	align-items: center;
 	margin: 0 auto;
 	margin-bottom: 10px;
+	background-color: white;
 }
 .rounded {
 	display: none; 
@@ -105,12 +106,26 @@ input[type="file"] {
 	justify-content: center;
 	margin-bottom: 40px;
 }
+.big-box {
+	justify-content: center;
+  	align-items: center;
+	margin: 0 auto;	
+	margin-top: 100px;
+	width: 800px;
+	height: auto;
+	padding-top: 50px;
+	background-color: #ECF8F9;
+	border-radius: 30px;
+	border: 3px solid #B8DFD8;
+}
 </style>
 <body>
+	<div class="big-box">
 	<div class="title" style="margin-top: 100px;">'펫시터 닉네임' 님과 함께하셨네요 !</div>
 	<div class="title" style="margin-bottom: 100px;">어떠셨나요? 후기를 남겨주세요 ♥</div>
 
 	<form action="${myctx}/insertReviewBoard" name="rb" id="rb" method="post" enctype="multipart/form-data">
+	<%-- <input type="hidden" name="nickname" value="${sessionScope.nickname}" /> 닉네임 전송해야해여--%>
 		<div class="stars">만족하셨나요?</div>
 		<div class="form-group">
 			<select class="form-control" id="sel1" name="star">
@@ -141,6 +156,7 @@ input[type="file"] {
 			<button type="submit" onclick="review_check()" class="submit-button">리뷰 작성</button>
 		</div>
 	</form>
+	</div>
 </body>
 
 <script>

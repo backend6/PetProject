@@ -11,6 +11,6 @@ public interface WishMapper {
 
 	// 찜 목록 추가 및 삭제
 	int addWish(WishVO wish);
-	int delWish(int wno);
+	int delWish(WishVO wish);
 	
 }

@@ -40,6 +40,7 @@
 	<!-- String upDir=new String("C:/myjava/Upload"); -->
 	
 	<!-- 스캔 대상 패키지를 등록 -->
+<<<<<<< HEAD
 	<context:component-scan base-package="com.pet.app, com.find, com.reviewboard, com.user" />
 =======
 		<!-- Password Security -->
@@ -50,6 +51,9 @@
 	<context:component-scan base-package="com.pet.app, com.find, com.user" />
 	<context:component-scan base-package="com.user.service, com.user.mapper" />
 >>>>>>> login-reg
+=======
+	<context:component-scan base-package="com.pet.app, com.find, com.reviewboard, com.user, com.chat" />
+>>>>>>> 128988a8697e0a13b8641ae3e1e240da8a550d1a
 	
 	
 	
