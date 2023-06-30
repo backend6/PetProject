@@ -7,6 +7,9 @@
 	<!-- typeAlias 타입 별칭 설정 ============================= -->
 	<typeAliases>
 		<typeAlias type="com.reviewboard.model.ReviewBoardVO" alias="ReviewBoard"/>
+		<typeAlias type="com.find.model.SitterVO" alias="sitter" />
+		<typeAlias type="com.find.model.WishVO" alias="wish" />
+		<typeAlias type="com.find.model.PagingVO" alias="paging" />
 		<typeAlias type="com.reviewboard.model.ReplyVO" alias="Reply"/>
 		<typeAlias type="com.find.model.SitterVO" alias="sitter" />
 	</typeAliases>
@@ -16,6 +19,7 @@
 	<mappers>
 		<mapper resource="config/mybatis/mapper/ReviewBoardMapper.xml" />
 		<mapper resource="config/mybatis/mapper/SitterFindMapper.xml" />
+		<mapper resource="config/mybatis/mapper/WishMapper.xml" />
 	</mappers>
 	
 </configuration>
