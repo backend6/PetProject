@@ -53,5 +53,7 @@
 		 스프링이 대신 만들어준다.
 	-->
 	<mybatis-spring:scan base-package="com.find.mapper, com.reviewboard.mapper" />
+	<mybatis-spring:scan base-package="com.reviewboard.mapper"/>
+	<mybatis-spring:scan base-package="com.find.mapper" />
 
 </beans>

@@ -54,4 +54,5 @@
 	-->
 	<mybatis-spring:scan base-package="com.find.mapper, com.reviewboard.mapper" />
 
+
 </beans>
