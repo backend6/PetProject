@@ -35,5 +35,11 @@ public class SitterPageController {
 		
 		return "sitter/record";
 	}
+	
+	@GetMapping("/petInfo")
+	public String petInfo() {
+		
+		return "sitter/petInfo";
+	}
 
 }

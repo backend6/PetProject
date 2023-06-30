@@ -89,14 +89,33 @@ a{
 	padding: 5px;
 }
 
+.showInfo a:hover { 
+	cursor: pointer; 
+	font-weight: bold; 
+}
+
 
 </style>
 <script>
+
 	function del(){
 		/* DB 완료 후 수정할 곳 */
 		alert("a");
 	}
+	
+	
+	/* 반려동물 정보 보여주는 팝업 띄우기 */
+	let win = null;
+	function open_info() {
+		win = window.open("${myctx}/sitter/petInfo", "petInfo", 
+						"width=600, height=500, left=300, top=150");
+	} 
 </script>
+	
+</script>
+
+
+
 <div class="v">
 	<div align="center" class="col-md-8 offset-md-2 my-4" >
 		<h2 style="font-weight: bold">마이페이지 (펫시터)</h2>
@@ -132,8 +151,8 @@ a{
 		<!-- 반복문 들어가는 것으로 수정할 곳 -->
 		<tr>
 			<td width="35%"><b>6월 1일 ~ 3일<!-- 값 수정할 곳 --></b></td>
-			<td width="25%">'닉네임'님<!-- 값 수정할 곳 --></td>
-			<td width="25%">'반려동물이름'<!-- 값 수정할 곳 --></td>
+			<td width="25%" class="showInfo"><a onclick="open_info()">'닉네임'님<!-- 값 수정할 곳 --></a></td>
+			<td width="25%" class="showInfo"><a onclick="onpen_info()">'반려동물이름'<!-- 값 수정할 곳 --></a></td>
 		</tr>
 		<tr>
 			<td><b>6월 8일 ~ 9일<!-- 값 수정할 곳 --></b></td>
