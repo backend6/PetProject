@@ -39,7 +39,7 @@
 				<td style="width: 15%; vertical-align: middle;">지역 검색</td>
 				<td style="width: 70%;">
 					<input type="text" name="addr" id="addr" class="form-control"
-							placeholder="동 이름을 입력하세요.(반포동)">
+							placeholder="주소를 입력하세요.(ex.서초구, 반포동)">
 				</td>
 				<td style="width: 15%;">
 					<button id="btnfindSitter" class="btn btn-success">검색</button>
