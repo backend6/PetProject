@@ -1,8 +1,8 @@
--- introduce2¸¦ ÇÏ³ª ¸¸µé¾î ¸¶ÀÌÆäÀÌÁö(Æê½ÃÅÍ)¿¡¼­ ³» ¼Ò°³¸¦ µî·ÏÇßÀ»°æ¿ì ÀúÀåµÇ°Ô ¸¸µé¾ú½À´Ï´Ù
--- ¿ø·¡ÀÇ introduce¿¡µµ ºÎÁ·ÇÑ Ç×¸ñÀÌ ÀÖ¾î¼­ Ãß°¡ ¹× º¯°æÇß½À´Ï´Ù
--- care¿Í used°¡ Áßº¹µÇ´Â ºÎºĞÀÌ ÀÖ¾î used·Î ÅëÀÏÇß½À´Ï´Ù 
-   --> ÀÏ¹İÈ¸¿ø°ú Æê½ÃÅÍ ¸¶ÀÌÆäÀÌÁö¿¡ ³ªÅ¸³ª´Â ºÎºĞÀº select½Ã Á¶ÀıÇÏ¸é µÉ °Í °°½À´Ï´Ù
-   --> Æê ÀÌ¸§ÀÌ ºüÁ® ÀÖ¾î¼­ Ãß°¡ÇÏ°í Æê ¹øÈ£´Â »èÁ¦ Çß½À´Ï´Ù
+-- ì›ë˜ì˜ introduceì— ë¶€ì¡±í•œ í•­ëª©ì´ ìˆì–´ì„œ ì¶”ê°€ ë° ë³€ê²½í–ˆìŠµë‹ˆë‹¤
+-- careì™€ usedê°€ ì¤‘ë³µë˜ëŠ” ë¶€ë¶„ì´ ìˆì–´ usedë¡œ í†µì¼í–ˆìŠµë‹ˆë‹¤ 
+   --> ì¼ë°˜íšŒì›ê³¼ í«ì‹œí„° ë§ˆì´í˜ì´ì§€ì— ë‚˜íƒ€ë‚˜ëŠ” ë¶€ë¶„ì€ selectì‹œ ì¡°ì ˆí•˜ë©´ ë  ê²ƒ ê°™ìŠµë‹ˆë‹¤
+   --> í« ì´ë¦„ì´ ë¹ ì ¸ ìˆì–´ì„œ ì¶”ê°€í•˜ê³  í« ë²ˆí˜¸ëŠ” ì‚­ì œ í–ˆìŠµë‹ˆë‹¤
+-- ì‹œí€€ìŠ¤ 2ê°œ ì¶”ê°€í–ˆìŠµë‹ˆë‹¤
 
 drop table chat;
 drop table carehistory;
@@ -12,121 +12,112 @@ drop table used;
 drop table re_reple;
 drop table reple;
 drop table mypet;
-drop table introduce2;
 drop table members;
 
--- 1.È¸¿ø Á¤º¸ --
+-- 1.íšŒì› ì •ë³´ --
 CREATE TABLE members ( 
-    mid VARCHAR2(20) NOT NULL UNIQUE, -- ¾ÆÀÌµğ
-    nickname varchar2(50) PRIMARY KEY, -- ´Ğ³×ÀÓ
-    pwd varchar2(50) NOT NULL, -- ºñ¹Ğ¹øÈ£
-    email varchar2(30), -- ÀÌ¸ŞÀÏ
-    uname varchar2(10) NOT NULL, -- ÀÌ¸§
-    tel1 VARCHAR2(3) NOT NULL, -- ¹øÈ£1
-    tel2 VARCHAR2(4) NOT NULL, -- ¹øÈ£2
-    tel3 VARCHAR2(4) NOT NULL, -- ¹øÈ£3
-    birthday varchar2(15), -- »ıÀÏ
-    addr1 varchar2(1000) NOT NULL, -- ÁÖ¼Ò1
-    addr2 varchar2(1000) NOT NULL, -- ÁÖ¼Ò2
-    slicense varchar2(50), -- Àü¹®°¡
-    lfile VARCHAR2(200) -- ÆÄÀÏ
+    mid VARCHAR2(20) NOT NULL UNIQUE, -- ì•„ì´ë””
+    nickname varchar2(50) PRIMARY KEY, -- ë‹‰ë„¤ì„
+    pwd varchar2(50) NOT NULL, -- ë¹„ë°€ë²ˆí˜¸
+    email varchar2(30), -- ì´ë©”ì¼
+    uname varchar2(10) NOT NULL, -- ì´ë¦„
+    tel1 VARCHAR2(3) NOT NULL, -- ë²ˆí˜¸1
+    tel2 VARCHAR2(4) NOT NULL, -- ë²ˆí˜¸2
+    tel3 VARCHAR2(4) NOT NULL, -- ë²ˆí˜¸3
+    birthday varchar2(15), -- ìƒì¼
+    addr1 varchar2(1000) NOT NULL, -- ì£¼ì†Œ1
+    addr2 varchar2(1000) NOT NULL, -- ì£¼ì†Œ2
+    slicense varchar2(50), -- ì „ë¬¸ê°€
+    lfile VARCHAR2(200) -- íŒŒì¼
 );
 
--- 2.Àü¹®°¡ Á¤º¸ µî·Ï --
-CREATE TABLE INTRODUCE2 (
-  nickname VARCHAR2(20) CONSTRAINT nickname_Fk REFERENCES MEMBERS(nickname), -- ´Ğ³×ÀÓ
-  title VARCHAR2(300) NOT NULL, -- ±Û Á¦¸ñ
-  short_content VARCHAR2(300) NOT NULL, -- ÂªÀº ±Û ³»¿ë
-  addr VARCHAR2(1000), -- ÁÖ¼Ò
-  tag VARCHAR2(300), -- ÅÂ±×
-  service VARCHAR2(300) NOT NULL, -- ¼­ºñ½º
-  content VARCHAR2(3000) NOT NULL, -- ÁøÂ¥ ±Û ³»¿ë
-  ifile VARCHAR2(1000) -- ÆÄÀÏ
-);
-
--- 3.Àü¹®°¡ Á¤º¸ ºÒ·¯¿Í¼­ ¼Ò°³±Û ÀÛ¼º --
+-- 2.ì „ë¬¸ê°€ ì •ë³´ ë“±ë¡ --
 CREATE TABLE INTRODUCE (
-  nickname VARCHAR2(20) CONSTRAINT nickname2_Fk REFERENCES MEMBERS(nickname), -- ´Ğ³×ÀÓ
-  ino NUMBER PRIMARY KEY, -- ±Û ¹øÈ£
-  title VARCHAR2(30) NOT NULL, -- ±Û Á¦¸ñ
-  short_content VARCHAR2(300) NOT NULL, -- ÂªÀº ±Û ³»¿ë
-  addr VARCHAR2(1000), -- ÁÖ¼Ò
-  tag VARCHAR2(300), -- ÅÂ±×
-  service VARCHAR2(300) NOT NULL, -- ¼­ºñ½º
-  content VARCHAR2(3000) NOT NULL, -- ÁøÂ¥ ±Û ³»¿ë
-  license VARCHAR2(100), -- Àü¹®°¡
-  ifile VARCHAR2(1000) -- ÆÄÀÏ
+  nickname VARCHAR2(20) CONSTRAINT nickname2_Fk REFERENCES MEMBERS(nickname), -- ë‹‰ë„¤ì„
+  ino NUMBER PRIMARY KEY, -- ê¸€ ë²ˆí˜¸
+  title VARCHAR2(30) NOT NULL, -- ê¸€ ì œëª©
+  short_content VARCHAR2(300) NOT NULL, -- ì§§ì€ ê¸€ ë‚´ìš©
+  addr VARCHAR2(1000), -- ì£¼ì†Œ
+  tag VARCHAR2(300), -- íƒœê·¸
+  service VARCHAR2(300) NOT NULL, -- ì„œë¹„ìŠ¤
+  content VARCHAR2(3000) NOT NULL, -- ì§„ì§œ ê¸€ ë‚´ìš©
+  license VARCHAR2(100), -- ì „ë¬¸ê°€
+  ifile VARCHAR2(1000) -- íŒŒì¼
 );
 
--- 4.ÀÏ¹İ È¸¿ø ¹İ·Áµ¿¹° Á¤º¸ --
+-- 3.ì¼ë°˜ íšŒì› ë°˜ë ¤ë™ë¬¼ ì •ë³´ --
 CREATE TABLE mypet(
-    nickname VARCHAR2(20) UNIQUE NOT NULL CONSTRAINT u_nickname_fk REFERENCES MEMBERS(nickname), --´Ğ³×ÀÓ 
-    pname VARCHAR2(20), -- Æê ÀÌ¸§
-    species1 VARCHAR2(30), -- Á¾1
-    species2 VARCHAR2(30), -- Á¾2
-    gender VARCHAR2(10), -- ¼ºº°
-    bday VARCHAR2(10), -- Æê »ıÀÏ
-    weight VARCHAR2(10), -- Æê ¸ö¹«°Ô
-    particulars VARCHAR2(300), -- Æ¯ÀÌ»çÇ×
-    image VARCHAR2(500), -- Æê »çÁø
-    pno NUMBER(8) PRIMARY KEY -- Æê °íÀ¯ ¹øÈ£
+    nickname VARCHAR2(20) UNIQUE NOT NULL CONSTRAINT u_nickname_fk REFERENCES MEMBERS(nickname), --ë‹‰ë„¤ì„ 
+    pname VARCHAR2(20), -- í« ì´ë¦„
+    species1 VARCHAR2(30), -- ì¢…1
+    species2 VARCHAR2(30), -- ì¢…2
+    gender VARCHAR2(10), -- ì„±ë³„
+    bday VARCHAR2(10), -- í« ìƒì¼
+    weight VARCHAR2(10), -- í« ëª¸ë¬´ê²Œ
+    particulars VARCHAR2(300), -- íŠ¹ì´ì‚¬í•­
+    image VARCHAR2(500), -- í« ì‚¬ì§„
+    pno NUMBER(8) PRIMARY KEY -- í« ê³ ìœ  ë²ˆí˜¸
 );
 
--- 5.¼Ò°³±Û ´ñ±Û --
+-- 4.ì†Œê°œê¸€ ëŒ“ê¸€ --
 CREATE TABLE reple (
-    rno NUMBER(8) PRIMARY KEY, -- ÈÄ±â ¹øÈ£
-    ino NUMBER(8) NOT NULL CONSTRAINT ino__fk REFERENCES INTRODUCE(ino), -- ¼Ò°³ ¹øÈ£
-    nickname VARCHAR2(20) CONSTRAINT user__nickname_fk REFERENCES MEMBERS(nickname), -- ÈÄ±â ´Ü»ç¶÷ ´Ğ³×ÀÓ
-    wdate DATE NOT NULL, -- ³¯Â¥
-    title VARCHAR2(300) NOT NULL, -- Á¦¸ñ (¼öÁ¤)
-    content VARCHAR2(3000) NOT NULL, -- ³»¿ë (¼öÁ¤)
-    rfile VARCHAR2(1000), -- ÈÄ±â ÆÄÀÏ
-    star VARCHAR2(5) NOT NULL -- º°Á¡
+    rno NUMBER(8) PRIMARY KEY, -- í›„ê¸° ë²ˆí˜¸
+    ino NUMBER(8) NOT NULL CONSTRAINT ino__fk REFERENCES INTRODUCE(ino), -- ì†Œê°œ ë²ˆí˜¸
+    nickname VARCHAR2(20) CONSTRAINT user__nickname_fk REFERENCES MEMBERS(nickname), -- í›„ê¸° ë‹¨ì‚¬ëŒ ë‹‰ë„¤ì„
+    wdate DATE NOT NULL, -- ë‚ ì§œ
+    title VARCHAR2(300) NOT NULL, -- ì œëª© (ìˆ˜ì •)
+    content VARCHAR2(3000) NOT NULL, -- ë‚´ìš© (ìˆ˜ì •)
+    rfile VARCHAR2(1000), -- í›„ê¸° íŒŒì¼
+    star VARCHAR2(5) NOT NULL -- ë³„ì 
 );
 
--- 6.´ñ±ÛÀÇ ´ñ±Û --
+-- 5.ëŒ“ê¸€ì˜ ëŒ“ê¸€ --
 CREATE TABLE re_reple(
-    rrno NUMBER(8) PRIMARY KEY, -- ¸®ºäÀÇ ´ñ±Û
-    rno NUMBER(8) CONSTRAINT rno_fk REFERENCES REPLE(rno), -- ¸®ºä ¹øÈ£
-    nickname VARCHAR2(20) CONSTRAINT user__nickname__fk REFERENCES MEMBERS(nickname), -- ¸®ºä´ñ±Û ´Ü»ç¶÷ ´Ğ³×ÀÓ
-    content VARCHAR2(300) NOT NULL, -- ¸®ºä ´ñ±Û ³»¿ë
-    wdate DATE NOT NULL -- ³¯Â¥
+    rrno NUMBER(8) PRIMARY KEY, -- ë¦¬ë·°ì˜ ëŒ“ê¸€
+    rno NUMBER(8) CONSTRAINT rno_fk REFERENCES REPLE(rno), -- ë¦¬ë·° ë²ˆí˜¸
+    nickname VARCHAR2(20) CONSTRAINT user__nickname__fk REFERENCES MEMBERS(nickname), -- ë¦¬ë·°ëŒ“ê¸€ ë‹¨ì‚¬ëŒ ë‹‰ë„¤ì„
+    content VARCHAR2(300) NOT NULL, -- ë¦¬ë·° ëŒ“ê¸€ ë‚´ìš©
+    wdate DATE NOT NULL -- ë‚ ì§œ
 );
 
--- 7.µ¹º½ ÀÏÁ¤ --
+-- 6.ëŒë´„ ì¼ì • --
 CREATE TABLE used (
-    unickname VARCHAR2(20) CONSTRAINT unickname_fk REFERENCES MEMBERS(nickname), -- »ç¿ëÀÚ ´Ğ³×ÀÓ
-    snickname varchar2(30) CONSTRAINT snickname_fk REFERENCES MEMBERS(nickname), -- Æê½ÃÅÍ ´Ğ³×ÀÓ
-    pname varchar2(30), -- »ç¿ëÀÚÀÇ ¹İ·Áµ¿¹° ÀÌ¸§
-    sdate date NOT NULL, -- ½ÃÅÍ ÀÌ¿ë ½ÃÀÛ³¯Â¥
-    fdate date NOT NULL -- ½ÃÅÍ ÀÌ¿ë ³¡ ³¯Â¥
+    unickname VARCHAR2(20) CONSTRAINT unickname_fk REFERENCES MEMBERS(nickname), -- ì‚¬ìš©ì ë‹‰ë„¤ì„
+    snickname varchar2(30) CONSTRAINT snickname_fk REFERENCES MEMBERS(nickname), -- í«ì‹œí„° ë‹‰ë„¤ì„
+    pname varchar2(30), -- ì‚¬ìš©ìì˜ ë°˜ë ¤ë™ë¬¼ ì´ë¦„
+    sdate date NOT NULL, -- ì‹œí„° ì´ìš© ì‹œì‘ë‚ ì§œ
+    fdate date NOT NULL, -- ì‹œí„° ì´ìš© ë ë‚ ì§œ
+    uno NUMBER(8) NOT NULL -- ëŒë´„ ì¼ì • ë²ˆí˜¸
 );
 
--- 8. Âò¸ñ·Ï --
+-- 7. ì°œëª©ë¡ --
 CREATE TABLE wish(
-    unickname VARCHAR2(20) UNIQUE NOT NULL CONSTRAINT user_nickname_fk REFERENCES MEMBERS(nickname), -- »ç¿ëÀÚ ´Ğ³×ÀÓ
-    ino NUMBER(8) UNIQUE NOT NULL CONSTRAINT ino_fk REFERENCES INTRODUCE(ino), -- ¼Ò°³±Û ¹øÈ£
-    snickname VARCHAR2(30) CONSTRAINT s_nickname_fk REFERENCES MEMBERS(nickname), -- Æê½ÃÅÍ ´Ğ³×ÀÓ
-    saddr VARCHAR2(1000), -- Æê½ÃÅÍ ÁÖ¼Ò
-    title VARCHAR2(300) -- ¼Ò°³±Û Á¦¸ñ
+    unickname VARCHAR2(20) UNIQUE NOT NULL CONSTRAINT user_nickname_fk REFERENCES MEMBERS(nickname), -- ì‚¬ìš©ì ë‹‰ë„¤ì„
+    ino NUMBER(8) UNIQUE NOT NULL CONSTRAINT ino_fk REFERENCES INTRODUCE(ino), -- ì†Œê°œê¸€ ë²ˆí˜¸
+    snickname VARCHAR2(30) CONSTRAINT s_nickname_fk REFERENCES MEMBERS(nickname), -- í«ì‹œí„° ë‹‰ë„¤ì„
+    saddr VARCHAR2(1000), -- í«ì‹œí„° ì£¼ì†Œ
+    title VARCHAR2(300) -- ì†Œê°œê¸€ ì œëª©
 );
 
--- 9. µ¹º½ ±â·Ï ³»¿ª --
+-- 8. ëŒë´„ ê¸°ë¡ ë‚´ì—­ --
 create table carehistory(
-    hno number(4) primary key, -- µ¹º½ ±â·Ï ¹øÈ£
-    unickname varchar2(20) not null CONSTRAINT user_nickname__fk REFERENCES MEMBERS(nickname), -- »ç¿ëÀÚ ´Ğ³×ÀÓ
-    sdate date, -- ½ÃÅÍ ÀÌ¿ë ½ÃÀÛ³¯Â¥
-    fdate date, -- ½ÃÅÍ ÀÌ¿ë ³¡ ³¯Â¥
-    snickname varchar2(30) not null CONSTRAINT s__nickname_fk REFERENCES MEMBERS(nickname), -- Æê½ÃÅÍ ´Ğ³×ÀÓ
-    pname varchar2(30), -- »ç¿ëÀÚÀÇ ¹İ·Áµ¿¹° ÀÌ¸§
-    content varchar2(1000), -- µ¹º½ ±â·Ï ³»¿ª
-    cfile varchar2(1000) -- ÆÄÀÏ
+    hno number(4) primary key, -- ëŒë´„ ê¸°ë¡ ë²ˆí˜¸
+    unickname varchar2(20) not null CONSTRAINT user_nickname__fk REFERENCES MEMBERS(nickname), -- ì‚¬ìš©ì ë‹‰ë„¤ì„
+    sdate date, -- ì‹œí„° ì´ìš© ì‹œì‘ë‚ ì§œ
+    fdate date, -- ì‹œí„° ì´ìš© ë ë‚ ì§œ
+    snickname varchar2(30) not null CONSTRAINT s__nickname_fk REFERENCES MEMBERS(nickname), -- í«ì‹œí„° ë‹‰ë„¤ì„
+    pname varchar2(30), -- ì‚¬ìš©ìì˜ ë°˜ë ¤ë™ë¬¼ ì´ë¦„
+    content varchar2(1000), -- ëŒë´„ ê¸°ë¡ ë‚´ì—­
+    cfile varchar2(1000) -- íŒŒì¼
 );
 
--- 10. Ã¤ÆÃ --
+-- 9. ì±„íŒ… --
 CREATE TABLE chat (
-  cno NUMBER PRIMARY KEY, -- Ã¤ÆÃ ¹øÈ£
-  cnt NUMBER, -- Ã¤ÆÃ °³¼ö
-  unickname VARCHAR2(30), -- »ç¿ëÀÚ ´Ğ³×ÀÓ
-  cdate DATE NOT NULL -- Ã¤ÆÃ ÀÏÀÚ
+  cno NUMBER PRIMARY KEY, -- ì±„íŒ… ë²ˆí˜¸
+  cnt NUMBER, -- ì±„íŒ… ê°œìˆ˜
+  unickname VARCHAR2(30), -- ì‚¬ìš©ì ë‹‰ë„¤ì„
+  cdate DATE NOT NULL -- ì±„íŒ… ì¼ì
 );
+
+create sequence introduce_seq nocache; -- ì†Œê°œê¸€ ë²ˆí˜¸ ì‹œí€€ìŠ¤
+create sequence uno_seq nocache; -- ëŒë´„ ì¼ì • ë²ˆí˜¸ ì‹œí€€ìŠ¤
