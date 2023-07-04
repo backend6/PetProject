@@ -87,7 +87,7 @@
 		<div align="center" class="col-md-8 offset-md-2 my-4" >
 			<h2 id="menu">펫시터 찾기</h2>
 		</div>
-		<div align="center" class="col-md-9 offset-md-2" id="search">
+		<div align="center" class="col-md-8 offset-md-2" id="search">
 		<form name="findAddr" id="findAddr" method="get" action="find" onsubmit="return check()">
 			<table class="table table-borderless" id="searchT">
 				<tr>
@@ -106,8 +106,8 @@
 		<input type="hidden" name="findAddr" value="${paging.findAddr}">
 		
 	</div>
-		<div class="col-md-8 offset-md-2 ">
-			<c:forEach var="item" items="${sitter}">
+		<div class="col-md-8 offset-2">
+			<c:forEach var="item" items="${introduce}">
 				<div class="sitter">
 					<table class="table table-borderless" id="tbody">
 						<tr>

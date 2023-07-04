@@ -8,6 +8,8 @@ import com.user.mapper.UserMapper;
 import com.user.model.NotUserException;
 import com.user.model.UserVO;
 
+/* 회원가입 관련 서비스 임플 */
+
 @Service("userService")
 public class UserServiceImpl implements UserService {
 

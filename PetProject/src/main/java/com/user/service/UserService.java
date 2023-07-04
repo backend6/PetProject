@@ -4,6 +4,7 @@ package com.user.service;
 import com.user.model.NotUserException;
 import com.user.model.UserVO;
 
+/* 회원가입 관련 서비스 */ 
 public interface UserService {
 	
 	int createUser(UserVO user);

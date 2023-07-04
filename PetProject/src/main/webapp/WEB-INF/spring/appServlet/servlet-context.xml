@@ -3,9 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:security="http://www.springframework.org/schema/security"
-	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.0.xsd
-		http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
@@ -26,7 +24,6 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-<<<<<<< HEAD
 	
 	<!-- 파일업로드를 위한  MultipartResolver 설정 =============================== -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -39,21 +36,21 @@
 	</beans:bean>
 	<!-- String upDir=new String("C:/myjava/Upload"); -->
 	
+	<!-- Interceptor 설정 ============================== -->
+	<!-- <interceptors>
+		<interceptor>
+			<mapping path="/user/**"/>
+			<mapping path="/admin/**"/>
+			<beans:bean class="com.common.interceptor.LoginCheckInterceptor" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/admin/**" />
+			<beans:bean class="com.common.interceptor.AdminCheckInterceptor" />
+		</interceptor>
+	</interceptors> -->
+	
 	<!-- 스캔 대상 패키지를 등록 -->
-<<<<<<< HEAD
-	<context:component-scan base-package="com.pet.app, com.find, com.reviewboard, com.user" />
-=======
-		<!-- Password Security -->
-	<beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
-
-
-	<!-- 스캔 대상 패키지를 등록 -->
-	<context:component-scan base-package="com.pet.app, com.find, com.user" />
-	<context:component-scan base-package="com.user.service, com.user.mapper" />
->>>>>>> login-reg
-=======
-	<context:component-scan base-package="com.pet.app, com.find, com.reviewboard, com.user, com.chat" />
->>>>>>> 128988a8697e0a13b8641ae3e1e240da8a550d1a
+	<context:component-scan base-package="com.pet.app, com.find, com.reviewboard, com.user, com.sitter" />
 	
 	
 	

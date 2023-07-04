@@ -11,6 +11,7 @@ public class SitterVO {
 	private String service;
 	private String content;
 	private String ifile;
+	private String nickname;
 	private String unickname;
 	private String snickname;
 	private String pname;
@@ -18,6 +19,12 @@ public class SitterVO {
 	private Date fdate;
 	
 	
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 	public String getSnickname() {
 		return snickname;
 	}
@@ -27,7 +34,7 @@ public class SitterVO {
 	public String getPname() {
 		return pname;
 	}
-	public void setPname(String pname) {
+	public void setPetname(String pname) {
 		this.pname = pname;
 	}
 	public String getUnickname() {
