@@ -1,4 +1,4 @@
--- ¸®ºä ¾²±â ÆäÀÌÁö´Â http://localhost:9090/app/reviewBoardWrite °æ·Î·Î ÇÏ¸é ³ª¿É´Ï´Ù
+-- ë¦¬ë·° ì“°ê¸° í˜ì´ì§€ëŠ” http://localhost:9090/app/reviewBoardWrite ê²½ë¡œë¡œ í•˜ë©´ ë‚˜ì˜µë‹ˆë‹¤
 
 drop table price;
 drop table chat;
@@ -14,77 +14,77 @@ drop table members;
 
 -- 1 --
 CREATE TABLE members ( 
-    mid VARCHAR2(20), -- ¾ÆÀÌµğ
-    nickname varchar2(50) PRIMARY KEY, -- ´Ğ³×ÀÓ
-    pwd varchar2(50) NOT NULL, -- ºñ¹Ğ¹øÈ£
-    email varchar2(30), -- ÀÌ¸ŞÀÏ
-    uname varchar2(10) NOT NULL, -- ÀÌ¸§
-    tel1 VARCHAR2(3) NOT NULL, -- ¹øÈ£1
-    tel2 VARCHAR2(4) NOT NULL, -- ¹øÈ£2
-    tel3 VARCHAR2(4) NOT NULL, -- ¹øÈ£3
-    birthday varchar2(15), -- »ıÀÏ
-    addr1 varchar2(1000) NOT NULL, -- ÁÖ¼Ò1
-    addr2 varchar2(1000) NOT NULL, -- ÁÖ¼Ò2
-    slicense varchar2(50), -- Àü¹®°¡
-    lfile VARCHAR2(200) -- ÆÄÀÏ
+    mid VARCHAR2(20), -- ì•„ì´ë””
+    nickname varchar2(50) PRIMARY KEY, -- ë‹‰ë„¤ì„
+    pwd varchar2(50) NOT NULL, -- ë¹„ë°€ë²ˆí˜¸
+    email varchar2(30), -- ì´ë©”ì¼
+    uname varchar2(10) NOT NULL, -- ì´ë¦„
+    tel1 VARCHAR2(3) NOT NULL, -- ë²ˆí˜¸1
+    tel2 VARCHAR2(4) NOT NULL, -- ë²ˆí˜¸2
+    tel3 VARCHAR2(4) NOT NULL, -- ë²ˆí˜¸3
+    birthday varchar2(15), -- ìƒì¼
+    addr1 varchar2(1000) NOT NULL, -- ì£¼ì†Œ1
+    addr2 varchar2(1000) NOT NULL, -- ì£¼ì†Œ2
+    slicense varchar2(50), -- ì „ë¬¸ê°€
+    lfile VARCHAR2(200) -- íŒŒì¼
 );
 
 -- 2 --
 CREATE TABLE INTRODUCE (
-    nickname VARCHAR2(20) CONSTRAINT nickname_Fk REFERENCES MEMBERS(nickname), -- ´Ğ³×ÀÓ
-    ino NUMBER PRIMARY KEY, -- ±Û ¹øÈ£
-    title VARCHAR2(30) NOT NULL, -- ±Û Á¦¸ñ
-    short_content VARCHAR2(300) NOT NULL, -- ÂªÀº ±Û ³»¿ë
-    addr VARCHAR2(1000), -- ÁÖ¼Ò
-    category VARCHAR2(20) NOT NULL, -- Ä«Å×°í¸®
-    content VARCHAR2(3000) NOT NULL, -- ÁøÂ¥ ±Û ³»¿ë
-    license VARCHAR2(100), -- Àü¹®°¡
-    ifile VARCHAR2(1000) -- ÆÄÀÏ
+    nickname VARCHAR2(20) CONSTRAINT nickname_Fk REFERENCES MEMBERS(nickname), -- ë‹‰ë„¤ì„
+    ino NUMBER PRIMARY KEY, -- ê¸€ ë²ˆí˜¸
+    title VARCHAR2(30) NOT NULL, -- ê¸€ ì œëª©
+    short_content VARCHAR2(300) NOT NULL, -- ì§§ì€ ê¸€ ë‚´ìš©
+    addr VARCHAR2(1000), -- ì£¼ì†Œ
+    category VARCHAR2(20) NOT NULL, -- ì¹´í…Œê³ ë¦¬
+    content VARCHAR2(3000) NOT NULL, -- ì§„ì§œ ê¸€ ë‚´ìš©
+    license VARCHAR2(100), -- ì „ë¬¸ê°€
+    ifile VARCHAR2(1000) -- íŒŒì¼
 );
 
 -- 3 --
 CREATE TABLE mypet(
-    nickname VARCHAR2(20) UNIQUE NOT NULL CONSTRAINT u_nickname_fk REFERENCES MEMBERS(nickname), --´Ğ³×ÀÓ 
-    pname VARCHAR2(20), -- Æê ÀÌ¸§
-    species1 VARCHAR2(30), -- Á¾1
-    species2 VARCHAR2(30), -- Á¾2
-    gender VARCHAR2(10), -- ¼ºº°
-    bday VARCHAR2(10), -- Æê »ıÀÏ
-    weight VARCHAR2(10), -- Æê ¸ö¹«°Ô
-    particulars VARCHAR2(300), -- Æ¯ÀÌ»çÇ×
-    image VARCHAR2(500), -- Æê »çÁø
-    pno NUMBER(8) PRIMARY KEY -- Æê °íÀ¯ ¹øÈ£
+    nickname VARCHAR2(20) UNIQUE NOT NULL CONSTRAINT u_nickname_fk REFERENCES MEMBERS(nickname), --ë‹‰ë„¤ì„ 
+    pname VARCHAR2(20), -- í« ì´ë¦„
+    species1 VARCHAR2(30), -- ì¢…1
+    species2 VARCHAR2(30), -- ì¢…2
+    gender VARCHAR2(10), -- ì„±ë³„
+    bday VARCHAR2(10), -- í« ìƒì¼
+    weight VARCHAR2(10), -- í« ëª¸ë¬´ê²Œ
+    particulars VARCHAR2(300), -- íŠ¹ì´ì‚¬í•­
+    image VARCHAR2(500), -- í« ì‚¬ì§„
+    pno NUMBER(8) PRIMARY KEY -- í« ê³ ìœ  ë²ˆí˜¸
 );
 
 -- 4 --
 CREATE TABLE reple (
-    rno NUMBER(8) PRIMARY KEY, -- ÈÄ±â ¹øÈ£
-    ino NUMBER(8) NOT NULL CONSTRAINT ino__fk REFERENCES INTRODUCE(ino), -- ¼Ò°³ ¹øÈ£
-    nickname VARCHAR2(20) CONSTRAINT user__nickname_fk REFERENCES MEMBERS(nickname), -- ÈÄ±â ´Ü»ç¶÷ ´Ğ³×ÀÓ
-    wdate DATE NOT NULL, -- ³¯Â¥
-    title VARCHAR2(300) NOT NULL, -- Á¦¸ñ (¼öÁ¤)
-    content VARCHAR2(3000) NOT NULL, -- ³»¿ë (¼öÁ¤)
-    rfile VARCHAR2(1000), -- ÈÄ±â ÆÄÀÏ
-    star VARCHAR2(5) NOT NULL -- º°Á¡
+    rno NUMBER(8) PRIMARY KEY, -- í›„ê¸° ë²ˆí˜¸
+    ino NUMBER(8) NOT NULL CONSTRAINT ino__fk REFERENCES INTRODUCE(ino), -- ì†Œê°œ ë²ˆí˜¸
+    nickname VARCHAR2(20) CONSTRAINT user__nickname_fk REFERENCES MEMBERS(nickname), -- í›„ê¸° ë‹¨ì‚¬ëŒ ë‹‰ë„¤ì„
+    wdate DATE NOT NULL, -- ë‚ ì§œ
+    title VARCHAR2(300) NOT NULL, -- ì œëª© (ìˆ˜ì •)
+    content VARCHAR2(3000) NOT NULL, -- ë‚´ìš© (ìˆ˜ì •)
+    rfile VARCHAR2(1000), -- í›„ê¸° íŒŒì¼
+    star VARCHAR2(5) NOT NULL -- ë³„ì 
 );
 
 -- 5 --
 CREATE TABLE re_reple(
-    rrno NUMBER(8) PRIMARY KEY, -- ¸®ºäÀÇ ´ñ±Û
-    rno NUMBER(8) CONSTRAINT rno_fk REFERENCES REPLE(rno), -- ¸®ºä ¹øÈ£
-    nickname VARCHAR2(20) CONSTRAINT user__nickname__fk REFERENCES MEMBERS(nickname), -- ¸®ºä´ñ±Û ´Ü»ç¶÷ ´Ğ³×ÀÓ
-    content VARCHAR2(300) NOT NULL, -- ¸®ºä ´ñ±Û ³»¿ë
-    wdate DATE NOT NULL -- ³¯Â¥
+    rrno NUMBER(8) PRIMARY KEY, -- ë¦¬ë·°ì˜ ëŒ“ê¸€
+    rno NUMBER(8) CONSTRAINT rno_fk REFERENCES REPLE(rno), -- ë¦¬ë·° ë²ˆí˜¸
+    nickname VARCHAR2(20) CONSTRAINT user__nickname__fk REFERENCES MEMBERS(nickname), -- ë¦¬ë·°ëŒ“ê¸€ ë‹¨ì‚¬ëŒ ë‹‰ë„¤ì„
+    content VARCHAR2(300) NOT NULL, -- ë¦¬ë·° ëŒ“ê¸€ ë‚´ìš©
+    wdate DATE NOT NULL -- ë‚ ì§œ
 );
 
--- 6.µ¹º½ ÀÏÁ¤ --
+-- 6.ëŒë´„ ì¼ì • --
 CREATE TABLE used (
-    uno NUMBER(8) NOT NULL, -- µ¹º½ ÀÏÁ¤ ¹øÈ£
-    unickname VARCHAR2(20) CONSTRAINT unickname_fk REFERENCES MEMBERS(nickname), -- »ç¿ëÀÚ ´Ğ³×ÀÓ
-    snickname varchar2(30) CONSTRAINT snickname_fk REFERENCES MEMBERS(nickname), -- Æê½ÃÅÍ ´Ğ³×ÀÓ
-    pname varchar2(30), -- »ç¿ëÀÚÀÇ ¹İ·Áµ¿¹° ÀÌ¸§
-    sdate date NOT NULL, -- ½ÃÅÍ ÀÌ¿ë ½ÃÀÛ³¯Â¥
-    fdate date NOT NULL -- ½ÃÅÍ ÀÌ¿ë ³¡ ³¯Â¥
+    uno NUMBER(8) NOT NULL, -- ëŒë´„ ì¼ì • ë²ˆí˜¸
+    unickname VARCHAR2(20) CONSTRAINT unickname_fk REFERENCES MEMBERS(nickname), -- ì‚¬ìš©ì ë‹‰ë„¤ì„
+    snickname varchar2(30) CONSTRAINT snickname_fk REFERENCES MEMBERS(nickname), -- í«ì‹œí„° ë‹‰ë„¤ì„
+    pname varchar2(30), -- ì‚¬ìš©ìì˜ ë°˜ë ¤ë™ë¬¼ ì´ë¦„
+    sdate date NOT NULL, -- ì‹œí„° ì´ìš© ì‹œì‘ë‚ ì§œ
+    fdate date NOT NULL -- ì‹œí„° ì´ìš© ë ë‚ ì§œ
 );
 
 -- 7 --
@@ -96,7 +96,7 @@ CREATE TABLE wish(
     title VARCHAR2(300)
 );
 
--- 8 used¶û °ãÃÄ¼­ »èÁ¦ --
+-- 8 usedë‘ ê²¹ì³ì„œ ì‚­ì œ --
 --CREATE TABLE care(
 --    cno number(4) primary key,
 --    pno NUMBER(8) CONSTRAINT pno_fk REFERENCES MYPET(pno),
@@ -124,9 +124,9 @@ CREATE TABLE chat (
   cdate DATE NOT NULL
 );
 
--- 11 »õ·Î Ãß°¡ --
+-- 11 ìƒˆë¡œ ì¶”ê°€ --
 create table price(
-    ino NUMBER(8) NOT NULL CONSTRAINT ino__fk REFERENCES INTRODUCE(ino), -- ¼Ò°³±Û ¹øÈ£
+    ino NUMBER(8) NOT NULL CONSTRAINT p_ino_fk REFERENCES INTRODUCE(ino), -- ì†Œê°œê¸€ ë²ˆí˜¸
     nickname varchar2(20) not null constraint p_nickname_fk references members(nickname),
     sPetDay number(5),
     sPetAll number(5),
@@ -136,37 +136,39 @@ create table price(
     lPetAll number(5)
 );
 
--------------------------------------------------------¼öÁ¤
+-------------------------------------------------------ìˆ˜ì •
 
 ALTER TABLE MEMBERS MODIFY(mid NOT NULL);
--- MEMBERS Å×ÀÌºí mid ÄÃ·³¿¡ NOT NULL Á¦¾àÁ¶°Ç Ãß°¡
+-- MEMBERS í…Œì´ë¸” mid ì»¬ëŸ¼ì— NOT NULL ì œì•½ì¡°ê±´ ì¶”ê°€
 
 ALTER TABLE INTRODUCE ADD service VARCHAR2(300);
--- INTRODUCE Å×ÀÌºí ÀÌ¿ë °¡´É ¼­ºñ½º ÄÃ·³ Ãß°¡
+-- INTRODUCE í…Œì´ë¸” ì´ìš© ê°€ëŠ¥ ì„œë¹„ìŠ¤ ì»¬ëŸ¼ ì¶”ê°€
 
 ALTER TABLE WISH ADD wno NUMBER(8) PRIMARY KEY;
--- WISH Å×ÀÌºí Âò ¸ñ·Ï ³Ñ¹ö Ãß°¡
+-- WISH í…Œì´ë¸” ì°œ ëª©ë¡ ë„˜ë²„ ì¶”ê°€
 
 ALTER TABLE reple MODIFY title VARCHAR2(300);
--- reple Å×ÀÌºí¿¡¼­ Á¦¸ñ ±æÀÌ ´Ã¸®±â 
+-- reple í…Œì´ë¸”ì—ì„œ ì œëª© ê¸¸ì´ ëŠ˜ë¦¬ê¸° 
 
 ALTER TABLE reple MODIFY content VARCHAR2(3000);
--- reple Å×ÀÌºí¿¡¼­ ³»¿ë ±æÀÌ ´Ã¸®±â 
+-- reple í…Œì´ë¸”ì—ì„œ ë‚´ìš© ê¸¸ì´ ëŠ˜ë¦¬ê¸° 
 
 ALTER TABLE members ADD idx NUMBER(8);
--- members Å×ÀÌºí¿¡ idx ÄÃ·³ Ãß°¡ 
+-- members í…Œì´ë¸”ì— idx ì»¬ëŸ¼ ì¶”ê°€ 
 
 ALTER TABLE members ADD post VARCHAR2(10);
--- members Å×ÀÌºí¿¡ post ÄÃ·³ Ãß°¡ 
+-- members í…Œì´ë¸”ì— post ì»¬ëŸ¼ ì¶”ê°€ 
 
-ALTER TABLE mypet DROP CONSTRAINT SYS_C007737;
--- mypet Å×ÀÌºí nickname ÄÃ·³¿¡ unique Á¦¾àÁ¶°Ç ¶§¹®¿¡, ÇÑ À¯Àú°¡ ¿©·¯ Æê Á¤º¸ µî·ÏÀÌ ¾ÈµÅ¼­ unique Á¦¾àÁ¶°Ç Áö¿ü½À´Ï´Ù
+ALTER TABLE mypet DROP CONSTRAINT SYS_C007938;
+-- mypet í…Œì´ë¸” nickname ì»¬ëŸ¼ì— unique ì œì•½ì¡°ê±´ ë•Œë¬¸ì—, í•œ ìœ ì €ê°€ ì—¬ëŸ¬ í« ì •ë³´ ë“±ë¡ì´ ì•ˆë¼ì„œ unique ì œì•½ì¡°ê±´ ì§€ì› ìŠµë‹ˆë‹¤
+-- ì´ê±° ì˜¤ë¥˜ë‚˜ë©´  mypet ë“¤ì–´ê°€ì„œ ì œì•½ì¡°ê±´ ì´ë¦„ í™•ì¸ í•˜ê³  ë°”ê¿”ì„œ í•´ë³´ê¸°
 
 ALTER TABLE members ADD ucheck VARCHAR2(4);
--- Æê½ÃÅÍÀÎÁö ÀÏ¹İÈ¸¿øÀÎÁö ±¸ºĞÇÏ´Â ÄÃ·³ Ãß°¡
+-- í«ì‹œí„°ì¸ì§€ ì¼ë°˜íšŒì›ì¸ì§€ êµ¬ë¶„í•˜ëŠ” ì»¬ëŸ¼ ì¶”ê°€
 
+ALTER TABLE used DROP COLUMN uno;
 ALTER TABLE used ADD uno NUMBER(8) PRIMARY KEY;
--- WISH Å×ÀÌºí Âò ¸ñ·Ï ³Ñ¹ö Ãß°¡
+-- used í…Œì´ë¸” ê¸°ë³¸í‚¤ ì¶”ê°€
 
 COMMIT;
 -----------------------------sequence-------------------------------
@@ -197,55 +199,75 @@ update re_reple set rrno = re_reple_seq.nextval;
 
 -- 6. used
 drop sequence uno_seq;
-create sequence uno_seq nocache; -- µ¹º½ ÀÏÁ¤ ¹øÈ£ ½ÃÄö½º
-update uno_seq set uno = uno_seq.nextval;
+create sequence uno_seq nocache; -- ëŒë´„ ì¼ì • ë²ˆí˜¸ ì‹œí€€ìŠ¤
+update used set uno = uno_seq.nextval;
 
 -- 7. wish
--- ÀÏ´Ü ¾øÀ½
+-- ì¼ë‹¨ ì—†ìŒ
 
--- 8. care »ç¶óÁü
+-- 8. care ì‚¬ë¼ì§
 -- 9. carehistory
 drop sequence carehistory_seq;
 create sequence carehistory_seq nocache;
-update carehistory_seq set hno = carehistory_seq.nextval;
+update carehistory set hno = carehistory_seq.nextval;
 
 -- 10. chat
 
 -- 11. price
 
----------------------º¯°æ»çÇ× ´Ù Àû¿ë ½Ã, ½ÇÇàµÉ µ¥ÀÌÅÍ »ğÀÔ---------------------------------------
--- ¼ö¸² µ¥ÀÌÅÍ
+---------------------ë³€ê²½ì‚¬í•­ ë‹¤ ì ìš© ì‹œ, ì‹¤í–‰ë  ë°ì´í„° ì‚½ì…---------------------------------------
+-- ìˆ˜ë¦¼ ë°ì´í„°
 INSERT INTO members (mid, nickname, pwd, email, uname, tel1, tel2, tel3, addr1, addr2, idx)
-VALUES('Æê½ÃÅÍ¾ÆÀÌµğ','Æê½ÃÅÍ´Ğ³×ÀÓ','ºñ¹Ğ¹øÈ£','ÀÌ¸ŞÀÏ@naver.com','ÀÌ¸§','010','1111','1111','ÁÖ¼Ò1','ÁÖ¼Ò2',idx_seq.nextval);
+VALUES('í«ì‹œí„°ì•„ì´ë””','í«ì‹œí„°ë‹‰ë„¤ì„','ë¹„ë°€ë²ˆí˜¸','ì´ë©”ì¼@naver.com','ì´ë¦„','010','1111','1111','ì£¼ì†Œ1','ì£¼ì†Œ2',idx_seq.nextval);
 
 INSERT INTO members (mid, nickname, pwd, email, uname, tel1, tel2, tel3, addr1, addr2, idx)
-VALUES('Æê½ÃÅÍ¾ÆÀÌµğ2','Æê½ÃÅÍ´Ğ³×ÀÓ2','ºñ¹Ğ¹øÈ£','ÀÌ¸ŞÀÏ@naver.com','ÀÌ¸§','010','1111','1111','ÁÖ¼Ò1','ÁÖ¼Ò2',idx_seq.nextval);
+VALUES('í«ì‹œí„°ì•„ì´ë””2','í«ì‹œí„°ë‹‰ë„¤ì„2','ë¹„ë°€ë²ˆí˜¸','ì´ë©”ì¼@naver.com','ì´ë¦„','010','1111','1111','ì£¼ì†Œ1','ì£¼ì†Œ2',idx_seq.nextval);
 
 INSERT INTO members (mid, nickname, pwd, email, uname, tel1, tel2, tel3, addr1, addr2, idx)
-VALUES('ÁÖÀÎ¾ÆÀÌµğ','ÁÖÀÎ´Ğ³×ÀÓ','ºñ¹Ğ¹øÈ£','ÁÖÀÎÀÌ¸ŞÀÏ@naver.com','ÀÌ¸§','010','2222','2222','ÁÖ¼Ò1','ÁÖ¼Ò2',idx_seq.nextval);
+VALUES('ì£¼ì¸ì•„ì´ë””','ì£¼ì¸ë‹‰ë„¤ì„','ë¹„ë°€ë²ˆí˜¸','ì£¼ì¸ì´ë©”ì¼@naver.com','ì´ë¦„','010','2222','2222','ì£¼ì†Œ1','ì£¼ì†Œ2',idx_seq.nextval);
 
 INSERT INTO members (mid, nickname, pwd, email, uname, tel1, tel2, tel3, addr1, addr2, idx)
-VALUES('ÁÖÀÎ¾ÆÀÌµğ2','ÁÖÀÎ´Ğ³×ÀÓ2','ºñ¹Ğ¹øÈ£','ÁÖÀÎÀÌ¸ŞÀÏ@naver.com','ÀÌ¸§','010','2222','2222','ÁÖ¼Ò1','ÁÖ¼Ò2',idx_seq.nextval);
+VALUES('ì£¼ì¸ì•„ì´ë””2','ì£¼ì¸ë‹‰ë„¤ì„2','ë¹„ë°€ë²ˆí˜¸','ì£¼ì¸ì´ë©”ì¼@naver.com','ì´ë¦„','010','2222','2222','ì£¼ì†Œ1','ì£¼ì†Œ2',idx_seq.nextval);
 
 SELECT * FROM MEMBERS;
 
 INSERT INTO INTRODUCE (nickname, ino, title, short_content, category, content)
-VALUES('Æê½ÃÅÍ´Ğ³×ÀÓ',introduce_seq.nextval,'¼Ò°³Á¦¸ñ','ÂªÀº³»¿ë','Ä«Å×°í¸®','ÁøÂ¥³»¿ë');
+VALUES('í«ì‹œí„°ë‹‰ë„¤ì„',introduce_seq.nextval,'ì†Œê°œì œëª©','ì§§ì€ë‚´ìš©','ì¹´í…Œê³ ë¦¬','ì§„ì§œë‚´ìš©');
 
 INSERT INTO INTRODUCE (nickname, ino, title, short_content, category, content)
-VALUES('Æê½ÃÅÍ´Ğ³×ÀÓ2',introduce_seq.nextval,'¼Ò°³Á¦¸ñ','ÂªÀº³»¿ë','Ä«Å×°í¸®','ÁøÂ¥³»¿ë');
+VALUES('í«ì‹œí„°ë‹‰ë„¤ì„2',introduce_seq.nextval,'ì†Œê°œì œëª©','ì§§ì€ë‚´ìš©','ì¹´í…Œê³ ë¦¬','ì§„ì§œë‚´ìš©');
 
 SELECT * FROM INTRODUCE;
 
 ----------------------------------------------------------------------
--- ±Ôºó´Ô µ¥ÀÌÅÍ insert (Áø¼º´Ôµµ nickname '±èÆê' Ãß°¡ ÇÊ¼ö)
+-- ê·œë¹ˆë‹˜ ë°ì´í„° insert (ì§„ì„±ë‹˜ë„ nickname 'ê¹€í«' ì¶”ê°€ í•„ìˆ˜)
 INSERT INTO members 
-VALUES('asdff','±èÆê',1234,'asd@naver.com','±è³ÉÀÌ','010','1234','4567','2023-01-01','¼­¿ïÆ¯º°½Ã','°­³²±¸',null,null, idx_seq.nextval, 12345, 'S');
+VALUES('asdff','ê¹€í«',1234,'asd@naver.com','ê¹€ëƒ¥ì´','010','1234','4567','2023-01-01','ì„œìš¸íŠ¹ë³„ì‹œ','ê°•ë‚¨êµ¬',null,null, idx_seq.nextval, 12345, 'S');
 
 INSERT INTO introduce 
-VALUES('±èÆê',introduce_seq.NEXTVAL,'µû¶æÇÑ Æê½ÃÅÍ','°­¾ÆÁö µ¹ºÁµå¸³´Ï´Ù','¼­¿ïÆ¯º°½Ã °­³²±¸ ³íÇöµ¿','°­¾ÆÁö','°­¾ÆÁö¸¦ Àß µ¹º¸°í ÁÁ¾ÆÇÕ´Ï´Ù', null, null, null);
+VALUES('ê¹€í«',introduce_seq.NEXTVAL,'ë”°ëœ»í•œ í«ì‹œí„°','ê°•ì•„ì§€ ëŒë´ë“œë¦½ë‹ˆë‹¤','ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ë…¼í˜„ë™','ê°•ì•„ì§€','ê°•ì•„ì§€ë¥¼ ì˜ ëŒë³´ê³  ì¢‹ì•„í•©ë‹ˆë‹¤', null, null, null);
+
+insert into price values(2,'ê¹€í«',30000,50000,40000,70000,50000,90000);
 
 COMMIT;
 
 select * from members;
 select * from introduce;
+select * from price;
+
+-- ì¶”ê°€ì‚¬í•­ --------------------------------------------
+-- members í…Œì´ë¸”ì—  ì£¼ì†Œ ì¶”ê°€í•­ëª© ì €ì¥í•  addr3 ì»¬ëŸ¼ ì¶”ê°€
+-- ì‹œí„° ê²½í—˜ í•­ëª© ì €ì¥í•  experience ì»¬ëŸ¼ ì¶”ê°€
+ALTER TABLE members ADD addr3 VARCHAR2(1000);
+ALTER TABLE members ADD experience VARCHAR2(2000);
+
+
+-- INTRODUCE í…Œì´ë¸” ì»¬ëŸ¼ categoryë¥¼ tagë¡œ ë°”ê¿ˆ
+ALTER TABLE introduce DROP (category);
+ALTER TABLE introduce ADD tag VARCHAR2(300);
+COMMIT;
+
+-- members í…Œì´ë¸” pwd í¬ê¸° ìˆ˜ì •
+ALTER TABLE members MODIFY pwd VARCHAR(100);
+COMMIT;
+----------------------------------------------------------
