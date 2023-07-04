@@ -1,6 +1,9 @@
 package com.user.mapper;
 
+import java.util.List;
+
 import com.user.model.NotUserException;
+import com.user.model.UserModelVO;
 import com.user.model.UserVO;
 
 public interface UserMapper {
@@ -16,5 +19,7 @@ public interface UserMapper {
 	UserVO getUser(int idx);
 
 //	UserVO findUser(UserVO user);
+	
+
 
 }

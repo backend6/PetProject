@@ -1,7 +1,6 @@
 package com.find.service;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -9,9 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.find.mapper.SitterFindMapper;
 import com.find.mapper.WishMapper;
+import com.find.model.IntroduceVO;
 import com.find.model.PagingVO;
-import com.find.model.SitterVO;
-import com.find.model.WishVO;
 
 @Service("sitterFindService")
 public class SitterFindServiceImpl implements SitterFindService {
@@ -31,14 +29,14 @@ public class SitterFindServiceImpl implements SitterFindService {
 	
 
 	@Override
-	public List<SitterVO> selectByAddr(String addr) {
+	public List<IntroduceVO> selectByAddr(String addr) {
 		
 		return this.sitterFindMapper.selectByAddr(addr);
 	}
 	
 	
 	@Override
-	public List<SitterVO> selectPaging(PagingVO paging) {
+	public List<IntroduceVO> selectPaging(PagingVO paging) {
 		
 		return this.sitterFindMapper.selectPaging(paging);
 	}

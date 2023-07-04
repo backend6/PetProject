@@ -20,11 +20,14 @@ public class UserVO {
 	private String birthday;
 	private String addr1;
 	private String addr2;
+	private String addr3;
 	
 	private String slicense;
 	private String lfile;
 	private int idx;
 	private String post;
+	
+	private String experience;
 
 	public UserVO() {
 		

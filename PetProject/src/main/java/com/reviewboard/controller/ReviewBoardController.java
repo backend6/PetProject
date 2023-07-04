@@ -39,11 +39,11 @@ public class ReviewBoardController {
 	@Resource(name = "reviewBoardService")
 	private ReviewBoardService rbService;
 
-	@GetMapping("/reviewBoardWrite")
-	public String reviewBoardWrite() {
-
-		return "/review/reviewBoardWrite";
-	}
+//	@GetMapping("/reviewBoardWrite")
+//	public String reviewBoardWrite() {
+//
+//		return "/review/reviewBoardWrite";
+//	}
 
 	@GetMapping("/reviewBig")
 	public String reviewBig(Model m, @RequestParam("rno") int rno, HttpSession session, HttpServletResponse response) {
@@ -59,7 +59,7 @@ public class ReviewBoardController {
 		m.addAttribute("reply", rpData);
 		m.addAttribute("total", total);
 
-		session.setAttribute("loginUser", "주인닉네임2");
+		session.setAttribute("loginUser", "주인닉네임");
 
 		return "/review/reviewBig";
 	}
@@ -68,8 +68,8 @@ public class ReviewBoardController {
 	public String insertReviewBoard(Model m, @ModelAttribute ReviewBoardVO rb,
 			@RequestParam("mfilename") MultipartFile mf, @RequestParam("star") String star, HttpSession session) {
 
-		rb.setIno(10);
-		rb.setNickname("주인닉네임2"); // sessionScope.nickname 해서 불러오면 없애기
+		rb.setIno(1);
+		rb.setNickname("주인닉네임"); // sessionScope.nickname 해서 불러오면 없애기
 									// (@RequestParam("nickname") String nickname,) 도 위에 추가해야함
 		rb.setStar(star);
 
@@ -115,7 +115,7 @@ public class ReviewBoardController {
 			@RequestParam("content") String content, HttpSession session) {
 
 		rp.setRno(rno);
-		rp.setNickname("주인닉네임2"); // sessionScope.nickname 해서 불러오면 없애기
+		rp.setNickname("주인닉네임"); // sessionScope.nickname 해서 불러오면 없애기
 									// (@RequestParam("nickname") String nickname,) 도 위에 추가해야함
 		rp.setContent(content);
 
@@ -140,8 +140,8 @@ public class ReviewBoardController {
 	public String updateReview(Model m, @ModelAttribute ReviewBoardVO vo, @RequestParam("rno") int rno,
 			@RequestParam("mfilename") MultipartFile mf, @RequestParam("star") String star, HttpSession session) {
 
-		vo.setIno(10);
-		vo.setNickname("주인닉네임2"); // sessionScope.nickname 해서 불러오면 없애기
+		vo.setIno(1);
+		vo.setNickname("주인닉네임"); // sessionScope.nickname 해서 불러오면 없애기
 									// (@RequestParam("nickname") String nickname,) 도 위에 추가해야함
 		vo.setStar(star);
 

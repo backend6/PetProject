@@ -105,27 +105,13 @@ a{
 	padding: 5px;
 }
 
-.showInfo a:hover { 
-	cursor: pointer; 
-	font-weight: bold; 
-}
-
 
 </style>
 <script>
-
 	function del(){
 		/* DB 완료 후 수정할 곳 */
 		alert("a");
 	}
-	
-	/* 반려동물 정보 보여주는 팝업 띄우기 */
-	let win = null;
-	function open_info() {
-		win = window.open("${myctx}/sitter/petInfo", "petInfo", 
-						"width=600, height=500, left=300, top=150");
-	} 
-
 	/* 달력 */	
 	document.addEventListener('DOMContentLoaded', function() {
 		var calendarEl = document.getElementById('calendar');
@@ -202,19 +188,13 @@ a{
 		calendar.updateSize();
 	});
 	/* 달력 끝 */
-
 </script>
-	
-</script>
-
-
-
 <div class="v">
 	<div align="center" class="col-md-8 offset-md-2 my-4" >
 		<h2 style="font-weight: bold">마이페이지 (펫시터)</h2>
 	</div>
 	
-	<a href="#<!-- 회원가입 페이지 작성 완료되면 받아서 수정한 페이지 들어갈 곳 -->">회원정보수정</a>
+	<a href="${myctx}/sitter/editS">회원정보수정</a>
 	<br><br>
 	<div class="v2">
 		<b>내 소개</b>
@@ -226,7 +206,7 @@ a{
 				<div class="i">
 					<img src="../resources/upload/${introduce.ifile}" height=150px width=150px;>
 				</div>
-				<b>닉네임 : </b><!-- 로그인한 유저의 정보값 받아서 그중 닉네임 값 받아서 넣을 곳 -->
+				<b>닉네임 : ${nickname} 님</b><!-- 로그인한 유저의 정보값 받아서 그중 닉네임 값 받아서 넣을 곳 -->
 				<br>
 				<b>지역 : ${introduce.addr}</b>
 				<br>
@@ -255,8 +235,8 @@ a{
 					<fmt:formatDate value="${schedule.sdate}" pattern="MM월 dd일"/>				
 					 ~ <fmt:formatDate value="${schedule.fdate}" pattern="MM월 dd일"/>
 				 </b></td>
-				<td width="25%" class="showInfo"><a onclick="open_info()">'${schedule.unickname}'님</a></td>
-        <td width="25%" class="showInfo"><a onclick="open_info()">'${schedule.pname}'</a></td>
+				<td width="25%">'${schedule.unickname}'님</td>
+				<td width="25%">'${schedule.pname}'</td>
 			</tr>			
 		</c:forEach>
 		</table>

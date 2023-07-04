@@ -11,12 +11,12 @@
 		</if>
 	</select>
 	
-	<select id="selectByAddr" resultType="sitter" parameterType="string">
+	<select id="selectByAddr" resultType="Find" parameterType="string">
 		select * from introduce where addr like '%' || #{value} || '%'
 	</select>
 	
 	
-	<select id="selectPaging" resultType="sitter" parameterType="paging">
+	<select id="selectPaging" resultType="Find" parameterType="paging">
 		select * from (
 			select row_number() over(order by ino desc) rn, introduce.*
 			from introduce

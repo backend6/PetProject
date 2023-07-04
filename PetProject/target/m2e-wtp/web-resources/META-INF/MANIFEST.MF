@@ -1,14 +1,5 @@
 Manifest-Version: 1.0
-<<<<<<< HEAD
-<<<<<<< HEAD
-Built-By: sulim
-=======
 Built-By: min_y
->>>>>>> 128988a8697e0a13b8641ae3e1e240da8a550d1a
 Build-Jdk: 11.0.18
-=======
-Built-By: jaeryongkim
-Build-Jdk: 11.0.19
->>>>>>> login-reg
 Created-By: Maven Integration for Eclipse
 

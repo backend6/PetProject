@@ -1,0 +1,45 @@
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sitter.mapper.SitterMapper">
+	
+	<insert id="sitterIntroduce" parameterType="com.sitter.model.SitterVO">
+		merge into introduce it
+		using dual
+		on (it.nickname = #{nickname})
+		when matched then
+		update set
+		title=#{title},short_content=#{short_content},addr=#{addr},tag=#{tag},
+		service=#{service},content=#{content},ifile=#{ifile}
+		when not matched then
+		insert (nickname,ino,title,short_content,addr,tag,service,content,ifile)
+		values(#{nickname},introduce_seq.nextval,#{title},#{short_content},#{addr},#{tag},#{service},#{content},#{ifile})
+	</insert>
+	
+	<select id="getSitterIntroduce" resultType="Sitter" parameterType="String">
+		select * from introduce where nickname = #{nickname}
+	</select> 
+	
+	<select id="getSitterSchedule" resultType="Sitter" parameterType="String">
+		select * from used where snickname = #{nickname}
+	</select>
+	
+	<!-- 로그인 유저 정보 들어오면 삭제할 곳 -->
+	<select id="getUserNickname" resultType="String">
+		select nickname from members where nickname = '김펫'
+	</select>
+	
+	<!-- 회원정보 수정 -->
+	<select id="getUserInfo" resultType="user" parameterType="int">
+		select * from members where idx=#{value}
+	</select>
+	
+	<update id="editUserInfo" parameterType="user">
+		update members 
+		set nickname=#{nickname}, pwd=#{pwd}, email=#{email}, uname=#{uname}, tel1=#{tel1}, tel2=#{tel2},
+			tel3=#{tel3}, addr1=#{addr1}, addr2=#{addr2}, addr3=#{addr3}, slicense=#{slicense}, lfile=#{lfile}, 
+			post=#{post}, experience=#{experience}
+		where idx=#{value}
+	</update>
+	
+</mapper>

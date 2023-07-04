@@ -56,33 +56,39 @@ a{
 	<a href="${myctx}/general/petregi">정보 등록</a>
 	<br><br>
 
-	<div class="y2">
-		<div style="margin-bottom: 12px;">
-			<b>내 반려동물 정보</b>
-			<a href="#">수정</a>
-		</div>
-		<div class="i">
-			<img src="#">
-		</div>
-		<div class="info">
-			<p>
-				<b>이름 : </b>
-				<br>
-				<b>세부 종 : </b>
-				<br>
-				<b>생년월일 : </b>
-				<br>
-				<b>종류  : </b>
-				<br>
-				<b>성별 : </b>
-				<br>
-				<b>몸무게 : </b>
-				<br>
-				<b>특이사항 : </b>
-			</p>
-		</div>
-	</div><br><br>
 	
+	<c:forEach var="item" items="${mypet}">
+		<div class="y2">
+			<div style="margin-bottom: 12px;">
+				<b>내 반려동물 정보</b>
+				<a href="#">수정</a>
+			</div>
+			<div class="i">
+				<img src="#">
+			</div>
+			<div class="info">
+				<p>
+					<b>이름 : ${item.pname}</b>
+					<br>
+					<b>종류 : ${item.species1}</b>
+					<br>
+					<b>세부종  : ${item.species2}</b>
+					<br>
+					<b>성별  : ${item.gender}</b>
+					<br>
+					<b>생년월일 : ${item.bday}</b>
+					<br>
+					<b>몸무게 : ${item.weight}</b>
+					<br>
+					<b>특이사항 : ${item.particulars}</b>
+				</p>
+			</div>
+		</div>
+		<br><br>
+	</c:forEach>
+</div>
+
+<!-- 
 	<div class="y3">
 		<div style="margin-bottom: 12px;">
 			<b>내 반려동물 정보</b>
@@ -110,3 +116,4 @@ a{
 		</div>
 	</div>
 </div>
+ -->

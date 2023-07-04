@@ -105,6 +105,7 @@ textarea {
 	padding: 5px;
 	font-size: 0.9em;
 	margin-left: 5px;
+	margin-bottom: 5px;
 }
 </style>
 </head>
@@ -171,8 +172,6 @@ textarea {
 			<label for="phone"> 휴 대 폰 번 호 :</label> <input type="tel" id="ph1"
 				name="tel1" required> <input type="tel" id="ph2" name="tel2"
 				required> <input type="tel" id="ph3" name="tel3" required>
-			<button type="button" onclick="open_idcheck()"
-				class="btn btn-outline-info">본인인증</button>
 		</div>
 		<div class="form-group">
 			<label for="dob">생 년 월 일 :</label> <input type="date" id="dob"
@@ -180,23 +179,16 @@ textarea {
 		</div>
 		<div class="form-group">
 			<label for="address"> 주 소 :</label> 
-			
-			<!-- <input type="text" id="address"
-				name="addr1" required>
-						<button type="button" onclick="open_idcheck()"
-				class="btn btn-outline-info">우편번호 찾기</button>
-			<input type="text" id="detailedAddress" name="addr2"
-				required placeholder="상세주소 입력"> -->
-			<input type="text" id="sample6_postcode" name="post"
-				placeholder="우편번호" style="width: 40%;" readonly> <input
-				type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"
-				class="btn btn-outline-info"><br> <input type="text"
-				id="sample6_address" name="addr1" placeholder="주소"
-				style="width: 70%" readonly><br> <input type="text"
-				id="sample6_detailAddress" name="addr2" placeholder="상세주소"
-				style="width: 70%"> <input type="text"
-				id="sample6_extraAddress" name="detail" placeholder="참고항목"
-				style="width: 70%" readonly>
+			<input type="text" id="sample6_postcode" name="post" placeholder="우편번호" 
+					style="width: 40%; margin-bottom: 5px;" readonly> 
+			<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"
+					class="btn btn-outline-info"><br> 
+			<input type="text" id="sample6_address" name="addr1" placeholder="주소"
+					style="width: 70%; margin-bottom: 5px;" readonly><br> 
+			<input type="text" id="sample6_detailAddress" name="addr2" placeholder="상세주소"
+					style="width: 70%; margin-bottom: 5px;"> 
+			<input type="text" id="sample6_extraAddress" name="detail" placeholder="참고항목"
+					style="width: 70%" readonly>
 		</div>
 
 		<div class="form-group2">

@@ -153,7 +153,7 @@ span.ingredient {
 	<div align="center" class="col-md-8 offset-md-2 my-4" >
 		<h2 style="font-weight: bold">마이페이지 (일반)</h2>
 	</div>
-	<a href="#">회원정보수정</a>
+	<a href="${myctx}/general/editG">회원정보수정</a>
 	<br><br>
 
 	<div class="t2">
@@ -162,22 +162,20 @@ span.ingredient {
 		<br><br>
 		<div class="i1">
 			<img src="#<!-- 값 들어갈 곳 -->"><br><br><br><br><br><br><br>
-			<b>특이사항 : </b>
+			<b>특이사항 : ${mypet.particulars}</b>
 		</div>
 		<div>
-			<b>이름 : </b><!-- 값 들어갈 곳 -->
+			<b>이름 : ${mypet.pname}</b><!-- 값 들어갈 곳 -->
 			<br>
-			<b>종류 : </b><!-- 값 들어갈 곳 -->
+			<b>종류 : ${mypet.species1}</b><!-- 값 들어갈 곳 -->
 			<br>
-			<b>세부 종 : </b><!-- 값 들어갈 곳 -->
+			<b>세부 종 : ${mypet.species2}</b><!-- 값 들어갈 곳 -->
 			<br>
-			<b>성별 : </b><!-- 값 들어갈 곳 -->
+			<b>성별 : ${mypet.gender}</b><!-- 값 들어갈 곳 -->
 			<br>
-			<b>태그 : </b><!-- 값 들어갈 곳 -->
+			<b>생년월일 : ${mypet.bday}</b><!-- 값 들어갈 곳 -->
 			<br>
-			<b>생년월일 : </b><!-- 값 들어갈 곳 -->
-			<br>
-			<b>몸무게 : </b><!-- 값 들어갈 곳 -->
+			<b>몸무게 : ${mypet.weight}</b><!-- 값 들어갈 곳 -->
 			<br>
 		</div>
 	</div>
@@ -234,7 +232,8 @@ span.ingredient {
 				<span>2023-05-04</span>
 			</div>
 			<div style="float:right; margin-bottom:15px; width:20%;">
-				<button class="btn btn-outline-dark" style="padding: 5px; font-size: 0.9em;">리뷰 쓰기</button>
+				<button class="btn btn-outline-dark" style="padding: 5px; font-size: 0.9em;"
+						onclick="location.href='${myctx}/general/reviewBoardWrite'">리뷰 쓰기</button>
 			</div>
 		</div>
 		<div class="used" style="clear:both; font-size:1em; margin-left:10px;">

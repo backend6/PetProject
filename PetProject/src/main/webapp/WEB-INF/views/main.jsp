@@ -116,7 +116,8 @@ a:hover {
 				</td>
 			</tr>
 		</table>
-
+	</div>
+	<div class="col-md-10 offset-1 " id="intro">
 		<table style="width: 80%;">
 			<tr>
 				<td style="font-size: 1.3em;" colspan="3"><div class="tb-title">Pet sitter</div></td>

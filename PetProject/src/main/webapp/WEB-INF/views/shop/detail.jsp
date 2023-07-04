@@ -163,7 +163,7 @@ img {
 
 <script type="text/javascript">
         let index=1;
-        let star=3.7;
+        let star=${SumStar}/${CntStar};
         $(()=>{
             $('#prev').click(()=>{
                 if(index>2){
@@ -205,11 +205,11 @@ img {
 			<button id="next">▶️</button>        
         </td>
 		<td id="infoSec" width="50%" height="40%">
-			<span id="nickname">닉네임</span>
+			<span id="nickname">${selectNickname }</span>
 			<img src="#" alt="뱃지" width="25px" height="25px">
 			<span id="noheart" class="like">🤍</span>
 			<span id="heart" class="like" style="display: none;">❤️</span><br><br>
-			<span id="intro_title">소개 제목</span>
+			<span id="intro_title">${selectTitle }</span>
 			<span id="review" style="font-size: 17px; float: right;"></span>
 			<div>
 				<img id="5" class="star" src="<%=request.getContextPath()%>/images/star1.png" alt="별" style="max-width: 5%; background-color: white;">
@@ -219,7 +219,7 @@ img {
 				<img id="1" class="star" src="<%=request.getContextPath()%>/images/star1.png" alt="별" style="max-width: 5%; background-color: white;">
            	</div>
 			<br><br>
-			<span id="address">서울특별시 00구 00동</span>
+			<span id="address">${selectAddr}</span>
 		</td>
 	</tr>
 	<tr>
@@ -227,9 +227,9 @@ img {
 			<span id="fee">이용 요금</span>
 			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1박케어 | 데이케어 </span>
 			<span id="question">&nbsp;?&nbsp;</span><br><br>
-			<span style="font-size: 20px">🐕</span><span>소형견</span><span style="color: gray;">&nbsp;&nbsp; 7kg 미만&nbsp;&nbsp;</span><span> 0,000원 | 0,000원</span><br>
-			<span style="font-size: 27px">🐕</span><span>중형견</span><span style="color: gray;">&nbsp; 7~14.9kg&nbsp;</span><span> 0,000원 | 0,000원</span><br>
-			<span style="font-size: 30px">🐕</span><span>대형견</span><span style="color: gray;"> 15kg 이상</span><span> 예약불가 | 예약불가</span>
+			<span style="font-size: 20px">🐕</span><span>소형견</span><span style="color: gray;">&nbsp;&nbsp; 7kg 미만&nbsp;&nbsp;</span><span> ${sPetAllPrice}원 | ${sPetDayPrice}원</span><br>
+			<span style="font-size: 27px">🐕</span><span>중형견</span><span style="color: gray;">&nbsp; 7~14.9kg&nbsp;</span><span> ${mPetAllPrice}원 | ${mPetDayPrice}원</span><br>
+			<span style="font-size: 30px">🐕</span><span>대형견</span><span style="color: gray;"> 15kg 이상</span><span> ${lPetAllPrice}원 | ${lPetDayPrice}원</span>
 		</td>
 	</tr>
 </table>
@@ -237,16 +237,14 @@ img {
 <table id="under" class="t1">
     <tr>
 		<td id="introSec" rowspan="2" height="400px" style="width:70%; border:none;">
-			<h2><b>'홍길동' 펫시터를 소개합니다.</b></h2>
- 			<span>#3인가구 #아파트 .. 펫시터가 설정한 태그</span><br><br>
-			<span style="font-size: 22px;">펫시터가 작성한 소개글</span>
-			<br>~~~~~<br>
-                ~~~~~<br>
-                ~~~~~<br>
-		</td>
+			<h2><b>'${selectNickname }' 펫시터를 소개합니다.</b></h2>
+ 			<span>${selectShortContent}</span><br><br>
+			<span style="font-size: 22px;">${shortContent }</span>
+			<br>${selectContent}
+			</td>
 		<td id="chatSec" height="30%" style="width:30%">
 			<span style="font-weight: bold; font-size: 20px;">채팅 가능 시간</span>
-			<button type="button" id="chat" onclick="open_chat()">채팅하기</button><br><br>
+			<button type="button" id="chat">채팅하기</button><br><br>
 			<span style="font-size: 17px;">월-금 00:00~00:00</span><br>
 			<span style="font-size: 17px;">주 말 00:00~00:00</span>
 		</td>
