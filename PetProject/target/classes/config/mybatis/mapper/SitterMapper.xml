@@ -1,0 +1,27 @@
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sitter.mapper.SitterMapper">
+	
+	<insert id="sitterIntroduce" parameterType="com.sitter.model.SitterVO">
+		merge into introduce2 it
+		using dual
+		on (it.nickname = <!-- 로그인해서 들어온 유저의 닉네임-->)
+		when matched then
+		update set
+		title=#{title},short_content=#{short_content},addr=#{addr},tag=#{tag},
+		service=#{service},content=#{content},ifile=#{ifile}
+		when not matched then
+		insert (nickname,title,short_content,addr,tag,service,content,ifile)
+		values(#{<!-- 로그인해서 들어온 유저의 닉네임  -->},#{title},#{short_content},#{addr},#{tag},#{service},#{content},#{ifile})
+	</insert>
+	
+	<select id="getSitterIntroduce" resultType="Sitter">
+		select * from introduce2 where nickname = #{<!-- 로그인해서 들어온 유저의 닉네임  -->}
+	</select>
+	
+	<select id="getSitterSchedule" resultType="Sitter">
+		select * from used where snickname = #{<!-- 로그인해서 들어온 유저의 닉네임  -->}
+	</select>
+	
+</mapper>

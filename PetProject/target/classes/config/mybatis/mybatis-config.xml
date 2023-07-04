@@ -4,6 +4,10 @@
  "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+
 	<!-- typeAlias 타입 별칭 설정 ============================= -->
 	<typeAliases>
 		<typeAlias type="com.reviewboard.model.ReviewBoardVO" alias="ReviewBoard"/>
