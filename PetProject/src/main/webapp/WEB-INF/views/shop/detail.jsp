@@ -6,18 +6,6 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <!-- --------------------------------------------- -->
 
-<!-- 웹소켓 관련 참조 -->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/sockjs.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/stomp.min.js"></script>
-
-<script type="text/javascript">
-	let win = null;
-	function open_chat() {
-		win = window.open("../chat", "chat", "width=400, height=440, left=300, top=200");
-	} 
-</script>
 
 <style>
 #on, #under {
