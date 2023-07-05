@@ -2,7 +2,10 @@ package com.sitter.service;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.sitter.mapper.SitterMapper;
@@ -22,6 +25,8 @@ public class SitterServiceImpl implements SitterService {
 		return sitterMapper.sitterIntroduce(sitter);
 	}
 
+	@Inject
+	private BCryptPasswordEncoder passwordEncoder;	
 
 	@Override
 	public List<SitterVO> getSitterIntroduce(String nickname) {
@@ -54,6 +59,7 @@ public class SitterServiceImpl implements SitterService {
 	@Override
 	public int editUserInfo(UserVO user) {
 		
+		user.setPwd(passwordEncoder.encode(user.getPwd()));
 		int n=sitterMapper.editUserInfo(user);
 		System.out.println("n: "+n);
 		return n;
