@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page session="false"%>
 <%@page import="java.util.List"%>
 <%@page import="com.sitter.model.SitterVO"%>
 <%@page import="java.text.SimpleDateFormat" %>
@@ -191,20 +190,20 @@ a{
 </script>
 <div class="v">
 	<div align="center" class="col-md-8 offset-md-2 my-4" >
-		<h2 style="font-weight: bold">마이페이지 (펫시터)</h2>
+		<h2 style="font-weight: bold">${loginUser.mid}(시터)님 마이페이지 </h2>
 	</div>
 	
-	<a href="${myctx}/sitter/editS">회원정보수정</a>
+	<a href="${myctx}/sitter/user/editS">회원정보수정</a>
 	<br><br>
 	<div class="v2">
 		<b>내 소개</b>
-		<a href="${myctx}/sitter/introduce">등록/수정</a>
+		<a href="${myctx}/sitter/user/introduce">등록/수정</a>
 		<br><br>
 		<c:set var="sv" value="${svo}"/>
 		<c:if test="${not empty sv}">
 			<c:forEach var="introduce" items="${svo}">
 				<div class="i">
-					<img src="../resources/upload/${introduce.ifile}" height=150px width=150px;>
+					<img src="../../resources/upload/${introduce.ifile}" height=150px width=150px;>
 				</div>
 				<b>닉네임 : ${nickname} 님</b><!-- 로그인한 유저의 정보값 받아서 그중 닉네임 값 받아서 넣을 곳 -->
 				<br>
@@ -243,7 +242,7 @@ a{
 	</div>
 	<div class="v4">
 		<b>돌봄 기록 내역</b>
-		<a href="${myctx}/sitter/record">더보기</a>
+		<a href="${myctx}/sitter/user/record">더보기</a>
 		<br><br>
 		<!-- 반복문 들어가는 것으로 수정할 곳 -->
 		<table class="t">

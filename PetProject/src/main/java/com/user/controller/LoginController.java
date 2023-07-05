@@ -58,13 +58,13 @@ public class LoginController {
 			response.addCookie(ck);
 		}
 		
-		return "redirect:home";
+		return "redirect:/";
 	}//--------------------
 	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:home";
+		return "redirect:/";
 	}	
 	@ExceptionHandler(NotUserException.class)
 	public String exceptionHandler(Exception ex, Model m) {

@@ -47,19 +47,13 @@ label {
 	margin-bottom: 5px;
 }
 
-input[type="text"], input[type="password"], input[type="address"],input[type="date"] {
+input[type="text"], input[type="password"], input[type="address"],input[type="date"],[type="email"] {
 	width: 60%;
 	padding: 5px;
 	border: 1px solid #ccc;
 	border-radius: 4px;
 }
 
-input[type="email"] {
-	width: 35%;
-	padding: 5px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-}
 
 input[type="tel"] {
 	width: 25%;
@@ -116,7 +110,7 @@ textarea {
 	</h2>
 	<form name="form" action="${myctx}/joinG" method="POST">
 		<div class="form-group">
-			<label for="id">아 이 디 :</label> <input type="text" id="id" name="mid"
+			<label for="id">아 이 디 :</label> <input type="text" id="id" readonly name="mid"
 				required>
 
 			<button type="button" onclick="open_idcheck()"
@@ -132,38 +126,16 @@ textarea {
 		</div>
 		<div class="form-group">
 			<label for="nickname">닉 네 임 :</label> <input type="text"
-				id="nickname" name="nickname" required placeholder="특수문자 사용 불가">
+				id="nickname" readonly name="nickname" required placeholder="특수문자 사용 불가">
 			<button type="button" onclick="open_nickcheck()"
 				class="btn btn-outline-info">중복체크</button>
 		</div>
 		<div class="form-group">
 			<label for="email">이메일:</label> <input type="text" id="email"
-				name="email" required placeholder="E-mail" style="width: 150px;">
-			<input type="text" id="emailad" name="emailad" required
-				placeholder="직접 입력" style="width: 150px;"> <select
-				id="emailSelect" name="emailSelect" onchange="updateEmailInput()">
-				<option value="@google.com">구글</option>
-				<option value="@naver.com">네이버</option>
-				<option value="@daum.net">다음</option>
-				<option value="@yahoo.com">야후</option>
-				<option value="self">직접입력</option>
-			</select>
+				name="email" required placeholder="E-mail">
+		
 		</div>
 
-		<script>
-			function updateEmailInput() {
-				var emailSelect = document.getElementById("emailSelect");
-				var emailInput = document.getElementById("emailad");
-
-				if (emailSelect.value === "self") {
-					emailInput.value = ""; // 직접 입력을 위해 입력 필드를 비웁니다.
-					emailInput.removeAttribute("disabled");
-				} else {
-					emailInput.value = emailSelect.value;
-					emailInput.setAttribute("disabled", "disabled");
-				}
-			}
-		</script>
 		<div class="form-group">
 			<label for="name">이 름 :</label> <input type="text" id="name"
 				name="uname" required>

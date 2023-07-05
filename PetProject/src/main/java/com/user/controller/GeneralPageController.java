@@ -3,6 +3,7 @@ package com.user.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +22,7 @@ import com.user.service.UserService;
 import lombok.extern.log4j.Log4j;
 
 @Controller
-@RequestMapping("/general")
+@RequestMapping("/general/user")
 @Log4j
 public class GeneralPageController {
 	
@@ -34,7 +35,8 @@ public class GeneralPageController {
 	
 	@GetMapping("/page")
 	public String generalPage(Model m,
-							@RequestParam(name="pno", defaultValue="1") int pno) {
+							@RequestParam(name="pno", defaultValue="1") int pno,
+							HttpSession session) {
 		log.info("pno: "+pno);
 		
 		UserModelVO mypet = this.service.selectOnePet(pno);
@@ -97,14 +99,20 @@ public class GeneralPageController {
 	 
 	 
 	@RequestMapping(value="/editG", method=RequestMethod.GET)
-	public String sitterEditForm(Model model, @RequestParam(defaultValue="19") int idx) {
+	public String generalEditForm(Model model,@ModelAttribute UserVO user, HttpSession session) {
 		
-		if (idx == 0) {
+		UserVO loginUser = (UserVO)session.getAttribute("loginUser");
+		int loginIdx = loginUser.getIdx();
+		log.info("loginIdx: "+loginIdx);
+		
+		if (loginUser.getIdx() == 0) {
 			return "redirect:page";
 		}
 		
-		UserVO user = service.getUserInfo(idx);
+		user = service.getUserInfo(loginIdx);
+		log.info("user=="+user);
 		
+		/* model.addAttribute("idx", loginIdx); */
 		model.addAttribute("user", user);
 		
 		return "general/gmember_edit";

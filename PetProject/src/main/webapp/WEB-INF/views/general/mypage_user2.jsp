@@ -53,7 +53,7 @@ a{
 	<div align="center" class="col-md-8 offset-md-2 my-4" >
 		<h2 style="font-weight: bold">내 반려동물 정보</h2>
 	</div>
-	<a href="${myctx}/general/petregi">정보 등록</a>
+	<a href="${myctx}/general/user/petregi">정보 등록</a>
 	<br><br>
 
 	

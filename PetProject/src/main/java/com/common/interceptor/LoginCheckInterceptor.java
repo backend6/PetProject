@@ -30,7 +30,7 @@ import com.user.model.UserVO;
 		</interceptor>
 	</interceptors>
  */
-/*
+
 public class LoginCheckInterceptor implements HandlerInterceptor {
 	
 	Logger logger = LoggerFactory.getLogger(LoginCheckInterceptor.class);
@@ -71,4 +71,3 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 		logger.info("afterCompletion()...");
 	}
 }
-*/
