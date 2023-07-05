@@ -6,7 +6,6 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <!-- --------------------------------------------- -->
 
-
 <style>
 #on, #under {
 	margin: 20px auto;
@@ -121,8 +120,6 @@ img {
 	float: right;
 }
 
-#chat:hover { background-color: #8ECEA3 }
-
 #locationSec {
 	padding: 25px;
 	line-height: 1.8;
@@ -149,9 +146,12 @@ img {
 
 </style>
 
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f23f44f452a22152a501caee1038a19f"></script>
 <script type="text/javascript">
         let index=1;
         let star=${SumStar}/${CntStar};
+        let hid;
+        let vis;
         $(()=>{
             $('#prev').click(()=>{
                 if(index>2){
@@ -163,13 +163,28 @@ img {
                 if(index<60){
                     $('#petImg').attr('src','/images/'+(++index)+'.jpg');
                 }
-            })
-
-            $('.like').click(()=>{
-                let hid=$('.like:hidden');
-                let vis=$('.like:visible');
+            })  
+            
+            //wish에 들어가 있으면 채워진하트로 표시한다
+            if(${getWish}){
+            	hid=$('.like:hidden');
+                vis=$('.like:visible');
                 hid.show();
                 vis.hide();
+            }
+            
+            $('.like').click(()=>{
+                hid=$('.like:hidden');
+                vis=$('.like:visible');
+                hid.show();
+                vis.hide();
+                if(${getWish}){
+                	frm.action='deleteHeart';
+                	frm.submit();
+                }else{
+	                frm.action='insertHeart';
+	    			frm.submit();
+                }
             })
 
 
@@ -182,7 +197,13 @@ img {
                 $('#'+i).attr('src','<%=request.getContextPath()%>/images/star2.png');
             }
             $('#review').text('평점('+star+')');
+            
+            if(lic.value==null){
+            	$('#lic').hide();	
+            }
+            
         })
+        
     </script>
 
 <table id="on" class="t1">
@@ -194,8 +215,11 @@ img {
         </td>
 		<td id="infoSec" width="50%" height="40%">
 			<span id="nickname">${selectNickname }</span>
-			<img src="#" alt="뱃지" width="25px" height="25px">
-			<span id="noheart" class="like">🤍</span>
+			<img id="lic" src="<%=request.getContextPath()%>/images/license.png" alt="뱃지" style="width: 25px">
+			<form name="frm" id="frm" method="GET">
+                        
+            </form> 
+			<span id="noheart" class="like" onclick="goWish()">🤍</span>
 			<span id="heart" class="like" style="display: none;">❤️</span><br><br>
 			<span id="intro_title">${selectTitle }</span>
 			<span id="review" style="font-size: 17px; float: right;"></span>
@@ -232,7 +256,7 @@ img {
 			</td>
 		<td id="chatSec" height="30%" style="width:30%">
 			<span style="font-weight: bold; font-size: 20px;">채팅 가능 시간</span>
-			<button type="button" id="chat">채팅하기</button><br><br>
+			<button id="chat">채팅하기</button><br><br>
 			<span style="font-size: 17px;">월-금 00:00~00:00</span><br>
 			<span style="font-size: 17px;">주 말 00:00~00:00</span>
 		</td>
@@ -241,9 +265,27 @@ img {
 		<td id="locationSec" height="70%" style="width:30%">
 			<span style="font-weight: bold; font-size: 20px;">펫시터 위치</span><br>
 			<span style="font-size: 15px;">서울특별시 00구 00동<br> 00역에 0번출구에서 0분 </span><br>
-			<div id="map" style="background-color:#cccccc; height: 70%;">
-				지도
-			</div>
+			<div id="map" style="height: 70%;"></div>
+			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f23f44f452a22152a501caee1038a19f"></script>
+			<script type="text/javascript">
+			
+				var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+				var options = { //지도를 생성할 때 필요한 기본 옵션
+					center: new kakao.maps.LatLng(37.497844, 127.027531), //지도의 중심좌표.
+					level: 3 //지도의 레벨(확대, 축소 정도)
+				};
+			
+				var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴  
+				
+				const markerPosition = new window.kakao.maps.LatLng(
+						33.450701,
+						126.570667
+				);
+				const marker = new window.kakao.maps.Marker({
+						position: markerPosition,
+				});
+				marker.setMap(map);
+			</script>
 		</td>
 	</tr>
 </table>
@@ -255,19 +297,19 @@ img {
 		<!-- 이 테이블에는 펫시터 소개 등록에서 펫시터가 등록한 서비스만 보여줘야 해요! -->
 		<table class="table" id="service" style="width:100%;">
 			<tr>
-				<td>a</td>
-				<td>b</td>
-				<td>c</td>
+				<td><img id="service1" src="<%=request.getContextPath()%>/images/1.jpg" alt="1"></td>
+				<td><img id="service2" src="<%=request.getContextPath()%>/images/2.jpg" alt="2"></td>
+				<td><img id="service3" src="<%=request.getContextPath()%>/images/3.jpg" alt="3"></td>
 			</tr>
 			<tr>
-				<td>a</td>
-				<td>b</td>
-				<td>c</td>
+				<td><img id="service4" src="<%=request.getContextPath()%>/images/4.jpg" alt="4"></td>
+				<td><img id="service5" src="<%=request.getContextPath()%>/images/5.jpg" alt="5"></td>
+				<td><img id="service6" src="<%=request.getContextPath()%>/images/6.jpg" alt="6"></td>
 			</tr>
 			<tr>
-				<td>a</td>
-				<td>b</td>
-				<td>c</td>
+				<td><img id="service7" src="<%=request.getContextPath()%>/images/7.jpg" alt="7"></td>
+				<td><img id="service8" src="<%=request.getContextPath()%>/images/8.jpg" alt="8"></td>
+				<td><img id="service9" src="<%=request.getContextPath()%>/images/9.jpg" alt="9"></td>
 			</tr>
 		</table>
 	</div>
