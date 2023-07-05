@@ -14,7 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.find.model.PagingVO;
+<<<<<<< Updated upstream
 import com.find.model.SitterVO;
+=======
+import com.find.model.WishVO;
+import com.find.service.FindService;
+>>>>>>> Stashed changes
 import com.find.service.SitterFindService;
 
 import lombok.extern.log4j.Log4j;
@@ -27,21 +32,6 @@ public class FindController {
 	@Resource(name="sitterFindService")
 	private SitterFindService sitterFindService;
 	
-	
-	/*
-	 * @GetMapping("/find") public String findSitter(Model m,
-	 * 
-	 * @RequestParam(name="addr", defaultValue="논현동") String addr) {
-	 * 
-	 * log.info("addr: "+addr);
-	 * 
-	 * List<SitterVO> sitter = this.sitterFindService.selectByAddr(addr);
-	 * 
-	 * log.info("sitter: "+sitter); m.addAttribute("sitter", sitter);
-	 * m.addAttribute("addr", addr);
-	 * 
-	 * return "shop/find"; }
-	 */
 	
 	// 페이징
 		@GetMapping("/find")
@@ -75,10 +65,100 @@ public class FindController {
 			
 		}
 	
+<<<<<<< Updated upstream
 	@GetMapping("/info")
 	public String sitterInfo() {
 		
 		return "shop/detail";
 	}
+=======
+		@GetMapping("/info")
+		public String sitterInfo(Model model, @ModelAttribute IntroduceVO introVO,
+						@RequestParam(defaultValue="1")String nickname,
+						@RequestParam(defaultValue="1")String title,
+						@RequestParam(defaultValue="1")String addr,
+						@RequestParam(defaultValue="1")String content,
+						@RequestParam(defaultValue="1")String short_content,
+						@RequestParam(defaultValue="1")String license,
+						@RequestParam(defaultValue="0")int sPDP, @RequestParam(defaultValue="0")int sPAP,
+						@RequestParam(defaultValue="0")int mPDP, @RequestParam(defaultValue="0")int mPAP,
+						@RequestParam(defaultValue="0")int lPDP, @RequestParam(defaultValue="0")int lPAP,
+						@RequestParam(defaultValue="1")int sumStar,@RequestParam(defaultValue="1")int cntStar,
+						@RequestParam(defaultValue="0")int wish
+						) {
+			
+			nickname = this.fService.selectNickname();
+			title = this.fService.selectTitle();
+			addr = this.fService.selectAddr();
+			content = this.fService.selectContent();
+			short_content = this.fService.selectShortContent();
+			license = this.fService.selectLicense();
+			
+			sPDP = this.fService.selectSPetDayPrice();
+			sPAP = this.fService.selectSPetAllPrice();
+			mPDP = this.fService.selectMPetDayPrice();
+			mPAP = this.fService.selectMPetAllPrice();
+			lPDP = this.fService.selectLPetDayPrice();
+			lPAP = this.fService.selectLPetAllPrice();
+			
+			sumStar = this.fService.getSumStar();
+			cntStar = this.fService.getCntStar();
+			
+			try {
+				wish = this.fService.getWish();
+			}catch(Exception e) {
+				wish = 0;
+			}
+			
+			model.addAttribute("selectNickname", nickname);
+			model.addAttribute("selectTitle", title);
+			model.addAttribute("selectAddr", addr);
+			model.addAttribute("selectContent",content);
+			model.addAttribute("selectShortContent",short_content);
+			model.addAttribute("license",license);
+			
+			model.addAttribute("sPetDayPrice",sPDP);
+			model.addAttribute("sPetAllPrice",sPAP);
+			model.addAttribute("mPetDayPrice",mPDP);
+			model.addAttribute("mPetAllPrice",mPAP);
+			model.addAttribute("lPetDayPrice",lPDP);
+			model.addAttribute("lPetAllPrice",lPAP);
+
+			model.addAttribute("SumStar",sumStar);
+			model.addAttribute("CntStar",cntStar);
+			
+			model.addAttribute("getWish",wish);
+			
+			return "shop/detail";
+		}
+		
+		
+		@GetMapping("/insertHeart")
+		public String insertHeart() {
+			
+			WishVO wvo = new WishVO();
+			
+			wvo.setUnickname("홍길동");
+			wvo.setIno(2);
+			wvo.setSnickname("김펫");
+			wvo.setSaddr("서울특별시 강남구");
+			wvo.setTitle("따뜻한 펫시터");
+			
+			fService.insertHeart(wvo);
+			
+			return "redirect:/shop/info";
+		}
+		
+		
+		@GetMapping("/deleteHeart")
+		public String deleteHeart(@RequestParam(defaultValue="0")int num) {
+			
+			num=2;
+			
+			fService.deleteHeart(num);
+			
+			return "redirect:/shop/info";
+		}
+>>>>>>> Stashed changes
 
 }

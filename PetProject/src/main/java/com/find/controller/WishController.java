@@ -24,7 +24,7 @@ public class WishController {
 	
 	@ResponseBody
 	@RequestMapping(value="/shop/heart.do")
-	public WishVO wishAdd(@RequestParam String ino, @RequestParam String unickname, 
+	public WishVO wishAdd(@RequestParam int ino, @RequestParam String unickname, 
 						HttpSession session) {
 		
 //		// 로그인한 회원의 회원번호
@@ -50,7 +50,7 @@ public class WishController {
 	
 	@ResponseBody
 	@RequestMapping(value="/shop/removeHeart.do")
-	public WishVO wishDel(@RequestParam String ino, @RequestParam String unickname, 
+	public WishVO wishDel(@RequestParam int ino, @RequestParam String unickname, 
 						HttpSession session) {
 		
 		WishVO wish = new WishVO();
