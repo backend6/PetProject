@@ -54,7 +54,9 @@ public class SitterServiceImpl implements SitterService {
 	@Override
 	public int editUserInfo(UserVO user) {
 		
-		return sitterMapper.editUserInfo(user);
+		int n=sitterMapper.editUserInfo(user);
+		System.out.println("n: "+n);
+		return n;
 	}
 
 }

@@ -43,7 +43,9 @@ public class GeneralServiceI implements GeneralService {
 	@Override
 	public int editUserInfo(UserVO user) {
 	
-		return this.generalmapper.editUserInfo(user);
+		int n=this.generalmapper.editUserInfo(user);
+		System.out.println("N: "+n);
+		return n;
 	}
 
 	

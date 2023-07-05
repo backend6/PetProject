@@ -151,14 +151,14 @@ span.ingredient {
 
 <div class="t1">
 	<div align="center" class="col-md-8 offset-md-2 my-4" >
-		<h2 style="font-weight: bold">마이페이지 (일반)</h2>
+		<h2 style="font-weight: bold">${loginUser.mid}님 마이페이지 </h2>
 	</div>
-	<a href="${myctx}/general/editG">회원정보수정</a>
+	<a href="${myctx}/general/user/editG">회원정보수정</a>
 	<br><br>
 
 	<div class="t2">
 		<b>내 반려동물 정보</b>
-		<a href="${myctx}/general/petinfo">등록/수정</a>
+		<a href="${myctx}/general/user/petinfo">등록/수정</a>
 		<br><br>
 		<div class="i1">
 			<img src="#<!-- 값 들어갈 곳 -->"><br><br><br><br><br><br><br>
@@ -395,7 +395,7 @@ span.ingredient {
 	</div>
 	<div class="t6">
 	   <b>돌봄 기록</b>
-	   <a href="${myctx}/sitter/record">더보기</a>
+	   <a href="${myctx}/sitter/user/record">더보기</a>
 	   <br><br>
 		<div class="i2">
 			<img src="${myctx}/images/pet1.jpg"><!-- 값 들어갈 곳 -->

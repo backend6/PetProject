@@ -39,7 +39,7 @@
 		set nickname=#{nickname}, pwd=#{pwd}, email=#{email}, uname=#{uname}, tel1=#{tel1}, tel2=#{tel2},
 			tel3=#{tel3}, addr1=#{addr1}, addr2=#{addr2}, addr3=#{addr3}, slicense=#{slicense}, lfile=#{lfile}, 
 			post=#{post}, experience=#{experience}
-		where idx=#{value}
+		where idx=#{idx}
 	</update>
 	
 </mapper>

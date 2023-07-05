@@ -7,6 +7,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +27,7 @@ import com.user.service.UserService;
 import lombok.extern.log4j.Log4j;
 
 @Controller
-@RequestMapping("/sitter")
+@RequestMapping("/sitter/user")
 @Log4j
 public class SitterPageController {
 	
@@ -120,14 +121,20 @@ public class SitterPageController {
 	
 	
 	@RequestMapping(value="/editS", method=RequestMethod.GET)
-	public String sitterEditForm(Model model, @RequestParam(defaultValue="19") int idx) {
+	public String sitterEditForm(Model model,@ModelAttribute UserVO user, HttpSession session) {
 		
-		if (idx == 0) {
+		UserVO loginUser = (UserVO)session.getAttribute("loginUser");
+		int loginIdx = loginUser.getIdx();
+		log.info("loginIdx: "+loginIdx);
+		
+		if (loginUser.getIdx() == 0) {
 			return "redirect:page";
 		}
 		
-		UserVO user = sitterService.getUserInfo(idx);
+		user = sitterService.getUserInfo(loginIdx);
+		log.info("user=="+user);
 		
+		/* model.addAttribute("idx", loginIdx); */
 		model.addAttribute("user", user);
 		
 		return "sitter/smember_edit";
@@ -135,13 +142,15 @@ public class SitterPageController {
 	
 	
 	@RequestMapping(value="/editS", method=RequestMethod.POST)
-	public String editProcess(Model m, @ModelAttribute UserVO user) {
+	public String editProcess(Model m, @ModelAttribute UserVO user,HttpSession session) {
 		
+//		user = (UserVO)session.getAttribute("loginUser");
 		int n = sitterService.editUserInfo(user);
+		
 		String str = (n>0)? "회원정보 수정 완료":"회원정보 수정 실패";
 		String loc = (n>0)? "page":"javascript:history.back()";
 		
-		log.info(str+" / "+loc);
+		System.out.println(user+" / "+loc);
 		m.addAttribute("msg", str);
 		m.addAttribute("loc", loc);
 		

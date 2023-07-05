@@ -8,6 +8,8 @@ import com.user.model.UserVO;
 public interface UserService {
 	
 	int createUser(UserVO user);
+	
+	int createUserS(UserVO user);
 
 	boolean idCheck(String mid);
 	
@@ -15,8 +17,8 @@ public interface UserService {
 
 	boolean nickCheck(String nickname);
 
-	//UserVO getUser(Integer midx);
+//	UserVO getUser(Integer idx);
 	
-//	UserVO findUser(UserVO findUser) throws NotUserException;
+	UserVO findUser(UserVO findUser) throws NotUserException;
 
 }

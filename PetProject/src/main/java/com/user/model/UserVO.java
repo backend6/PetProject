@@ -28,6 +28,7 @@ public class UserVO {
 	private String post;
 	
 	private String experience;
+	private String ucheck;
 
 	public UserVO() {
 		

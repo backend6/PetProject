@@ -10,6 +10,8 @@ public interface UserMapper {
 
 	int createUser(UserVO user);
 
+	int createUserS(UserVO user);
+
 	Integer idCheck(String mid);
 	
 	Integer nickCheck(String nickname);
@@ -18,7 +20,7 @@ public interface UserMapper {
 
 	UserVO getUser(int idx);
 
-//	UserVO findUser(UserVO user);
+	UserVO findUser(UserVO user);
 	
 
 

@@ -3,7 +3,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.0.xsd
+		http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
@@ -25,6 +27,9 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- Password Security -->
+	<beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	
 	<!-- 파일업로드를 위한  MultipartResolver 설정 =============================== -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="defaultEncoding" value="utf-8"/>
@@ -37,20 +42,22 @@
 	<!-- String upDir=new String("C:/myjava/Upload"); -->
 	
 	<!-- Interceptor 설정 ============================== -->
-	<!-- <interceptors>
+	 <interceptors>
 		<interceptor>
 			<mapping path="/user/**"/>
+			<mapping path="/sitter/user/**"/>
+			<mapping path="/general/user/**"/>
 			<mapping path="/admin/**"/>
 			<beans:bean class="com.common.interceptor.LoginCheckInterceptor" />
 		</interceptor>
-		<interceptor>
+		<!-- <interceptor>
 			<mapping path="/admin/**" />
 			<beans:bean class="com.common.interceptor.AdminCheckInterceptor" />
-		</interceptor>
-	</interceptors> -->
+		</interceptor> -->
+	</interceptors> 
 	
 	<!-- 스캔 대상 패키지를 등록 -->
-	<context:component-scan base-package="com.pet.app, com.find, com.reviewboard, com.user, com.sitter" />
+	<context:component-scan base-package="com.pet.app, com.find, com.common, com.reviewboard, com.user, com.sitter" />
 	
 	
 	

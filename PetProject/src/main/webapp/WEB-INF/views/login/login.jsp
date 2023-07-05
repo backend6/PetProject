@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
+
+
 
 <style>
 body {
@@ -64,33 +65,27 @@ a { color: inherit; font-weight: bold; }
 </style>
 </head>
 <body>
-	<div class="container">
-	
-		<h2>Login</h2>
-		<form action="${myctx}/login" method="POST" onsubmit="return logincheck()">
-			<div class="form-group">
-				<label for="username">아 이 디 :</label> <input type="text"
-					id="username" name="username" required>
-					
-			</div>
-			<div class="form-group">
-				<label for="password">비 밀 번 호 :</label> <input type="password"
-					id="password" name="password" required>
-			<label for="saveId">
-							<input type="checkbox" name="saveId"
-							<c:if test="${mid ne null and not empty mid}">checked</c:if>	
-							 id="saveId">아이디 저장
-						</label>				
-			</div>
-			<div class="form-group">
-				<input type="submit" value="Login">
-			</div>
-			<div class="error-message">
-			
-			</div>
-				<div class="additional-links">
-				
-		<div>
+    <div class="container">
+        <h2>로그인</h2>
+        <form action="${myctx}/login" method="POST" onsubmit="return logincheck()">
+            <div class="form-group">
+                <label for="username">아이디:</label>
+                <input type="text" id="username" name="mid" value="${cookie['mid'].value}" required>
+            </div>
+            <div class="form-group">
+                <label for="password">비밀번호:</label>
+                <input type="password" id="password" name="pwd" required>
+            </div>
+            <div class="form-group">
+                <label for="saveId">
+                    <input type="checkbox" name="saveId" id="saveId" ${cookie['mid'] ne null ? 'checked' : ''}>
+                    아이디 저장
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="로그인">
+            </div>
+            	<div>
 		<a href="${myctx}/check">회원가입</a>
 		
 		</div>
@@ -100,7 +95,28 @@ a { color: inherit; font-weight: bold; }
 		<a href="${myctx}/forgot-password">비밀번호</a>
 		<a>찾기</a>
 		<!-- <a>찾기</a> -->
+
+	  </form>
+	  
 	</div>
+
 			
-		</form>
-	</div>
+      
+  
+    <script>
+
+        // "아이디 저장" 체크박스 요소를 가져옵니다.
+        var saveIdCheckbox = document.getElementById('saveId');
+
+        // 폼이 제출될 때 "아이디 저장" 쿠키를 설정합니다.
+        document.querySelector('form').addEventListener('submit', function () {
+            if (saveIdCheckbox.checked) {
+                document.cookie = 'mid=' + encodeURIComponent(document.getElementById('username').value) + '; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/';
+            } else {
+                // "아이디 저장" 쿠키를 삭제합니다.
+                document.cookie = 'mid=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+            }
+        });
+
+    </script>
+</body>

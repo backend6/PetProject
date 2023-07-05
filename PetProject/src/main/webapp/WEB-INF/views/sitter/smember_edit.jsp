@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page session="false"%>
 
 <!-- js파일 참조-------------------------------- -->
 <script type="text/javascript" src="${myctx}/js/memberCheck.js"></script>
@@ -113,7 +112,8 @@ textarea {
 	<h2>
 		<b>회원정보 수정</b>
 	</h2>
-	<form name="form" action="${myctx}/sitter/editS" method="POST">
+	<form name="form" action="${myctx}/sitter/user/editS" method="POST">
+	<input type="hidden" name="idx" value="${user.idx }">
 		<div class="form-group">
 			<label for="id">아 이 디 :</label> 
 			<input type="text" id="id" name="mid" value="${user.mid}" readonly required>
