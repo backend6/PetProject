@@ -119,46 +119,46 @@
 				<tr>
 					<td width="20%">
 						<p><input type="checkbox" name="service" value="play"></p> 
-						<img src="../images/1.jpg">
+						<img src="${myctx}/images/1.jpg">
 					</td>
 					<td width="20%">
 						<p><input type="checkbox" name="service" value="walk"></p> 
-						<img src="../images/2.jpg">
+						<img src="${myctx}/images/2.jpg">
 					</td>
 					<td width="20%">
 						<p><input type="checkbox" name="service" value="medical"></p> 
-						<img src="../images/3.jpg">
+						<img src="${myctx}/images/3.jpg">
 					</td>
 					<td width="20%">
 						<p><input type="checkbox" name="service" value="hair"></p> 
-						<img src="../images/4.jpg">
+						<img src="${myctx}/images/4.jpg">
 					</td>
 					<td width="20%">
 						<p><input type="checkbox" name="service" value="pickup"></p> 
-						<img src="../images/9.jpg">
+						<img src="${myctx}/images/9.jpg">
 					</td>
 					
 				</tr>
 				<tr>
 					<td width="20%">
 						<p><input type="checkbox" name="service" value="drug"></p> 
-						<img src="../images/5.jpg">
+						<img src="${myctx}/images/5.jpg">
 					</td>
 					<td width="20%">
 						<p><input type="checkbox" name="service" value="old"></p> 
-						<img src="../images/6.jpg">
+						<img src="${myctx}/images/6.jpg">
 					</td>
 					<td width="20%">
 						<p><input type="checkbox" name="service" value="puppy"></p> 
-						<img src="../images/7.jpg">
+						<img src="${myctx}/images/7.jpg">
 					</td>
 					<td width="20%">
 						<p><input type="checkbox" name="service" value="bath"></p>
-						<img src="../images/8.jpg">
+						<img src="${myctx}/images/8.jpg">
 					</td>
 					<td width="20%">
 						<p><input type="checkbox" name="service" value="long"></p>
-						<img src="../images/10.jpg">
+						<img src="${myctx}/images/10.jpg">
 					</td>
 				</tr>
 			</tbody>

@@ -1,5 +1,7 @@
 package com.find.mapper;
 
+import com.find.model.WishVO;
+
 public interface FindMapper {
 	
 	String selectNickname();
@@ -7,6 +9,8 @@ public interface FindMapper {
 	String selectAddr();
 	String selectContent();
 	String selectShortContent();
+	
+	String selectLicense();
 	
 	int selectSPetDayPrice();
 	int selectSPetAllPrice();
@@ -17,4 +21,9 @@ public interface FindMapper {
 	
 	int getSumStar();
 	int getCntStar();
+	
+	int insertHeart(WishVO wishvo);
+	int deleteHeart(int num);
+	
+	int getWish();
 }
