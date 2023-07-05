@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.find.mapper.FindMapper;
 import com.find.model.IntroduceVO;
+import com.find.model.WishVO;
 
 @Service("FindService")
 public class FindServiceImpl implements FindService{
@@ -69,12 +70,32 @@ public class FindServiceImpl implements FindService{
 
 	@Override
 	public int getSumStar() {
-		return this.getSumStar();
+		return this.findMapper.getSumStar();
 	}
 
 	@Override
 	public int getCntStar() {
-		return this.getCntStar();
+		return this.findMapper.getCntStar();
+	}
+
+	@Override
+	public String selectLicense() {
+		return this.findMapper.selectLicense();
+	}
+
+	@Override
+	public int insertHeart(WishVO wishvo) {
+		return this.findMapper.insertHeart(wishvo);
+	}
+	
+	@Override
+	public int deleteHeart(int num) {
+		return this.findMapper.deleteHeart(num);
+	}
+
+	@Override
+	public int getWish() {
+		return this.findMapper.getWish();
 	}
 	
 	

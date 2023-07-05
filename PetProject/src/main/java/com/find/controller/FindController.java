@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.find.model.IntroduceVO;
 import com.find.model.PagingVO;
+import com.find.model.WishVO;
 import com.find.service.FindService;
 import com.find.service.SitterFindService;
 
@@ -33,21 +34,6 @@ public class FindController {
 	@Resource(name="sitterFindService")
 	private SitterFindService sitterFindService;
 	
-	
-	/*
-	 * @GetMapping("/find") public String findSitter(Model m,
-	 * 
-	 * @RequestParam(name="addr", defaultValue="논현동") String addr) {
-	 * 
-	 * log.info("addr: "+addr);
-	 * 
-	 * List<SitterVO> sitter = this.sitterFindService.selectByAddr(addr);
-	 * 
-	 * log.info("sitter: "+sitter); m.addAttribute("sitter", sitter);
-	 * m.addAttribute("addr", addr);
-	 * 
-	 * return "shop/find"; }
-	 */
 	
 	// 페이징
 		@GetMapping("/find")
@@ -83,19 +69,17 @@ public class FindController {
 	
 		@GetMapping("/info")
 		public String sitterInfo(Model model, @ModelAttribute IntroduceVO introVO,
-						@RequestParam(name="nickname", defaultValue="1")String nickname,
-						@RequestParam(name="title", defaultValue="1")String title,
-						@RequestParam(name="addr", defaultValue="1")String addr,
-						@RequestParam(name="content", defaultValue="1")String content,
-						@RequestParam(name="short_content", defaultValue="1")String short_content,
-						@RequestParam(name="sPetDayPrice", defaultValue="0")int sPDP,
-						@RequestParam(name="sPetAllPrice", defaultValue="0")int sPAP,
-						@RequestParam(name="mPetDayPrice", defaultValue="0")int mPDP,
-						@RequestParam(name="mPetAllPrice", defaultValue="0")int mPAP,
-						@RequestParam(name="lPetDayPrice", defaultValue="0")int lPDP,
-						@RequestParam(name="lPetAllPrice", defaultValue="0")int lPAP,
-						@RequestParam(name="getSumStar",defaultValue="4")int sumStar,
-						@RequestParam(name="getCntStar",defaultValue="0")int cntStar
+						@RequestParam(defaultValue="1")String nickname,
+						@RequestParam(defaultValue="1")String title,
+						@RequestParam(defaultValue="1")String addr,
+						@RequestParam(defaultValue="1")String content,
+						@RequestParam(defaultValue="1")String short_content,
+						@RequestParam(defaultValue="1")String license,
+						@RequestParam(defaultValue="0")int sPDP, @RequestParam(defaultValue="0")int sPAP,
+						@RequestParam(defaultValue="0")int mPDP, @RequestParam(defaultValue="0")int mPAP,
+						@RequestParam(defaultValue="0")int lPDP, @RequestParam(defaultValue="0")int lPAP,
+						@RequestParam(defaultValue="1")int sumStar,@RequestParam(defaultValue="1")int cntStar,
+						@RequestParam(defaultValue="0")int wish
 						) {
 			
 			nickname = this.fService.selectNickname();
@@ -103,6 +87,7 @@ public class FindController {
 			addr = this.fService.selectAddr();
 			content = this.fService.selectContent();
 			short_content = this.fService.selectShortContent();
+			license = this.fService.selectLicense();
 			
 			sPDP = this.fService.selectSPetDayPrice();
 			sPAP = this.fService.selectSPetAllPrice();
@@ -111,14 +96,21 @@ public class FindController {
 			lPDP = this.fService.selectLPetDayPrice();
 			lPAP = this.fService.selectLPetAllPrice();
 			
-//			sumStar = this.fService.getSumStar();
-//			cntStar = this.fService.getCntStar();
+			sumStar = this.fService.getSumStar();
+			cntStar = this.fService.getCntStar();
+			
+			try {
+				wish = this.fService.getWish();
+			}catch(Exception e) {
+				wish = 0;
+			}
 			
 			model.addAttribute("selectNickname", nickname);
 			model.addAttribute("selectTitle", title);
 			model.addAttribute("selectAddr", addr);
 			model.addAttribute("selectContent",content);
 			model.addAttribute("selectShortContent",short_content);
+			model.addAttribute("license",license);
 			
 			model.addAttribute("sPetDayPrice",sPDP);
 			model.addAttribute("sPetAllPrice",sPAP);
@@ -127,10 +119,38 @@ public class FindController {
 			model.addAttribute("lPetDayPrice",lPDP);
 			model.addAttribute("lPetAllPrice",lPAP);
 
-//			model.addAttribute("SumStar",sumStar);
-//			model.addAttribute("CntStar",cntStar);
+			model.addAttribute("SumStar",sumStar);
+			model.addAttribute("CntStar",cntStar);
+			
+			model.addAttribute("getWish",wish);
 			
 			return "shop/detail";
+		}
+		
+		@GetMapping("/insertHeart")
+		public String insertHeart() {
+			
+			WishVO wvo = new WishVO();
+			
+			wvo.setUnickname("홍길동");
+			wvo.setIno(2);
+			wvo.setSnickname("김펫");
+			wvo.setSaddr("서울특별시 강남구");
+			wvo.setTitle("따뜻한 펫시터");
+			
+			fService.insertHeart(wvo);
+			
+			return "redirect:/shop/info";
+		}
+		
+		@GetMapping("/deleteHeart")
+		public String deleteHeart(@RequestParam(defaultValue="0")int num) {
+			
+			num=2;
+			
+			fService.deleteHeart(num);
+			
+			return "redirect:/shop/info";
 		}
 
 }
