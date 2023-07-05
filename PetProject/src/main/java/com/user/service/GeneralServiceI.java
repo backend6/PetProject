@@ -2,7 +2,10 @@ package com.user.service;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,9 @@ public class GeneralServiceI implements GeneralService {
 	
 	@Autowired
 	private GeneralMapper generalmapper;
+	
+	@Inject
+	private BCryptPasswordEncoder passwordEncoder;	
 	
 	@Override
 	public int insertGeneral(UserModelVO um) {
@@ -42,7 +48,8 @@ public class GeneralServiceI implements GeneralService {
 
 	@Override
 	public int editUserInfo(UserVO user) {
-	
+		
+		user.setPwd(passwordEncoder.encode(user.getPwd()));
 		int n=this.generalmapper.editUserInfo(user);
 		System.out.println("N: "+n);
 		return n;
