@@ -33,12 +33,16 @@ h2 {
 
 .form-group {
 	margin-bottom: 15px;
+	font-family: 'omyu_pretty';
+	font-size: 1.2em;
 }
 
 .form-group2 {
 	margin-bottom: 15px;
 	display: flex;
 	justify-content: center;
+	font-family: 'omyu_pretty';
+	font-size: 1.3em;
 }
 
 label {
@@ -105,12 +109,13 @@ textarea {
 	font-size: 0.9em;
 	margin-left: 5px;
 }
+#menu { font-family: 'KOTRAHOPE'; font-size:2.7em; }
 </style>
 </head>
 <body></body>
 <div class="container">
-	<h2>
-		<b>회원정보 수정</b>
+	<h2 id="menu">
+		회원정보 수정
 	</h2>
 	<form name="form" action="${myctx}/sitter/user/editS" method="POST">
 	<input type="hidden" name="idx" value="${user.idx }">
@@ -135,18 +140,8 @@ textarea {
 				class="btn btn-outline-info">중복체크</button>
 		</div>
 		<div class="form-group">
-			<label for="email">이메일:</label> 
-			<input type="text" id="email" name="email" required placeholder="E-mail" 
-					value="${user.email}" style="width: 150px;">
-			<input type="text" id="emailad" name="emailad" required
-				placeholder="직접 입력" style="width: 150px;"> 
-				<select id="emailSelect" name="emailSelect" onchange="updateEmailInput()">
-				<option value="@google.com">구글</option>
-				<option value="@naver.com">네이버</option>
-				<option value="@daum.net">다음</option>
-				<option value="@yahoo.com">야후</option>
-				<option value="self">직접입력</option>
-			</select>
+			<label for="email">이메일:</label>
+			<input type="text" id="email" name="email" required value="${user.email}">
 		</div>
 
 		<script>

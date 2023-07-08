@@ -20,14 +20,10 @@
 		select * from introduce where nickname = #{nickname}
 	</select> 
 	
-	<select id="getSitterSchedule" resultType="Sitter" parameterType="String">
-		select * from used where snickname = #{nickname}
+	<select id="getUserNickname" resultType="String" parameterType="String">
+		select nickname from members where mid = #{mid}
 	</select>
 	
-	<!-- 로그인 유저 정보 들어오면 삭제할 곳 -->
-	<select id="getUserNickname" resultType="String">
-		select nickname from members where nickname = '김펫'
-	</select>
 	
 	<!-- 회원정보 수정 -->
 	<select id="getUserInfo" resultType="user" parameterType="int">
@@ -41,5 +37,46 @@
 			post=#{post}, experience=#{experience}
 		where idx=#{idx}
 	</update>
+	
+	<select id="getSitterUsed" resultType="Sitter" parameterType="String">
+		select * from used where snickname = #{nickname} order by sdate
+	</select>
+	
+	<select id="getUsedNO" resultType="Sitter" parameterType="int">
+		select * from used where uno=#{uno}
+	</select>
+	
+	<update id="updateUsed" parameterType="Sitter">
+		update used set sdate=#{sdate}, fdate=#{fdate}, unickname=#{unickname}, pname=#{pname} 
+		where uno=#{uno}
+	</update>
+	
+	<select id="getMembersInfo" resultType="Sitter">
+		select * from members
+	</select>
+	
+	<select id="getPname" resultType="Sitter" parameterType="String">
+		select pname from mypet where nickname=#{nickname}
+	</select>
+	
+	<insert id="addUsed" parameterType="Sitter">
+		insert into used 
+		values(#{unickname},#{snickname},#{pname},#{sdate},#{fdate},uno_seq.nextval,
+			(select pno from mypet where nickname=#{unickname} and pname=#{pname}),
+			(select ino from introduce where nickname=#{snickname})
+		)
+	</insert>
+	
+	<delete id="delUsed" parameterType="int">
+		delete from used where uno=#{uno}
+	</delete>
+	
+	<select id="petInfo" resultType="pet" parameterType="_int">
+		select * from mypet where pno=#{value}
+	</select>
+	
+	<select id="icheck" resultType="_int" parameterType="string">
+		select ino from introduce where nickname=#{nickname}
+	</select>
 	
 </mapper>

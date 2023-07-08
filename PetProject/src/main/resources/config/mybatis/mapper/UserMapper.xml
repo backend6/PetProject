@@ -12,7 +12,7 @@
 		</selectKey>
 		insert into members
 		values(#{mid},#{nickname},#{pwd},#{email},#{uname},#{tel1},#{tel2},#{tel3}
-		,#{birthday},#{addr1:VARCHAR},#{addr2:VARCHAR},#{slicense},#{lfile},#{idx},#{post},#{addr3},#{experience},'G')
+		,#{birthday},#{addr1:VARCHAR},#{addr2:VARCHAR},#{slicense},#{lfile},#{idx},#{post}, 'G', #{addr3},#{experience})
 	</insert>
 	
 	<insert id="createUserS" parameterType="com.user.model.UserVO">
@@ -23,7 +23,7 @@
 		</selectKey>
 		insert into members
 		values(#{mid},#{nickname},#{pwd},#{email},#{uname},#{tel1},#{tel2},#{tel3}
-		,#{birthday},#{addr1:VARCHAR},#{addr2:VARCHAR},#{slicense},#{lfile},#{idx},#{post},#{addr3},#{experience},'S')
+		,#{birthday},#{addr1:VARCHAR},#{addr2:VARCHAR},#{slicense},#{lfile},#{idx},#{post},'S',#{addr3},#{experience})
 	</insert>
 
 	<select id="idCheck" resultType="int" parameterType="string">

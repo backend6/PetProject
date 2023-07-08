@@ -9,6 +9,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import com.find.model.IntroduceVO;
+import com.find.model.WishVO;
+import com.sitter.model.SitterVO;
 import com.user.mapper.GeneralMapper;
 import com.user.model.UserModelVO;
 import com.user.model.UserVO;
@@ -23,7 +26,8 @@ public class GeneralServiceI implements GeneralService {
 	private GeneralMapper generalmapper;
 	
 	@Inject
-	private BCryptPasswordEncoder passwordEncoder;	
+	private BCryptPasswordEncoder passwordEncoder;
+	
 	
 	@Override
 	public int insertGeneral(UserModelVO um) {
@@ -31,13 +35,13 @@ public class GeneralServiceI implements GeneralService {
 	}
 
 	@Override
-	public UserModelVO selectOnePet(int pno) {
-		return this.generalmapper.selectOnePet(pno);
+	public UserModelVO selectOnePet(String nickname) {
+		return this.generalmapper.selectOnePet(nickname);
 	}
 
 	@Override
-	public List<UserModelVO> selectAllPet() {
-		return this.generalmapper.selectAllPet();
+	public List<UserModelVO> selectAllPet(String nickname) {
+		return this.generalmapper.selectAllPet(nickname);
 	}
 
 	@Override
@@ -50,13 +54,34 @@ public class GeneralServiceI implements GeneralService {
 	public int editUserInfo(UserVO user) {
 		
 		user.setPwd(passwordEncoder.encode(user.getPwd()));
+	
 		int n=this.generalmapper.editUserInfo(user);
 		System.out.println("N: "+n);
 		return n;
 	}
 
-	
+	@Override
+	public UserModelVO getPetInfo(int pno) {
+		
+		return this.generalmapper.getPetInfo(pno);
+	}
 
+	@Override
+	public int editPetInfo(UserModelVO pet) {
 
+		return this.generalmapper.editPetInfo(pet);
+	}
+
+	@Override
+	public int delPetInfo(UserModelVO pet) {
+
+		return this.generalmapper.delPetInfo(pet);
+	}
+
+	@Override
+	public List<SitterVO> getUsedHistory(String unickname) {
+
+		return this.generalmapper.getUsedHistory(unickname);
+	}
 	
 }

@@ -14,4 +14,5 @@ public class IntroduceVO {
 	private String content;
 	private String license;
 	private String ifile;
+	private String wishNick;
 }

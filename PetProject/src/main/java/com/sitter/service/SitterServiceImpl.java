@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.sitter.mapper.SitterMapper;
 import com.sitter.model.SitterVO;
+import com.user.model.UserModelVO;
 import com.user.model.UserVO;
 
 @Service("sitterService")
@@ -18,6 +19,9 @@ public class SitterServiceImpl implements SitterService {
 	@Autowired
 	private SitterMapper sitterMapper;
 	
+	@Inject
+	private BCryptPasswordEncoder passwordEncoder;
+	
 	
 	@Override
 	public int sitterIntroduce(SitterVO sitter) {
@@ -25,8 +29,6 @@ public class SitterServiceImpl implements SitterService {
 		return sitterMapper.sitterIntroduce(sitter);
 	}
 
-	@Inject
-	private BCryptPasswordEncoder passwordEncoder;	
 
 	@Override
 	public List<SitterVO> getSitterIntroduce(String nickname) {
@@ -34,18 +36,59 @@ public class SitterServiceImpl implements SitterService {
 		return sitterMapper.getSitterIntroduce(nickname);
 	}
 
-
+	
 	@Override
-	public List<SitterVO> getSitterSchedule(String nickname) {
+	public List<SitterVO> getSitterUsed(String nickname) {
 		
-		return sitterMapper.getSitterSchedule(nickname);
+		return sitterMapper.getSitterUsed(nickname);
 	}
 
 
 	@Override
-	public String getUserNickname() {
+	public SitterVO getUsedNO(int uno) {
 		
-		return sitterMapper.getUserNickname();
+		return sitterMapper.getUsedNO(uno);
+	}
+
+
+	@Override
+	public int updateUsed(SitterVO used) {
+		
+		return sitterMapper.updateUsed(used);
+	}
+
+
+	@Override
+	public List<SitterVO> getMembersInfo() {
+		
+		return sitterMapper.getMembersInfo();
+	}
+
+	
+	@Override
+	public int addUsed(SitterVO usedAdd) {
+		
+		return sitterMapper.addUsed(usedAdd);
+	}
+
+
+	@Override
+	public int delUsed(int uno) {
+		
+		return sitterMapper.delUsed(uno);
+	}
+	
+	@Override
+	public List<SitterVO> getPname(String nickname) {
+
+		return sitterMapper.getPname(nickname);
+	}
+
+	
+	@Override
+	public String getUserNickname(String mid) {
+		
+		return sitterMapper.getUserNickname(mid);
 	}
 
 
@@ -60,9 +103,25 @@ public class SitterServiceImpl implements SitterService {
 	public int editUserInfo(UserVO user) {
 		
 		user.setPwd(passwordEncoder.encode(user.getPwd()));
+		
 		int n=sitterMapper.editUserInfo(user);
 		System.out.println("n: "+n);
 		return n;
 	}
+
+
+	@Override
+	public UserModelVO petInfo(int pno) {
+		
+		return this.sitterMapper.petInfo(pno);
+	}
+
+
+	@Override
+	public int icheck(String nickname) {
+		
+		return this.sitterMapper.icheck(nickname);
+	}
+
 
 }

@@ -29,6 +29,8 @@ h2 {
 
 .form-group {
 	margin-bottom: 15px;
+	font-family: 'omyu_pretty';
+	font-size: 1.2em;
 }
 
 label {
@@ -62,11 +64,14 @@ input[type="submit"]:hover {
 	margin-top: 10px;
 }
 a { color: inherit; font-weight: bold; }
+
+#menu { font-family: 'KOTRAHOPE'; font-size:2.7em; }
+#regi { font-family: 'omyu_pretty'; font-size: 1.2em;}
 </style>
 </head>
 <body>
     <div class="container">
-        <h2>로그인</h2>
+        <h2 id="menu">로그인</h2>
         <form action="${myctx}/login" method="POST" onsubmit="return logincheck()">
             <div class="form-group">
                 <label for="username">아이디:</label>
@@ -86,15 +91,9 @@ a { color: inherit; font-weight: bold; }
                 <input type="submit" value="로그인">
             </div>
             	<div>
-		<a href="${myctx}/check">회원가입</a>
+		<a href="${myctx}/check" id="regi">회원가입</a>
 		
 		</div>
-		
-		<a href="${myctx}/forgot-id">아이디</a>
-		<a> / </a>
-		<a href="${myctx}/forgot-password">비밀번호</a>
-		<a>찾기</a>
-		<!-- <a>찾기</a> -->
 
 	  </form>
 	  

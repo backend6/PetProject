@@ -274,8 +274,7 @@ textarea {
 						쓰기</div>
 					<div class="white-box">
 						<div id="nickname">
-							로그인 한 사람 닉네임 sessionScope.nickname 하기
-							<%-- ${sessionScope.nickname} --%>
+							${sessionScope.writer}
 						</div>
 						<hr>
 						<textarea id="content" name="content" placeholder="훈훈한 댓글 부탁드립니다 ♥" required></textarea>

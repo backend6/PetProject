@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.reviewboard.model.ReplyVO;
 import com.reviewboard.model.ReviewBoardVO;
 import com.reviewboard.service.ReviewBoardService;
+import com.user.model.UserVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -44,7 +45,7 @@ public class ReviewBoardController {
 //
 //		return "/review/reviewBoardWrite";
 //	}
-
+	
 	@GetMapping("/reviewBig")
 	public String reviewBig(Model m, @RequestParam("rno") int rno, HttpSession session, HttpServletResponse response) {
 
@@ -59,7 +60,8 @@ public class ReviewBoardController {
 		m.addAttribute("reply", rpData);
 		m.addAttribute("total", total);
 
-		session.setAttribute("loginUser", "주인닉네임");
+		UserVO uvo = (UserVO)session.getAttribute("loginUser");
+		session.setAttribute("writer", uvo.getNickname());
 
 		return "/review/reviewBig";
 	}
@@ -69,8 +71,12 @@ public class ReviewBoardController {
 			@RequestParam("mfilename") MultipartFile mf, @RequestParam("star") String star, HttpSession session) {
 
 		rb.setIno(1);
-		rb.setNickname("주인닉네임"); // sessionScope.nickname 해서 불러오면 없애기
-									// (@RequestParam("nickname") String nickname,) 도 위에 추가해야함
+		
+		UserVO uvo = (UserVO)session.getAttribute("loginUser");
+		session.setAttribute("writer", uvo.getNickname()); //?
+		
+		rb.setNickname(uvo.getNickname());
+		
 		rb.setStar(star);
 
 		log.info("reviewBoard==" + rb);
@@ -107,7 +113,7 @@ public class ReviewBoardController {
 		}
 		rbService.insertReviewBoard(rb);
 
-		return "redirect:/general/page";
+		return "redirect:/general/user/page";
 	}
 
 	@PostMapping("/insertReply")
@@ -115,8 +121,10 @@ public class ReviewBoardController {
 			@RequestParam("content") String content, HttpSession session) {
 
 		rp.setRno(rno);
-		rp.setNickname("주인닉네임"); // sessionScope.nickname 해서 불러오면 없애기
-									// (@RequestParam("nickname") String nickname,) 도 위에 추가해야함
+		
+		UserVO uvo = (UserVO)session.getAttribute("loginUser");
+		rp.setNickname(uvo.getNickname());
+		
 		rp.setContent(content);
 
 		rbService.insertReply(rp);
@@ -141,8 +149,10 @@ public class ReviewBoardController {
 			@RequestParam("mfilename") MultipartFile mf, @RequestParam("star") String star, HttpSession session) {
 
 		vo.setIno(1);
-		vo.setNickname("주인닉네임"); // sessionScope.nickname 해서 불러오면 없애기
-									// (@RequestParam("nickname") String nickname,) 도 위에 추가해야함
+		
+		UserVO uvo = (UserVO)session.getAttribute("loginUser");
+		vo.setNickname(uvo.getNickname());
+		
 		vo.setStar(star);
 
 		// 1. 파일 업로드 처리 - [1] 업로드 디렉토리 절대경로 얻기(resources/board_upload)
@@ -207,7 +217,7 @@ public class ReviewBoardController {
 			}
 		}
 		
-		return "redirect:/general/page";
+		return "redirect:/general/user/page";
 	}//-----------------------------------
 	
 	

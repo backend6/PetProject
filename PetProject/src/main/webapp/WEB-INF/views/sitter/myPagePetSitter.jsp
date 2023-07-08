@@ -24,6 +24,8 @@
 	margin-bottom:100px;
 	text-align:center;
 	padding:30px;
+	font-family: 'omyu_pretty';
+	font-size: 1.2em;
 }
 .v2{
 	background-color:rgb(255, 251, 224);
@@ -38,9 +40,10 @@
 	background-color:rgb(243, 232, 166);
 	padding:20px;
 	text-align:left;
-	height:450px;
-	margin-bottom:30px;
+	height:460px;
+	float: left;
 	border-radius:20px;
+	width: 100%;
 }
 .v4{
 	background-color:rgb(255, 251, 224);
@@ -50,6 +53,7 @@
 	width:49%;
 	float:left;
 	border-radius:20px;
+	margin-bottom:30px;
 }
 .v5{
 	background-color:rgb(243, 232, 166);
@@ -59,6 +63,7 @@
 	width:49%;
 	float:right;
 	border-radius:20px;
+	margin-bottom:30px;
 }
 a{
 	float:right;
@@ -68,6 +73,7 @@ a{
 	height:150px;
 	width:150px;
 	float:left;
+	margin-top:10px;
 	margin-right:20px;
 	clear:both;
 	background-color:gray;
@@ -76,6 +82,7 @@ a{
 	height: 90%;
 	width:50%;
 	float:left;
+	margin-top:10px;
 	margin-right:20px;
 	clear:both;
 	background-color:white;
@@ -104,13 +111,23 @@ a{
 	padding: 5px;
 }
 
+#usedT { text-align: center;  }
+
+#usedT tr:first-child { font-size: 1em; color: #5D5D5D; }
+
+#onPet:hover { cursor: pointer; font-weight:bold; }
+
+.t { margin: 0 auto; text-align: center;}
+
+.small { font-size: 1.1em; }
+.medium { font-size: 1.2em; }
+.large { font-size: 1.3em; }
+
+#menu { font-family: 'KOTRAHOPE'; font-size:2.2em; }
 
 </style>
+
 <script>
-	function del(){
-		/* DB 완료 후 수정할 곳 */
-		alert("a");
-	}
 	/* 달력 */	
 	document.addEventListener('DOMContentLoaded', function() {
 		var calendarEl = document.getElementById('calendar');
@@ -143,25 +160,23 @@ a{
 					<%for (SitterVO vo : sitterList) {%>
 						<%Date oldDate = vo.getSdate();%>
 						<%Date newDate = vo.getFdate();%>
-						<%Date wDate=new Date();%>
-						<%wDate.setDate(oldDate.getDate());%>
 						<%long diff = Math.abs(newDate.getTime() - oldDate.getTime());%>
 						<%double x = Math.floor(diff / (1000 * 60 * 60 * 24));%>
 						<%int y=(int)x;%>
 						<%int z=y;%>
 						<%if(y>0){ z=y+1; }%>
+						<%if(y<1){ z++; }%>
 						
-					
-					
 						<%SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");%>
-						<%String sDate = simpleDateFormat.format(vo.getSdate()); %>
-						<%String fDate = simpleDateFormat.format(vo.getFdate()); %>
+						
+						
+						<%Calendar cal = Calendar.getInstance();%>
+						<%cal.setTime(oldDate);%>
 						
 						
 						<%long col=Math.round(Math.random() * 0xffffff);%>
 						<%String co=Long.toString(col,16);%>
 						<%int q=1;%>
-						
 						
 						<%for (int i=0; i<z; i++){%>
 						{	
@@ -170,12 +185,12 @@ a{
 								w=i-q;
 								q++;
 							}%>
-							<%wDate.setDate(wDate.getDate()+w);%>
-							<%String xDate = simpleDateFormat.format(wDate); %>
+
+							<%cal.add(Calendar.DATE,w);%>						
+							<%String test = simpleDateFormat.format(cal.getTime()); %>
 							
 			            	title : '<%=vo.getUnickname()%>',
-			                start : '<%=xDate%>',
-			                <%-- end : '<%=fDate%>', --%>
+			                start : '<%=test%>',
 			                color : '#' + '<%=co%>'
 			             },
 					<%}
@@ -187,18 +202,31 @@ a{
 		calendar.updateSize();
 	});
 	/* 달력 끝 */
+	
 </script>
+
+<script>
+	// 엥 이거 하면 달력 안뜨나 확인해바..
+	// 돌봄일정에서 이용자 닉네임 클릭하면 정보 팝업
+	let win = null;
+	function userAlert(value){
+		var url='${myctx}/sitter/user/userAlert?pno='+value;
+		win = window.open(url, "userAlert", "width=600, height=570, left=400, top=150");
+	} 
+</script>
+
 <div class="v">
 	<div align="center" class="col-md-8 offset-md-2 my-4" >
-		<h2 style="font-weight: bold">${loginUser.mid}(시터)님 마이페이지 </h2>
+		<h2 id="menu">${loginUser.mid} 시터님 마이페이지 </h2>
 	</div>
 	
 	<a href="${myctx}/sitter/user/editS">회원정보수정</a>
 	<br><br>
+	
 	<div class="v2">
-		<b>내 소개</b>
-		<a href="${myctx}/sitter/user/introduce">등록/수정</a>
-		<br><br>
+		<b style="font-size:1.1em;">내 소개</b>
+		<a href="${myctx}/sitter/user/introDetail">등록/수정</a>
+		<br>
 		<c:set var="sv" value="${svo}"/>
 		<c:if test="${not empty sv}">
 			<c:forEach var="introduce" items="${svo}">
@@ -220,57 +248,38 @@ a{
 			<b>등록된 내 소개가 없습니다 등록해주세요</b>
 		</c:if>
 	</div>
-	<div class="v3">
-		<b>돌봄 일정</b>
-		<br><br>
-		<div class="i2">
-			<div id='calendar'></div>
-			
-		</div>
-		<table>		
-		<c:forEach var="schedule" items="${svo2}">
-			<tr>
-				<td width="35%"><b>
-					<fmt:formatDate value="${schedule.sdate}" pattern="MM월 dd일"/>				
-					 ~ <fmt:formatDate value="${schedule.fdate}" pattern="MM월 dd일"/>
-				 </b></td>
-				<td width="25%">'${schedule.unickname}'님</td>
-				<td width="25%">'${schedule.pname}'</td>
-			</tr>			
-		</c:forEach>
-		</table>
-	</div>
+	
 	<div class="v4">
-		<b>돌봄 기록 내역</b>
-		<a href="${myctx}/sitter/user/record">더보기</a>
+		<b style="font-size:1.1em;">이용 요금 설정</b>
+		<a href="${myctx}/sitter/user/record">설정하기</a>
 		<br><br>
-		<!-- 반복문 들어가는 것으로 수정할 곳 -->
 		<table class="t">
 			<tr>
-				<td width="15%"><b>6/3<!-- 값 수정할 곳 --></b></td>
-				<td width="35%"><b>이용자 닉네임<!-- 값 수정할 곳 --></b></td>
-				<td width="35%"><b>반려동물 이름<!-- 값 수정할 곳 --></b></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td style="font-size: 0.9em; color: darkgray;">1박케어 | 데이케어</td>
 			</tr>
 			<tr>
-				<td colspan="3" style="padding-bottom: 10px;">돌봄 기록 내용 (뭐 했는지, 특이사항 등등)값<!-- 값 수정할 곳 --></td>
+				<td width="15%"><span class="small">🐕</span></td>
+				<td width="20%"><span class="small">소형견</span></td>
+				<td width="25%"><span class="small" style="color: gray;">7kg 미만</span></td>
+				<td width="40%"><span class="small">
+					가격 | 가격
+				</td>
 			</tr>
 			<tr>
-				<td width="15%"><b>6/3<!-- 값 수정할 곳 --></b></td>
-				<td width="35%"><b>이용자 닉네임<!-- 값 수정할 곳 --></b></td>
-				<td width="35%"><b>반려동물 이름<!-- 값 수정할 곳 --></b></td>
+				<td width="15%"><span class="medium">🐕</span></td>
+				<td width="20%"><span class="medium">중형견</span></td>
+				<td width="25%"><span class="medium" style="color: gray;">7~14.9kg</span></td>
+				<td width="40%"><span class="medium">가격</td>
 			</tr>
 			<tr>
-				<td colspan="3" style="padding-bottom: 10px;">돌봄 기록 내용 (뭐 했는지, 특이사항 등등)값<!-- 값 수정할 곳 --></td>
+				<td width="15%"><span class="large">🐕</span></td>
+				<td width="20%"><span class="large">대형견</span></td>
+				<td width="25%"><span class="large" style="color: gray;">15kg 이상</span></td>
+				<td width="40%"><span class="large">가격</td>
 			</tr>
-			<tr>
-				<td width="15%"><b>6/3<!-- 값 수정할 곳 --></b></td>
-				<td width="35%"><b>이용자 닉네임<!-- 값 수정할 곳 --></b></td>
-				<td width="35%"><b>반려동물 이름<!-- 값 수정할 곳 --></b></td>
-			</tr>
-			<tr>
-				<td colspan="3" style="padding-bottom: 10px;">돌봄 기록 내용 (뭐 했는지, 특이사항 등등)값<!-- 값 수정할 곳 --></td>
-			</tr>
-			
 		</table>
 		
 	</div>
@@ -287,64 +296,41 @@ a{
 						<td width="50%">------마지막 채팅---------<!-- 값 수정할 곳 --></td>
 						<td width="10%">날짜<!-- 값 수정할 곳 --></td>
 					</tr>
-					<tr>
-						<td width="10%"><input type="checkbox" name="chat" value="#<!-- 값 들어갈 곳 -->"></td>
-						<td width="20%">닉네임<!-- 값 수정할 곳 --></td>
-						<td width="50%">마지막 채팅<!-- 값 수정할 곳 --></td>
-						<td width="10%">날짜<!-- 값 수정할 곳 --></td>
-					</tr>
-					<tr>
-						<td width="10%"><input type="checkbox" name="chat" value="#<!-- 값 들어갈 곳 -->"></td>
-						<td width="20%">닉네임<!-- 값 수정할 곳 --></td>
-						<td width="50%">마지막 채팅<!-- 값 수정할 곳 --></td>
-						<td width="10%">날짜<!-- 값 수정할 곳 --></td>
-					</tr>
-					<tr>
-						<td width="10%"><input type="checkbox" name="chat" value="#<!-- 값 들어갈 곳 -->"></td>
-						<td width="20%">닉네임<!-- 값 수정할 곳 --></td>
-						<td width="50%">마지막 채팅<!-- 값 수정할 곳 --></td>
-						<td width="10%">날짜<!-- 값 수정할 곳 --></td>
-					</tr>
-					<tr>
-						<td width="10%"><input type="checkbox" name="chat" value="#<!-- 값 들어갈 곳 -->"></td>
-						<td width="20%">닉네임<!-- 값 수정할 곳 --></td>
-						<td width="50%">마지막 채팅<!-- 값 수정할 곳 --></td>
-						<td width="10%">날짜<!-- 값 수정할 곳 --></td>
-					</tr>
-					<tr>
-						<td width="10%"><input type="checkbox" name="chat" value="#<!-- 값 들어갈 곳 -->"></td>
-						<td width="20%">닉네임<!-- 값 수정할 곳 --></td>
-						<td width="50%">마지막 채팅<!-- 값 수정할 곳 --></td>
-						<td width="10%">날짜<!-- 값 수정할 곳 --></td>
-					</tr>
-					<tr>
-						<td width="10%"><input type="checkbox" name="chat" value="#<!-- 값 들어갈 곳 -->"></td>
-						<td width="20%">닉네임<!-- 값 수정할 곳 --></td>
-						<td width="50%">마지막 채팅<!-- 값 수정할 곳 --></td>
-						<td width="10%">날짜<!-- 값 수정할 곳 --></td>
-					</tr>
-					<tr>
-						<td width="10%"><input type="checkbox" name="chat" value="#<!-- 값 들어갈 곳 -->"></td>
-						<td width="20%">닉네임<!-- 값 수정할 곳 --></td>
-						<td width="50%">마지막 채팅<!-- 값 수정할 곳 --></td>
-						<td width="10%">날짜<!-- 값 수정할 곳 --></td>
-					</tr>
-					<tr>
-						<td width="10%"><input type="checkbox" name="chat" value="#<!-- 값 들어갈 곳 -->"></td>
-						<td width="20%">닉네임<!-- 값 수정할 곳 --></td>
-						<td width="50%">마지막 채팅<!-- 값 수정할 곳 --></td>
-						<td width="10%">날짜<!-- 값 수정할 곳 --></td>
-					</tr>
-					<tr>
-						<td width="10%"><input type="checkbox" name="chat" value="#<!-- 값 들어갈 곳 -->"></td>
-						<td width="20%">닉네임<!-- 값 수정할 곳 --></td>
-						<td width="50%">마지막 채팅<!-- 값 수정할 곳 --></td>
-						<td width="10%">날짜<!-- 값 수정할 곳 --></td>
-					</tr>
 				</table>
 			</div>			
 		</form>
 	</div>
+	
+	<div class="v3">
+		<b style="font-size:1.1em;">돌봄 일정</b>
+		<a href="${myctx}/sitter/user/used">등록/수정</a>
+		<br>
+		<div class="i2">
+			<div id='calendar'></div>
+			
+		</div>
+		<table id="usedT">		
+			<tr>
+				<td width="35%" style="height: 15px;">
+					<b>날짜</b>
+				</td>
+				<td width="25%"><b>이용자 닉네임</b></td>
+				<td width="25%"><b>펫 이름</b></td>
+			</tr>
+			<tr><td></td></tr>
+		<c:forEach var="schedule" items="${svo2}">
+			<tr>
+				<td width="35%"><b>
+					<fmt:formatDate value="${schedule.sdate}" pattern="MM월 dd일"/>				
+					 ~ <fmt:formatDate value="${schedule.fdate}" pattern="MM월 dd일"/>
+				 </b></td>
+				<td width="25%">'${schedule.unickname}'님</td>
+				<td width="25%" onclick="userAlert(${schedule.pno})" id="onPet">'${schedule.pname}'</td>
+			</tr>			
+		</c:forEach>
+		</table>
+	</div>
+
 </div>
 
 <div style="clear:both; margin-bottom:50px"></div>	

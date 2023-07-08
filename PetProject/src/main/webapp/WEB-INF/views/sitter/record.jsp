@@ -17,61 +17,73 @@
 		margin-bottom:20px; 
 		width:80%;
 		padding: 10px;
+		font-family: 'omyu_pretty';
+		font-size: 1.2em;
 	}
 	
+	#t {
+		text-align: center;
+		width: 80%;
+		margin: 0 auto;
+	}
 	
+	#t td { vertical-align: middle; padding: 5px; }
+	
+	.small { font-size: 1.1em; }
+	.medium { font-size: 1.2em; }
+	.large { font-size: 1.3em; }
+	
+	#sall, #mall, #lall { margin-bottom: 5px; }
+	
+	#menu { font-family: 'KOTRAHOPE'; font-size:2.2em; }
 </style>
 
 <div class="row">
 	<div align="center" class="col-md-8 offset-md-2 my-4" >
-		<h2 style="font-weight: bold">돌봄 기록</h2>
+		<h2 id="menu">이용 요금 설정</h2>
 	</div>
 		<div class="container" id="v1">
-			<table class="table table-bordered" style="width:100%">
-				<tr>
-					<td colspan="3" style="font-weight:bold; padding:8px; font-size:1.1em;">돌봄 기록</td>
-
-				</tr>
-				<tr>
-					<td rowspan="2" style="width:7%; padding:7px; font-weight:bold;">6/3</td>
-					<td colspan="2" style="width:40%; padding:7px; font-weight:bold;">이용자 닉네임 - 반려동물 이름 / 펫시터 닉네임</td>
-					<td rowspan="2" style="width:53%; padding:7px; font-size:0.9em;">돌봄 기록 내용 (뭐 했는지, 특이사항 등등)</td>
-				</tr>
-				<tr>
-					<td style="height: 150px;" >
-						사진
-					</td>
-					<td>
-						사진
-					</td>
-				</tr>
-				<tr>
-					<td rowspan="2" style="padding:7px; font-weight:bold;">6/2</td>
-					<td colspan="2" style="width:40%; padding:7px; font-weight:bold;">이용자 닉네임 - 반려동물 이름</td>
-					<td rowspan="2" style="width:53%; padding:7px; font-size:0.9em;">돌봄 기록 내용 (뭐 했는지, 특이사항 등등)</td>
-				</tr>
-				<tr>
-					<td style="height: 150px;" >
-						사진
-					</td>
-					<td>
-						사진
-					</td>
-				</tr>
-				<tr>
-					<td rowspan="2" style="padding:7px; font-weight:bold;">5/29</td>
-					<td colspan="2" style="width:40%; padding:7px; font-weight:bold;">이용자 닉네임 - 반려동물 이름</td>
-					<td rowspan="2" style="width:53%; padding:7px; font-size:0.9em;">돌봄 기록 내용 (뭐 했는지, 특이사항 등등)</td>
-				</tr>
-				<tr>
-					<td style="height: 150px;" >
-						사진
-					</td>
-					<td>
-						사진
-					</td>
-				</tr>
-			</table>
+			<form class="form-inline">
+				<table class="table table-bordered" id="t">
+					<!-- <tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td style="font-size: 0.9em; color: darkgray;">1박케어 | 데이케어</td>
+					</tr> -->
+					<tr>
+						<td width="15%"><span class="small">🐕</span></td>
+						<td width="20%"><span class="small">소형견</span></td>
+						<td width="25%"><span class="small" style="color: gray;">7kg 미만</span></td>
+						<td width="40%"><span class="small">
+							<input type="number" class="form-control" id="sall" name="spetall" placeholder="1박케어"> 원<br>
+							<input type="number" class="form-control" id="sday" name="spetday" placeholder="데이케어"> 원
+						</td>
+					</tr>
+					<tr>
+						<td width="15%"><span class="medium">🐕</span></td>
+						<td width="20%"><span class="medium">중형견</span></td>
+						<td width="25%"><span class="medium" style="color: gray;">7~14.9kg</span></td>
+						<td width="40%"><span class="medium">
+							<input type="number" class="form-control" id="mall" name="mpetall" placeholder="1박케어"> 원<br>
+							<input type="number" class="form-control" id="mday" name="mpetday" placeholder="데이케어"> 원
+						</td>
+					</tr>
+					<tr>
+						<td width="15%"><span class="large">🐕</span></td>
+						<td width="20%"><span class="large">대형견</span></td>
+						<td width="25%"><span class="large" style="color: gray;">15kg 이상</span></td>
+						<td width="40%"><span class="large">
+							<input type="number" class="form-control" id="lall" name="lpetall" placeholder="1박케어"> 원<br>
+							<input type="number" class="form-control" id="lday" name="lpetday" placeholder="데이케어"> 원
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4"><button class="btn btn-primary">확인</button></td>
+					</tr>
+					
+				</table>
+			</form>
 		</div>
 			
 		

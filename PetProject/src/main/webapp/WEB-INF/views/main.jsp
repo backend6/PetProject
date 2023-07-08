@@ -98,26 +98,33 @@ a:hover {
 	color: #64CCC5;
 	text-shadow: 2px 2px 4px #C9EEFF;
 }
+
+#menu { font-family: 'KOTRAHOPE'; font-size:2.5em; }
+
+#homeT { width: 80%; }
+.point { font-weight: bold; color: #EDD200; }
+
+#exp { font-family: 'omyu_pretty'; font-size: 1.3em; }
 </style>
 
 <div class="row">
 	<div class="col-md-10 offset-2 " id="intro">
-		<table class="table table-borderless">
+		<table class="table table-borderless" id="homeT">
 			<tr>
-				<td style="vertical-align: bottom; font-size: 1.7em; width: 50%;">
-					<b>(사이트 이름) 이란?</b>
+				<td style="vertical-align: bottom; width: 50%;" id="menu">
+					BONE 란?
 				</td>
-				<td rowspan="2" style="width: 50%;"><img
-					src="${myctx}/images/pet1.jpg" class="main-img"></td>
+				<td rowspan="2" style="width: 50%;">
+					<img src="${myctx}/images/logo_b2.png" class="main-img"></td>
 			</tr>
 			<tr>
-				<td style="font-size: 1.1em;">혼자 지낼 반려동물, 많이 걱정되시죠?<br>이젠
-					걱정하지 말고, 믿고 맡길 수 있는 펫시터를 찾아보세요!
+				<td id="exp">혼자 지낼 반려동물, 많이 걱정되시죠?<br>
+					이젠 걱정하지 말고 <span class="point">'BONE'</span>에서<br>
+					믿고 맡길 수 있는 펫시터에게 <span class="point">'보내'</span>보세요! 
 				</td>
 			</tr>
 		</table>
-	</div>
-	<div class="col-md-10 offset-1 " id="intro">
+
 		<table style="width: 80%;">
 			<tr>
 				<td style="font-size: 1.3em;" colspan="3"><div class="tb-title">Pet sitter</div></td>

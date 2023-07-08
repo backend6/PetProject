@@ -1,11 +1,14 @@
 package com.find.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.find.mapper.FindMapper;
 import com.find.model.IntroduceVO;
 import com.find.model.WishVO;
+import com.reviewboard.model.ReviewBoardVO;
 
 @Service("FindService")
 public class FindServiceImpl implements FindService{
@@ -14,73 +17,84 @@ public class FindServiceImpl implements FindService{
 	private FindMapper findMapper;
 
 	@Override
-	public String selectNickname() {
-		return this.findMapper.selectNickname();
+	public String selectNickname(int num) {
+		return this.findMapper.selectNickname(num);
 	}
 
 	@Override
-	public String selectTitle() {
-		return this.findMapper.selectTitle();
+	public String selectTitle(int num) {
+		return this.findMapper.selectTitle(num);
 	}
 
 	@Override
-	public String selectAddr() {
-		return this.findMapper.selectAddr();
+	public String selectAddr(int num) {
+		return this.findMapper.selectAddr(num);
+	}
+	
+	@Override
+	public String addr1(String nickname) {
+
+		return this.findMapper.addr1(nickname);
 	}
 
 	@Override
-	public String selectContent() {
-		return this.findMapper.selectContent();
+	public String selectContent(int num) {
+		return this.findMapper.selectContent(num);
 	}
 
 	@Override
-	public String selectShortContent() {
-		return this.findMapper.selectShortContent();
+	public String selectShortContent(int num) {
+		return this.findMapper.selectShortContent(num);
 	}
 
 	@Override
-	public int selectSPetDayPrice() {
-		return this.findMapper.selectSPetDayPrice();
+	public int selectSPetDayPrice(int num) {
+		return this.findMapper.selectSPetDayPrice(num);
 	}
 
 	@Override
-	public int selectSPetAllPrice() {
-		return this.findMapper.selectSPetAllPrice();
+	public int selectSPetAllPrice(int num) {
+		return this.findMapper.selectSPetAllPrice(num);
 	}
 
 	@Override
-	public int selectMPetDayPrice() {
-		return this.findMapper.selectMPetDayPrice();
+	public int selectMPetDayPrice(int num) {
+		return this.findMapper.selectMPetDayPrice(num);
 	}
 
 	@Override
-	public int selectMPetAllPrice() {
-		return this.findMapper.selectMPetAllPrice();
+	public int selectMPetAllPrice(int num) {
+		return this.findMapper.selectMPetAllPrice(num);
 	}
 
 	@Override
-	public int selectLPetDayPrice() {
-		return this.findMapper.selectLPetDayPrice();
+	public int selectLPetDayPrice(int num) {
+		return this.findMapper.selectLPetDayPrice(num);
 	}
 
 	@Override
-	public int selectLPetAllPrice() {
-		return this.findMapper.selectLPetAllPrice();
+	public int selectLPetAllPrice(int num) {
+		return this.findMapper.selectLPetAllPrice(num);
 	}
 
 	@Override
-	public int getSumStar() {
-		return this.findMapper.getSumStar();
+	public int getSumStar(int ino) {
+		return this.findMapper.getSumStar(ino);
 	}
 
 	@Override
-	public int getCntStar() {
-		return this.findMapper.getCntStar();
+	public int getCntStar(int ino) {
+		return this.findMapper.getCntStar(ino);
 	}
 
 	@Override
-	public String selectLicense() {
-		return this.findMapper.selectLicense();
+	public String selectLicense(int num) {
+		return this.findMapper.selectLicense(num);
+	}
+	
+	@Override
+	public String selectImg(int num) {
+		return this.findMapper.selectImg(num);
 	}
 
 	@Override
@@ -94,8 +108,28 @@ public class FindServiceImpl implements FindService{
 	}
 
 	@Override
-	public int getWish() {
-		return this.findMapper.getWish();
+	public int getWish(int num) {
+		return this.findMapper.getWish(num);
+	}
+
+	@Override
+	public String selectService(int num) {
+		return this.findMapper.selectService(num);
+	}
+
+	@Override
+	public int getCntReple(int num) {
+		return this.findMapper.getCntReple(num);
+	}
+
+	@Override
+	public List<ReviewBoardVO> selectRepleAll(int num) {
+		return this.findMapper.selectRepleAll(num);
+	}
+
+	@Override
+	public IntroduceVO selectIntroduceByIno(int ino) {
+		return this.findMapper.selectIntroduceByIno(ino);
 	}
 	
 	
