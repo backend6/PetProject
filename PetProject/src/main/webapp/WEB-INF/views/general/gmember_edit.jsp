@@ -33,12 +33,16 @@ h2 {
 
 .form-group {
 	margin-bottom: 15px;
+	font-family: 'omyu_pretty';
+	font-size: 1.2em;
 }
 
 .form-group2 {
 	margin-bottom: 15px;
 	display: flex;
 	justify-content: center;
+	font-family: 'omyu_pretty';
+	font-size: 1.3em;
 }
 
 label {
@@ -105,12 +109,13 @@ textarea {
 	font-size: 0.9em;
 	margin-left: 5px;
 }
+#menu { font-family: 'KOTRAHOPE'; font-size:2.7em; }
 </style>
 </head>
 <body></body>
 <div class="container">
-	<h2>
-		<b>회 원 정 보 수 정</b>
+	<h2 id="menu">
+		회 원 정 보 수 정
 	</h2>
 	<form name="form" action="${myctx}/general/user/editG" method="POST">
 		<input type="hidden" name="idx" value="${user.idx }">
@@ -135,9 +140,8 @@ textarea {
 		</div>
 		<div class="form-group">
 			<label for="email">이메일:</label>
-			<input type="text" id="email" name="email" required value="${user.email}"
-					style="width: 150px;" >
-
+			<input type="text" id="email" name="email" required value="${user.email}" >
+		</div>
 		<div class="form-group">
 			<label for="name">이 름 :</label> 
 			<input type="text" id="name" name="uname" value="${user.uname}" required>

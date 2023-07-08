@@ -2,9 +2,72 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+</script>
+
+<script>
+$(function() {
+	
+	// 빈 하트 누르면 빨간하트로, 빨간하트 한번 더 누르면 빈 하트로 바뀜
+	// 찜 목록에 반영해야 함
+	$('.heart').click(function() {
+		
+		let ino = $(this).attr('id');
+		// 로그인 체크 해서 unickname 넘겨줘야 할 듯.
+		
+		console.log("heart-click");
+		
+		if ($(this).attr('src') == "${myctx}/images/heart.png") {
+			console.log("빈 하트 클릭"+ino);
+			
+			$.ajax({
+				url:'heart.do',
+				type:'get',
+				data:{ino:ino},
+				success: function(res){
+					// alert(JSON.stringify(res));
+					if(res.result>0){
+						console.log("찜 추가 성공");
+					}
+					
+				},
+				error: function(err){
+					alert('error: '+err.status);
+				}
+				
+			});
+			// 꽉 찬 하트로 이미지 변경
+			$(this).attr("src", "${myctx}/images/full_heart.png");
+			
+		}
+		else {
+			console.log("꽉 찬 하트 클릭"+ino);
+			
+			$.ajax({
+				url:'removeHeart.do',
+				type:'get',
+				data:{ino:ino},
+				success:function(res){
+					// alert(JSON.stringify(res));
+					if(res.result>0){
+						console.log("찜 삭제 성공");
+					}
+				},
+				error: function(err){
+					alert('error: '+err.status);
+				}
+			});
+			// 빈 하트로 이미지 변경
+			$(this).attr("src", "${myctx}/images/heart.png");
+			
+		}
+		
+	})
+	
+})
 </script>
 
 <style>
@@ -12,6 +75,8 @@
 	margin-bottom:100px;
 	text-align:center;
 	padding:30px;
+	font-family: 'omyu_pretty';
+	font-size: 1.25em;
 }
 .t2{
 	background-color:rgb(255, 251, 224);
@@ -34,11 +99,16 @@
 	margin-bottom: 30px;
 }
 
-.t3, .t4, .t5 {
+.t2, .t3, .t4, .t5 {
 		overflow-y: scroll;
 		-ms-overflow-style: none; /* 인터넷 익스플로러 */
 		scrollbar-width: none; /* 파이어폭스 */
 	}
+	
+.t2::-webkit-scrollbar {
+	    display: none; /* 크롬, 사파리, 오페라, 엣지 */
+	}
+	
 .t3::-webkit-scrollbar {
 	    display: none; /* 크롬, 사파리, 오페라, 엣지 */
 	}
@@ -81,27 +151,21 @@
 	border-radius:20px;
 	
 }
-.t7{
-	clear: both;
-	background-color:rgb(243, 232, 166);
-	padding:20px;
-	text-align:left;
-	height:300px;
-	margin-bottom:30px;
-	border-radius:20px;
-}
+
 a{
 	float:right;
 	color:inherit;
 }
 .i1{
 	height:150px;
-	width:150px;
+	width:100%;
 	float:left;
 	margin-right:20px;
 	clear:both;
 	background-color:gray;
+	padding: 50%;
 }
+
 .i2{
 	height:160px;
 	width:320px;
@@ -117,7 +181,7 @@ a{
 .i2 img { width: 150px; }
 
 .i3{
-	height:150px;
+	height:100%;
 	width:150px;
 	float:left;
 	margin-right:40px;
@@ -147,158 +211,162 @@ span.ingredient {
 .addrInfo button { float:right; margin-top: 8px; }
 
 #reviewbtn { padding: 3px; font-size: 0.9em; }
+
+#petT {
+	/* line-height: 0.3; */
+	font-size: 0.9em;
+}
+#petT td { padding: 3px; }
+#petT .r {
+	text-align: center;
+	font-weight: bold;	
+}
+#petT .p {
+	padding-left: 2px;
+}
+
+#pimg { width: 100%; }
+
+.heart { width: 20px; }
+#wishT td {padding: 3px;}
+
+#usedC { color: #5D5D5D; font-weight: bold; }
+
+#usedT td { padding: 5px; }
+
+
+.nick a { width: 100%; margin: 0 auto; }
+
+#menu { font-family: 'KOTRAHOPE'; font-size:2.2em; }
+
 </style>
 
 <div class="t1">
 	<div align="center" class="col-md-8 offset-md-2 my-4" >
-		<h2 style="font-weight: bold">${loginUser.mid}님 마이페이지 </h2>
+		<h2 id="menu">${loginUser.mid}님 마이페이지 </h2>
 	</div>
 	<a href="${myctx}/general/user/editG">회원정보수정</a>
 	<br><br>
 
 	<div class="t2">
-		<b>내 반려동물 정보</b>
-		<a href="${myctx}/general/user/petinfo">등록/수정</a>
-		<br><br>
-		<div class="i1">
-			<img src="#<!-- 값 들어갈 곳 -->"><br><br><br><br><br><br><br>
-			<b>특이사항 : ${mypet.particulars}</b>
-		</div>
-		<div>
-			<b>이름 : ${mypet.pname}</b><!-- 값 들어갈 곳 -->
-			<br>
-			<b>종류 : ${mypet.species1}</b><!-- 값 들어갈 곳 -->
-			<br>
-			<b>세부 종 : ${mypet.species2}</b><!-- 값 들어갈 곳 -->
-			<br>
-			<b>성별 : ${mypet.gender}</b><!-- 값 들어갈 곳 -->
-			<br>
-			<b>생년월일 : ${mypet.bday}</b><!-- 값 들어갈 곳 -->
-			<br>
-			<b>몸무게 : ${mypet.weight}</b><!-- 값 들어갈 곳 -->
-			<br>
-		</div>
+		<table class="table table-borderless" id="petT">
+			<tr>
+				<td colspan="2" style="font-size: 1.1em;"><b>내 반려동물 정보</b></td>
+				<td style="vertical-align: middle;"><a href="${myctx}/general/user/petinfo">더보기</a></td>
+			</tr>
+			<c:if test="${mypet eq null}">
+				<tr>
+					<td> 반려동물 정보가 없습니다.</td>
+				</tr>
+			</c:if>
+			<c:if test="${mypet ne null}">
+				<tr>
+					<td></td>
+					<td style="width: 20%;" class="r">이름</td>
+					<td style="width: 40%;" class="p">${mypet.pname}</td>
+				</tr>
+				<tr>
+					<td rowspan="5" style="width: 40%;">
+						<img id="pimg" src="${myctx}/resources/pet_upload/${mypet.image}" onerror="this.style.display='none'">
+					</td>
+					<td class="r">종류</td>
+					<td class="p">${mypet.species1}</td>
+				</tr>
+				<tr>
+					<td class="r">세부 종</td>
+					<td class="p">${mypet.species2}</td>
+				</tr>
+				<tr>
+					<td class="r">성별</td>
+					<td class="p">${mypet.gender}</td>
+				</tr>
+				<tr>
+					<td class="r">생년월일</td>
+					<td class="p">${mypet.bday}</td>
+				</tr>
+				<tr>
+					<td class="r">몸무게</td>
+					<td class="p">${mypet.weight} kg</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td style="width: 20%;" class="r">특이사항</td>
+					<td colspan="2" style="width: 80%;" class="p">${mypet.particulars}</td>
+				</tr>
+			</c:if>
+		</table>
 	</div>
+		
 	<div class="t3">
-		<b>찜 목록 (스크롤)</b>
-		<br><br>
+		<b style="font-size: 1.1em;">찜 목록</b>
+		<br>
 		<!-- 찜 개수 만큼 반복문 돌기 -->
-		<div class="wish" style="clear:both;">
-			<div style="float:left; margin-right: 30px; margin-bottom:15px;">
-				<b><span class="ingredient">&#10084;</span>닉네임</b>
+		
+		<c:forEach var="wish" items="${wishList}">
+			<div class="wish" style="clear:both;">
+				<table class="table table-borderless" id="wishT">
+					<tr>
+						<td rowspan="2" style="width: 5%;">
+							
+							<c:if test="${wish.unickname eq loginUser.nickname}">
+								<img src="${myctx}/images/full_heart.png" class="heart" id="${wish.ino}" style="width: 25px">
+							</c:if>
+							<c:if test="${wish.unickname ne loginUser.nickname}">
+								<img src="${myctx}/images/heart.png" class="heart" id="${wish.ino}" style="width: 25px">
+							</c:if>
+						</td>
+						<td rowspan="2" style="width: 27%;">
+							<div class="nick">
+								<a href="${myctx}/shop/info/<c:out value="${wish.ino}"/>"><b>${wish.snickname}</b></a>
+							</div>
+						</td>
+						<td>${wish.title}</td>
+					</tr>
+					<tr>
+						<td style="width: 68%">${wish.saddr}</td>
+					</tr>
+				</table>
 			</div>
-			<div style="float:left; margin-bottom:15px;">
-				한 줄 소개:<br>
-				지역:<br>
-			</div>
-		</div>
-		<div class="wish" style="clear:both;">
-			<div style="float:left; margin-right: 30px; margin-bottom:15px;">
-				<b><span class="ingredient">&#10084;</span>닉네임</b>
-			</div>
-			<div style="float:left; margin-bottom:15px;">
-				한 줄 소개:<br>
-				지역:<br>
-			</div>
-		</div>
-		<div class="wish" style="clear:both;">
-			<div style="float:left; margin-right: 30px; margin-bottom:15px;">
-				<b><span class="ingredient">&#10084;</span>닉네임</b>
-			</div>
-			<div style="float:left; margin-bottom:15px;">
-				한 줄 소개:<br>
-				지역:<br>
-			</div>
-		</div>
-		<div class="wish" style="clear:both;">
-			<div style="float:left; margin-right: 30px; margin-bottom:15px;">
-				<b><span class="ingredient">&#10084;</span>닉네임</b>
-			</div>
-			<div style="float:left; margin-bottom:15px;">
-				한 줄 소개:<br>
-				지역:<br>
-			</div>
-		</div>
+			<input type="hidden" name="ino" value="${wish.ino}">
+		</c:forEach>
 	</div>
+
+
 	<div class="t4">
-		<b>이용 내역 및 리뷰 (스크롤)</b>
-		<a href="#">더보기</a><br><br>
-		
-		<div class="used" style="clear:both; font-size:1em; margin-left:10px;">
-			<div style="float:left; width:40%">
-				<span>펫시터 닉네임</span>
-			</div>
-			<div style="float:left; margin-bottom:15px; width:40%;">
-				<span>2023-05-04</span>
-			</div>
-			<div style="float:right; margin-bottom:15px; width:20%;">
-				<button class="btn btn-outline-dark" style="padding: 5px; font-size: 0.9em;"
-						onclick="location.href='${myctx}/general/reviewBoardWrite'">리뷰 쓰기</button>
-			</div>
+		<b  style="font-size: 1.1em;">이용 내역 및 리뷰</b>
+		<div class="used" style="clear:both; font-size:1em; margin-left:10px; ">
+
+			<table class="table table-borderless text-center" id="usedT">
+				<tr>
+					<td id="usedC">펫시터 닉네임</td>
+					<td id="usedC">시작 날짜 ~ 끝 날짜</td>
+					<td></td>
+				</tr>
+				<c:forEach var="item" items="${used}">
+					<tr>
+						<td style="width:30%">
+							<div class="nick">
+								<a href="${myctx}/shop/info/<c:out value="${item.ino}" />">${item.snickname} 님</a>
+							</div>
+						</td>
+						<td style="width:45%">
+							<fmt:formatDate value="${item.sdate}" pattern="YY.MM.dd"/>				
+						 ~ <fmt:formatDate value="${item.fdate}" pattern="YY.MM.dd"/>
+						</td>
+						<td>
+							<button class="btn btn-outline-dark" style="padding: 3px; font-size: 0.9em;"
+								onclick="location.href='${myctx}/general/user/reviewBoardWrite'">리뷰 쓰기</button>
+						</td>
+					</tr>
+				</c:forEach>
+			
+			</table>
 		</div>
-		<div class="used" style="clear:both; font-size:1em; margin-left:10px;">
-			<div style="float:left; width:40%">
-				<span>펫시터 닉네임</span>
-			</div>
-			<div style="float:left; margin-bottom:15px; width:40%;">
-				<span>2023-05-04</span>
-			</div>
-			<div style="float:right; margin-bottom:15px; width:20%;">
-				<button class="btn btn-outline-dark" style="padding: 5px; font-size: 0.9em;">리뷰 쓰기</button>
-			</div>
-		</div>
-		<div class="used" style="clear:both; font-size:1em; margin-left:10px;">
-			<div style="float:left; width:40%">
-				<span>펫시터 닉네임</span>
-			</div>
-			<div style="float:left; margin-bottom:15px; width:40%;">
-				<span>2023-05-04</span>
-			</div>
-			<div style="float:right; margin-bottom:15px; width:20%;">
-				<button class="btn btn-outline-dark" style="padding: 5px; font-size: 0.9em;">리뷰 쓰기</button>
-			</div>
-		</div>
-		<div class="used" style="clear:both; font-size:1em; margin-left:10px;">
-			<div style="float:left; width:40%">
-				<span>펫시터 닉네임</span>
-			</div>
-			<div style="float:left; margin-bottom:15px; width:40%;">
-				<span>2023-05-04</span>
-			</div>
-			<div style="float:right; margin-bottom:15px; width:20%;">
-				<button class="btn btn-outline-dark" style="padding: 5px; font-size: 0.9em;">리뷰 쓰기</button>
-			</div>
-		</div>
-		<div class="used" style="clear:both; font-size:1em; margin-left:10px;">
-			<div style="float:left; width:40%">
-				<span>펫시터 닉네임</span>
-			</div>
-			<div style="float:left; margin-bottom:15px; width:40%;">
-				<span>2023-05-04</span>
-			</div>
-			<div style="float:right; margin-bottom:15px; width:20%;">
-				<button class="btn btn-outline-dark" style="padding: 5px; font-size: 0.9em;">리뷰 쓰기</button>
-			</div>
-		</div>
-		<div class="used" style="clear:both; font-size:1em; margin-left:10px;">
-			<div style="float:left; width:40%">
-				<span>펫시터 닉네임</span>
-			</div>
-			<div style="float:left; margin-bottom:15px; width:40%;">
-				<span>2023-05-04</span>
-			</div>
-			<div style="float:right; margin-bottom:15px; width:20%;">
-				<button class="btn btn-outline-dark" style="padding: 5px; font-size: 0.9em;">리뷰 쓰기</button>
-			</div>
-		</div>
-		
-		<!-- <b>팻시터 닉네임</b> &nbsp;&nbsp; <b>이용 날짜</b> &nbsp;&nbsp;<input type="submit" value="리뷰쓰기"><br><br>
-        <b>팻시터 닉네임</b> &nbsp;&nbsp; <b>이용 날짜</b> &nbsp;&nbsp;<input type="submit" value="리뷰쓰기"><br><br>
-        <b>팻시터 닉네임</b> &nbsp;&nbsp; <b>이용 날짜</b> &nbsp;&nbsp;<input type="submit" value="리뷰쓰기"><br><br>
-        <b>팻시터 닉네임</b> &nbsp;&nbsp; <b>이용 날짜</b> &nbsp;&nbsp;<input type="submit" value="리뷰쓰기"> -->
+	
 	</div>
+	
 	<div class="t5">
-		<b>채팅 내역 (스크롤)</b>
+		<b>채팅 내역</b>
 		<a href="#">삭제</a>
 		<br><br>
 		
@@ -314,122 +382,7 @@ span.ingredient {
 				<span>2023-06-05</span>
 			</div>
 		</div>
-		<div class="chat" style="clear:both; font-size:1em;">
-			<div style="float:left; width: 20%;">
-				<input type="checkbox" name="service" value="#<!-- 값 들어갈 곳 -->">
-				<span><b>닉네임</b></span>
-			</div>
-			<div style="float:left; margin-bottom:15px; width:60%;">
-				<span>마지막 채팅</span>
-			</div>
-			<div style="float:left; margin-bottom:15px; width:20%;">
-				<span>2023-06-05</span>
-			</div>
-		</div>
-		<div class="chat" style="clear:both; font-size:1em;">
-			<div style="float:left; width: 20%;">
-				<input type="checkbox" name="service" value="#<!-- 값 들어갈 곳 -->">
-				<span><b>닉네임</b></span>
-			</div>
-			<div style="float:left; margin-bottom:15px; width:60%;">
-				<span>마지막 채팅</span>
-			</div>
-			<div style="float:left; margin-bottom:15px; width:20%;">
-				<span>2023-06-05</span>
-			</div>
-		</div>
-		<div class="chat" style="clear:both; font-size:1em;">
-			<div style="float:left; width: 20%;">
-				<input type="checkbox" name="service" value="#<!-- 값 들어갈 곳 -->">
-				<span><b>닉네임</b></span>
-			</div>
-			<div style="float:left; margin-bottom:15px; width:60%;">
-				<span>마지막 채팅</span>
-			</div>
-			<div style="float:left; margin-bottom:15px; width:20%;">
-				<span>2023-06-05</span>
-			</div>
-		</div>
-		<div class="chat" style="clear:both; font-size:1em;">
-			<div style="float:left; width: 20%;">
-				<input type="checkbox" name="service" value="#<!-- 값 들어갈 곳 -->">
-				<span><b>닉네임</b></span>
-			</div>
-			<div style="float:left; margin-bottom:15px; width:60%;">
-				<span>마지막 채팅</span>
-			</div>
-			<div style="float:left; margin-bottom:15px; width:20%;">
-				<span>2023-06-05</span>
-			</div>
-		</div>
-		<div class="chat" style="clear:both; font-size:1em;">
-			<div style="float:left; width: 20%;">
-				<input type="checkbox" name="service" value="#<!-- 값 들어갈 곳 -->">
-				<span><b>닉네임</b></span>
-			</div>
-			<div style="float:left; margin-bottom:15px; width:60%;">
-				<span>마지막 채팅</span>
-			</div>
-			<div style="float:left; margin-bottom:15px; width:20%;">
-				<span>2023-06-05</span>
-			</div>
-		</div>
-		<div class="chat" style="clear:both; font-size:1em;">
-			<div style="float:left; width: 20%;">
-				<input type="checkbox" name="service" value="#<!-- 값 들어갈 곳 -->">
-				<span><b>닉네임</b></span>
-			</div>
-			<div style="float:left; margin-bottom:15px; width:60%;">
-				<span>마지막 채팅</span>
-			</div>
-			<div style="float:left; margin-bottom:15px; width:20%;">
-				<span>2023-06-05</span>
-			</div>
-		</div>
 		
-		<%-- <input type="checkbox" name="service" value="#<!-- 값 들어갈 곳 -->"> <b>닉네임</b> 마지막 채팅 날짜<br><br>
-		<input type="checkbox" name="service" value="#<!-- 값 들어갈 곳 -->"> <b>닉네임</b> 마지막 채팅 날짜<br><br>
-		<input type="checkbox" name="service" value="#<!-- 값 들어갈 곳 -->"> <b>닉네임</b> 마지막 채팅 날짜<br><br>
-		<input type="checkbox" name="service" value="#<!-- 값 들어갈 곳 -->"> <b>닉네임</b> 마지막 채팅 날짜<br><br>
-		<input type="checkbox" name="service" value="#<!-- 값 들어갈 곳 -->"> <b>닉네임</b> 마지막 채팅 날짜 --%>
 	</div>
-	<div class="t6">
-	   <b>돌봄 기록</b>
-	   <a href="${myctx}/sitter/user/record">더보기</a>
-	   <br><br>
-		<div class="i2">
-			<img src="${myctx}/images/pet1.jpg"><!-- 값 들어갈 곳 -->
-			<img src="${myctx}/images/pet1.jpg"><!-- 값 들어갈 곳 --> 
-		</div>
-		<b style="font-size:1.1em;">날짜 </b><!-- 값 들어갈 곳 -->
-		<br>
-		<b style="font-size:1.1em;">펫시터 닉네임</b><!-- 값 들어갈 곳 -->
-		<br><br>
-		<p>돌봄 기록 내용</pss><!-- 값 들어갈 곳 -->
-		<br><br>
-
-	</div>
-    <div class="t7">
-       <b>우리 동네 정보</b>
-	   <a href="#">등록/수정</a>
-	   	   <br><br>
-	   <div class="map-frame">
-		     <div class="map-content" style="float:left;">
-			     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3165.4265244579956!2d127.02601207645192!3d37.497857228062216!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca159effab6a1%3A0x2c7fcbe64938c1ad!2z7Iqk7YOA67KF7IqkIOqwleuCqFLsoJA!5e0!3m2!1sko!2skr!4v1686754047184!5m2!1sko!2skr" width="225" height="225" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-	         </div>
-	         <form method="" action="">
-			    <div class="addrInfo">
-			    	<b>주소(검색 api 사용해도 ok)</b><br>
-			    	<input type="text" name="addr" id="addr">
-			    	<button type="button" class="btn btn-outline-dark">검색</button>
-			    	<hr>
-			    	<b>사용자가 저장한 주소 보여주기</b>
-			    </div>
-		    </form>
-
-		</div>
-	 
-	</div>
-</div>
 	    
 <div style="clear:both; margin-bottom:50px"></div>

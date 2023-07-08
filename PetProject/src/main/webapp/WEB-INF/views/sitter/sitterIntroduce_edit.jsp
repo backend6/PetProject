@@ -81,7 +81,7 @@
 </script>
 <div class="container">
 	<div align="center" class="col-md-8 offset-md-2 my-4" >
-		<h2 id="menu">펫시터 소개 등록</h2>
+		<h2 id="menu">펫시터 소개 수정</h2>
 	</div>
 	<form name="mf" action="info" method="post" enctype="multipart/form-data">
 		<table>

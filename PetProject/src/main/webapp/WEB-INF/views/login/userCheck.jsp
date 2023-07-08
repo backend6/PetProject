@@ -10,10 +10,11 @@
 		width: 40%;
 		box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
 		text-align: center;
-		padding: 80px 0;
+		padding: 70px 0;
 		font-weight: bold;
-		font-size: 1.6em;
+		font-size: 1.8em;
 		cursor: pointer;
+		font-family: 'omyu_pretty';
 	}
 
 	#sitter {

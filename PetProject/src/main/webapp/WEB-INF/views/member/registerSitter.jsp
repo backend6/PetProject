@@ -45,12 +45,16 @@ h2 {
 
 .form-group {
 	margin-bottom: 15px;
+	font-family: 'omyu_pretty';
+	font-size: 1.2em;
 }
 
 .form-group2 {
 	margin-bottom: 15px;
 	display: flex;
 	justify-content: center;
+	font-family: 'omyu_pretty';
+	font-size: 1.3em;
 }
 
 label {
@@ -110,12 +114,16 @@ input[type="submit"]:hover {
 	font-size: 0.9em;
 	margin-left: 5px;
 }
+
+#menu { font-family: 'KOTRAHOPE'; font-size:2.7em; }
+
+
 </style>
 </head>
 <body></body>
 <div class="container">
-	<h2>
-		<b>회 원 가 입</b>
+	<h2 id="menu">
+		회 원 가 입
 	</h2>
 	<form name="form" action="${myctx}/joinS" method="POST">
 		<div class="form-group">

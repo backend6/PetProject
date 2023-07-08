@@ -19,6 +19,7 @@
 	<select id="selectPaging" resultType="Find" parameterType="paging">
 		select * from (
 			select row_number() over(order by ino desc) rn, introduce.*
+			,(select unickname from wish where ino=introduce.ino) wishNick
 			from introduce
 			<if test="findAddr != ''">
 				where addr like '%' || #{findAddr} || '%'

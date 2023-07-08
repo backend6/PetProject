@@ -21,9 +21,13 @@
 					type:'get',
 					data:{ino:ino},
 					success: function(res){
-						alert(res);
-						/* let heart = res.heart; (?? vo.heart)
-						console.log("찜 추가 성공"); */
+						// alert(JSON.stringify(res));
+						if(res.result>0){
+							console.log("찜 추가 성공");
+						}else if(res.result==-2){
+							alert('로그인을 해야 해요');
+						}
+						
 					},
 					error: function(err){
 						alert('error: '+err.status);
@@ -42,7 +46,10 @@
 					type:'get',
 					data:{ino:ino},
 					success:function(res){
-						alert(res);
+						// alert(JSON.stringify(res));
+						if(res.result>0){
+							console.log("찜 삭제 성공");
+						}
 						/* let heart = res.heart; (?? vo.heart)
 						console.log("찜 삭제 성공"); */
 					},
@@ -79,7 +86,7 @@
 				font-family: 'omyu_pretty'; font-size: 1.4em; }
 	#addr { padding: 4px 10px; font-size: 0.8em; }
 	#btnfindSitter { padding: 4px 10px; font-size: 0.9em;}
-	#menu { font-family: 'KOTRAHOPE'; font-size:2.7em; /* font-weight:bold; */ }
+	#menu { font-family: 'KOTRAHOPE'; font-size:2.7em; }
 	#tbody { font-family: 'omyu_pretty'; margin-top: 7px; }
 </style>
 
@@ -112,21 +119,38 @@
 					<table class="table table-borderless" id="tbody">
 						<tr>
 							<td rowspan="6" style="vertical-align: middle; text-align:center; width: 30%;">
-								<img src="${myctx}/images/pet1.jpg" style="width: 200px">
+								<img src="${myctx}/resources/upload/${item.ifile}" style="width: 200px">
 							</td>
 							<td style="font-size: 1.3em; font-weight: bold; padding: 5px; width: 60%;
 										vertical-align: middle; color: #5D5D5D">
 								<c:out value="${item.nickname}" /> <!-- 전문가 인증이 되었다면 인증마크 --> 
 							</td>
 							<td style="text-align: right; width: 10%;">
-								<!-- 클릭하면 빨간 하트로 이미지 바뀜. 찜목록에 반영 해야 함-->
-								<img src="${myctx}/images/heart.png" class="heart" id="${item.ino}" style="width: 25px">
 								
+								<!-- 로그인 체크 + 시터인지도 체크 해서 시터일 때는 안보이게(?) 아님 걍 로그인 안하면 안보이게,, -->
+								<c:if test="${loginUser eq null}">
+									<a href="${myctx}/login">
+										<img src="${myctx}/images/heart.png" class="heart" id="${item.ino}" style="width: 25px">
+									</a>
+								</c:if>
+								<c:if test="${loginUser ne null}">
+									<c:if test="${loginUser.ucheck eq 'S'}">
+										<!-- 시터 회원이면 하트 안보이게 -->
+									</c:if>
+									<c:if test="${loginUser.ucheck eq 'G'}">
+										<c:if test="${wish.ino eq item.ino or item.wishNick eq loginUser.nickname}">
+											<img src="${myctx}/images/full_heart.png" class="heart" id="${item.ino}" style="width: 25px">
+										</c:if>
+										<c:if test="${wish.ino ne item.ino and item.wishNick ne loginUser.nickname}">
+											<img src="${myctx}/images/heart.png" class="heart" id="${item.ino}" style="width: 25px">
+										</c:if>
+									</c:if>
+								</c:if>
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2" style="font-size: 1.4em; font-weight: bold;">
-								<a href="${myctx}/shop/info"><c:out value="${item.title}" /></a>
+								<a href="${myctx}/shop/info/<c:out value="${item.ino}" />"><c:out value="${item.title}" /></a>
 							</td>
 						</tr>
 						<tr>

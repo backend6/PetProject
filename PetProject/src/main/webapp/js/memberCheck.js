@@ -2,7 +2,7 @@
 //----아이디 중복체크-----
 let win = null;
 function open_idcheck() {
-	win = window.open("idCheck", "idCheck", "width=400, height=300, letf=200, top=200");
+	win = window.open("idCheck", "idCheck", "width=400, height=300, left=200, top=200");
 		
 } //------------------------------
 
@@ -32,7 +32,7 @@ function id_check() {
 //----------닉네임 중복체크-----
 
 function open_nickcheck() {
-	win = window.open("nickCheck", "nickCheck", "width=400, height=300, letf=200, top=200");
+	win = window.open("nickCheck", "nickCheck", "width=400, height=300, left=200, top=200");
 		
 } //------------------------------
 

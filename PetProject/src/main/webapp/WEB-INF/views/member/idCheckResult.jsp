@@ -16,12 +16,13 @@
 		box-shadow: 0 0 10px #8EDBA3 /* rgba(0, 0, 0, 0.1) */;
 		border-radius: 5px;
 		padding: 20px;
-		padding-top: 20px;
-		
+		padding-top: 10px;
+		font-family: 'omyu_pretty';
+		font-size: 1.2em;
 	}
 	
 	.text {
-		font-size: 1.2em;
+		font-size: 1.1em;
 		margin-bottom: 10px;
 	}
 	

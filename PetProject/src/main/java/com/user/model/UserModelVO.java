@@ -8,25 +8,25 @@ import lombok.Data;
 
 @Data
 public class UserModelVO {
-	private String nickname; // ���� �̸�
+	private String nickname; 
 	
-    private String pname; //���̸�
+    private String pname;
     
-    private String species1; // ��
+    private String species1; 
     
-    private String species2; //���� ��
+    private String species2;
     
-    private int bday; //�������
+    private String bday;
     
-    private int weight; //������
+    private String weight;
     
-    private String particulars; //��Ÿ �� �ۼ�
+    private String particulars;
     
-    private String image;	// 
+    private String image;	
     
-    private int pno; // ��ѹ�
+    private int pno;
 
-	public String gender; //����
+	public String gender;
 	
 	
 		// TODO Auto-generated method stub

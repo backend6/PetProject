@@ -5,19 +5,37 @@
 	
 	<insert id = "insertGeneral" parameterType="pet">
 		<selectKey keyProperty="pno" resultType="int" order="BEFORE">
-			SELECT pet_seq.nextval from dual
+			SELECT mypet_seq.nextval from dual
 		</selectKey>
 		INSERT INTO mypet
 		VALUES (#{nickname},#{pname},#{species1},#{species2},#{gender},#{bday},#{weight},#{particulars},#{image}, #{pno})
 	</insert>
 	
-	<select id="selectOnePet" resultType="pet" parameterType="_int">
-		select * from mypet where pno=1
+	<select id="selectOnePet" resultType="pet" parameterType="string">
+		select * from (select * from mypet where nickname=#{nickname} order by pno asc)
+		where rownum = 1
 	</select>
 	
-	<select id="selectAllPet" resultType="pet">
-		select * from mypet
+	<select id="selectAllPet" resultType="pet" parameterType="string">
+		select * from mypet where nickname=#{nickname}
 	</select>
+	
+	
+	<!-- 펫 정보 수정 -->
+	<select id="getPetInfo" resultType="pet" parameterType="_int">
+		select * from mypet where pno=#{pno}
+	</select>
+	
+	<update id="editPetInfo" parameterType="pet">
+		update mypet
+		set pname=#{pname}, species1=#{species1}, species2=#{species2}, gender=#{gender}, bday=#{bday},
+			weight=#{weight}, particulars=#{particulars}, image=#{image}
+		where pno=#{pno}
+	</update>
+	
+	<delete id="delPetInfo" parameterType="pet">
+		delete from mypet where pno=#{pno}
+	</delete>
 	
 	<!-- 회원정보 수정 -->
 	<select id="getUserInfo" resultType="user" parameterType="int">
@@ -31,5 +49,11 @@
 			post=#{post}, experience=#{experience}
 		where idx=#{idx}
 	</update>
+	
+	<!-- 이용내역 가져오기 -->
+	<select id="getUsedHistory" resultType="Sitter" parameterType="string">
+		select * from used where unickname=#{value}
+	</select>
+
 	
 </mapper>

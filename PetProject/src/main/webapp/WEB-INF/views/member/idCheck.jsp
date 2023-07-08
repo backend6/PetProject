@@ -16,7 +16,8 @@
 		border-radius: 5px;
 		padding: 20px;
 		padding-top: 70px;
-		
+		font-family: 'omyu_pretty';
+		font-size: 1.2em;
 	}
 	
 	#text {
