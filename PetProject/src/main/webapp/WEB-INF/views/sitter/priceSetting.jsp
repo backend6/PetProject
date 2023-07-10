@@ -15,7 +15,7 @@
 		background-color: #EBFFE3; 
 		border-radius:20px; 
 		margin-bottom:20px; 
-		width:80%;
+		width:70%;
 		padding: 10px;
 		font-family: 'omyu_pretty';
 		font-size: 1.2em;
@@ -28,6 +28,8 @@
 	}
 	
 	#t td { vertical-align: middle; padding: 5px; }
+	
+	#t td:first-child { text-align: right; }
 	
 	.small { font-size: 1.1em; }
 	.medium { font-size: 1.2em; }
@@ -43,14 +45,8 @@
 		<h2 id="menu">이용 요금 설정</h2>
 	</div>
 		<div class="container" id="v1">
-			<form class="form-inline">
-				<table class="table table-bordered" id="t">
-					<!-- <tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td style="font-size: 0.9em; color: darkgray;">1박케어 | 데이케어</td>
-					</tr> -->
+			<form class="form-inline" name="pricef" id="pricef" action="${myctx}/sitter/user/price" method="post">
+				<table class="table table-border" id="t">
 					<tr>
 						<td width="15%"><span class="small">🐕</span></td>
 						<td width="20%"><span class="small">소형견</span></td>
@@ -79,7 +75,9 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="4"><button class="btn btn-primary">확인</button></td>
+						<td colspan="4" style="text-align: center;">
+							<button class="btn btn-primary">확인</button>
+						</td>
 					</tr>
 					
 				</table>

@@ -121,11 +121,11 @@ input[type="file"] {
 </style>
 <body>
 	<div class="big-box">
-	<div class="title" style="margin-top: 100px;">'펫시터 닉네임' 님과 함께하셨네요 !</div>
+	<div class="title" style="margin-top: 100px;">'${snickname}' 님과 함께하셨네요 !</div>
 	<div class="title" style="margin-bottom: 100px;">어떠셨나요? 후기를 남겨주세요 ♥</div>
 
 	<form action="${myctx}/insertReviewBoard" name="rb" id="rb" method="post" enctype="multipart/form-data">
-	<%-- <input type="hidden" name="nickname" value="${sessionScope.nickname}" /> 닉네임 전송해야해여--%>
+		<input type="hidden" name="ino" value="${ino}"/>
 		<div class="stars">만족하셨나요?</div>
 		<div class="form-group">
 			<select class="form-control" id="sel1" name="star">

@@ -157,12 +157,6 @@
 							<td colspan="2" style="font-size: 1.2em;"><c:out value="${item.short_content}" /></td>
 						</tr>
 						<tr>
-							<td colspan="2" style="font-size: 1.2em; ">~~~~~</td>
-						</tr>
-						<tr>
-							<td colspan="2" style="font-size: 1.2em;">~~~~~</td>
-						</tr>
-						<tr>
 							<td style="font-size: 1.3em; font-weight: bold;"><c:out value="${item.addr}" /></td>
 						</tr>
 					</table>

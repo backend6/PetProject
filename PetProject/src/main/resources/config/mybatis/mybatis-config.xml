@@ -18,6 +18,8 @@
 		<typeAlias type="com.find.model.IntroduceVO" alias="Find"/>
 		<typeAlias type="com.user.model.UserModelVO" alias="pet"/>	<!-- 펫 정보 -->
 		<typeAlias type="com.sitter.model.SitterVO" alias="Sitter"/>
+		<typeAlias type="com.reserve.model.ReserveVO" alias="Reserve"/>
+		<typeAlias type="com.sitter.model.PriceVO" alias="price"/>
 	</typeAliases>
 	
 	
@@ -30,6 +32,7 @@
 		<mapper resource="config/mybatis/mapper/FindMapper.xml"/>
 		<mapper resource="config/mybatis/mapper/GeneralUserMapper.xml" />	<!-- 펫 정보 -->
 		<mapper resource="config/mybatis/mapper/SitterMapper.xml"/>
+		<mapper resource="config/mybatis/mapper/ReserveMapper.xml"/>
 	</mappers>
 	
 </configuration>

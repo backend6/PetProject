@@ -2,6 +2,7 @@ package com.reviewboard.mapper;
 
 import java.util.List;
 
+import com.find.model.IntroduceVO;
 import com.reviewboard.model.ReplyVO;
 import com.reviewboard.model.ReviewBoardVO;
 
@@ -30,4 +31,11 @@ public interface ReviewBoardMapper {
 	int deleteReply(int rrno); // rrno에 해당하는 댓글 삭제
 	
 	int updateReply(ReplyVO rp); // rrno에 해당하는 댓글 수정
+
+	//---- 메인에 펫시터 소개
+	List<IntroduceVO> selectIntroduce();
+
+	List<ReviewBoardVO> selectReviewByNickname(String nickname);
+
+	String getSnicknameByIno(int ino);
 }

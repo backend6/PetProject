@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page import="java.util.List"%>
+<%@page import="com.sitter.model.SitterVO"%>
+<%@page import="java.text.SimpleDateFormat" %>
+<%@page import="java.util.*" %>
 
 <!--jQuery라이브러리 CDN방식으로 참조 ----------------->
 <script
@@ -26,12 +32,18 @@
 <style>
 * { font-family: 'omyu_pretty';}
 
-#on, #under {
+#on {
 	margin: 20px auto;
 	width: 85%;
 	height: 500px;
 	border-collapse: separate;
 	border-spacing: 20px;
+}
+
+#under {
+	margin: 20px auto;
+	width: 90%;
+	height: 800px;
 }
 
 td {
@@ -143,23 +155,29 @@ td {
 
 
 #locationSec {
-	padding: 25px;
+	
+	padding: 20px;
 	line-height: 1.8;
+	border: 2px solid lightgray;
+	border-radius: 10px;
+	width:40%; 
+	height: 50%; 
+	float:right;
 }
 
 #under {
-	margin-bottom: 100px;
+	margin-bottom: 60px;
 }
 
 #s1 {
 	width:70%; 
-	margin-bottom:130px; 
-	margin-left: 100px;
+	margin-bottom:100px; 
+	margin-left: 80px;
 }
 
 #r1{
 	width:70%;
-	margin-left: 100px;
+	margin-left: 80px;
 }
 
 #service, #review { margin-top: 10px; }
@@ -169,9 +187,9 @@ td {
 .row { margin-bottom: 100px; font-size:1.2em; width: 85%;}
 
 .container-calendar { font-family: 'omyu_pretty'; font-size: 1em; }
-#ch { font-family: 'omyu_pretty'; font-size: 1.5em; font-weight: bold; margin-left: 100px; }
+#ch { font-family: 'omyu_pretty'; font-size: 1.5em; font-weight: bold; margin-left: 90px; }
 
-.map-content { width: 100%; height: 80%; }
+.map-content { width: 100%; height: 70%; }
 #mbtn { 
 	padding: 5px 10px; 
 	font-size: 0.9em; 
@@ -182,6 +200,13 @@ td {
 .small { font-size: 1.1em; }
 .medium { font-size: 1.2em; }
 .large { font-size: 1.3em; }
+#like { margin-top: 5px; }
+.t1 { width: 80%; }
+
+#service1 {
+	max-width:23%; 
+	height: 45%;
+}
 
 </style>
 
@@ -204,30 +229,6 @@ td {
                 }
             })  
             
-            /* //wish에 들어가 있으면 채워진하트로 표시한다
-            if(${getWish}){
-            	hid=$('.like:hidden');
-                vis=$('.like:visible');
-                hid.show();
-                vis.hide();
-            }
-            
-            $('.like').click(()=>{
-                hid=$('.like:hidden');
-                vis=$('.like:visible');
-                hid.show();
-                vis.hide();
-                if(${getWish}){
-                	frm.action='deleteHeart';
-                	frm.submit();
-                }else{
-	                frm.action='insertHeart';
-	                
-	    			frm.submit();
-                }
-            }) */
-            
-            
             
             $('.heart').click(function() {
     			
@@ -239,9 +240,8 @@ td {
     				console.log("빈 하트 클릭"+ino);
     				
     				$.ajax({
-    					url:'heart.do',
-    					type:'get',
-    					data:{ino:ino},
+    					url:ino+'/heart.do',
+    					type:'get',    					
     					success: function(res){
     						// alert(JSON.stringify(res));
     						if(res.result>0){
@@ -264,9 +264,8 @@ td {
     				console.log("꽉 찬 하트 클릭"+ino);
     				
     				$.ajax({
-    					url:'removeHeart.do',
-    					type:'get',
-    					data:{ino:ino},
+    					url:ino+'/removeHeart.do',
+    					type:'get',    					
     					success:function(res){
     						// alert(JSON.stringify(res));
     						if(res.result>0){
@@ -308,9 +307,9 @@ td {
 	            
             }
             
-            if(lic.value==null){
+            /* if(lic.value==null){
             	$('#lic').hide();	
-            }
+            } */
             
             $('#question').hover(()=>{
             	$('#answer').show();
@@ -326,17 +325,14 @@ td {
 <table id="on" class="t1">
 	<tr>
 		<td id="imgSec" rowspan="2" width="50%" style="border: 0">
-			<button id="prev">◀️</button>
-			<img id="petImg" src="${myctx}/resources/upload/${vo.ifile}" alt="no image" width="100%">
-			<button id="next">▶️</button>        
+			<img id="petImg" src="${myctx}/resources/upload/${vo.ifile}" alt="no image" width="100%">      
         </td>
 		<td id="infoSec" width="50%" height="40%">
 			<span id="nickname">${selectNickname } </span>
-			<img id="lic" src="<%=request.getContextPath()%>/images/license.png" alt="뱃지" style="width: 25px">
-			<form name="frm" id="frm" method="GET">
-                        
-            </form> 
-			<span style="float:right">
+			<c:if test="${license ne null}">
+				<img id="lic" src="<%=request.getContextPath()%>/images/license.png" alt="뱃지" style="width: 25px">
+			</c:if>
+			<span style="float:right" id="like">
 				<%-- 찜하기 하트 --%>
 				<c:if test="${loginUser eq null}">
 					<a href="${myctx}/login">
@@ -348,15 +344,15 @@ td {
 						<!-- 시터 회원이면 하트 안보이게 -->
 					</c:if>
 					<c:if test="${loginUser.ucheck eq 'G'}">
-						<c:if test="${wish.ino eq item.ino or item.wishNick eq loginUser.nickname}">
+						<c:if test="${vo.wishIno eq vo.ino and vo.wishNick eq loginUser.nickname}">
 							<img src="${myctx}/images/full_heart.png" class="heart" id="${vo.ino}">
 						</c:if>
-							<c:if test="${wish.ino ne item.ino and item.wishNick ne loginUser.nickname}">
+							<c:if test="${vo.wishIno ne vo.ino or vo.wishNick ne loginUser.nickname}">
 								<img src="${myctx}/images/heart.png" class="heart" id="${vo.ino}">
 							</c:if>
 					</c:if>	
 				</c:if>
-			</span>
+			</span><br>
 			<span id="intro_title">${selectTitle }</span>
 
 			<span id="review" style="font-size: 17px; float: right;"></span>
@@ -384,18 +380,16 @@ td {
 	</tr>
 </table>
 
-<table id="under" class="t1">
-    <tr>
-		<td id="introSec" rowspan="2" height="400px" style="width:60%; border:none;">
-			<h2 style="font-size: 2.2em; "><b>'${selectNickname }' 펫시터를 소개합니다.</b></h2>
- 			<span style="font-size: 22px;">${selectShortContent}</span><br><br>
-			<span style="font-size: 25px;">${shortContent}</span>
-			<br><span style="font-size: 25px;"> ${selectContent}</span>
-			</td>
-	</tr>
-	<tr>  
-		<td id="locationSec" height="70%" style="width:40%">
-			<span style="font-weight: bold; font-size: 22px;">펫시터 위치</span><br>
+<div id="under" class="t1">
+	<div id="introSec" style="width:60%; height: 400px; border:none; float:left;">
+		<h2 style="font-size: 2.2em; "><b>'${selectNickname }' 펫시터를 소개합니다.</b></h2>
+		<span style="font-size: 22px;">${selectShortContent}</span><br>
+		<span style="font-size: 20px; color: #5D5D5D;">${vo.tag}</span><br><br><br>
+		<span style="font-size: 22px;"> ${selectContent}</span>
+	</div>
+	
+	<div id="locationSec" style="width: 35%;">
+		<span style="font-weight: bold; font-size: 22px;">펫시터 위치</span><br>
 			<span>
 				<button type="button" class="btn btn-info" id="mbtn" onclick="codeAddress()">확인</button>
 			</span>
@@ -446,24 +440,18 @@ td {
 			<script 
 				src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyOvi_zQTPa31XJfwKOJVzvCvb1056_NY&callback=myMap">
 			</script>
-			
-			
-			<!-- <div class="map-content" style="float:left;">
-			     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3165.4265244579956!2d127.02601207645192!3d37.497857228062216!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca159effab6a1%3A0x2c7fcbe64938c1ad!2z7Iqk7YOA67KF7IqkIOqwleuCqFLsoJA!5e0!3m2!1sko!2skr!4v1686754047184!5m2!1sko!2skr" width="225" height="225" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-	        </div> -->
-		</td>
-	</tr>
-</table>
+	</div>
+</div>
+
 
 <div class="row">
-	<div class="col-md-7" id="s1">
+	<div class="col-md-8" id="s1">
 		<p style="font-size:1.3em; font-weight:bold; margin-bottom:0;">이용 가능 서비스</p>
 		
 		<!-- 이 테이블에는 펫시터 소개 등록에서 펫시터가 등록한 서비스만 보여줘야 해요! -->
-		
-		<c:forEach var="item" items="${service}">
-				<img id="service1" src="<%=request.getContextPath()%>/images/${item}.jpg" alt="service" style="max-width:30%; height: 60%;">				
-		</c:forEach>
+			<c:forEach var="item" items="${service}">
+				<img id="service1" src="<%=request.getContextPath()%>/images/${item}.jpg" alt="service">				
+			</c:forEach>
 		
 	</div>
 	
@@ -481,8 +469,12 @@ td {
 				</tr>
 				<tr>
 					<td style="font-size:0.9em; padding-top:1px;">${item.wdate}</td>
-					<td rowspan="2" style="text-align:center; vertical-align:middle; background-color:#dddddd; width:30%">
-						<img id="service1" src="<%=request.getContextPath()%>/resources/upload/${item.rfile}" alt="사진" style="width:30%">
+					<td rowspan="2" style="text-align:center; vertical-align:middle; width:30%">
+						<div id="rimg" style="width: 100%;">
+							<a href="${myctx}/reviewBig?rno=${item.rno}">
+								<img id="simg" src="<%=request.getContextPath()%>/resources/board_upload/${item.rfile}" alt="사진" style="width:90%" class="rounded">
+							</a>
+						</div>
 					</td>
 				</tr>
 				<tr>
@@ -505,27 +497,49 @@ td {
 
 <%-- 달력 --%>
 <h3 id="ch">예약 가능 날짜</h3>
-<form action="${myctx}/sendDate" name="sd" id="sd" method="post">
-	<div class="container-calendar" style="width: 1000px; margin: 50px; /* border: 3px solid pink; */">
-		<div id="container-calendar" style="width: 60%; height: 90%; margin: 0 50px; /* border: 3px solid lime; */">
+<form action="${myctx}/makeReserve" name="sd" id="sd" method="post">
+	<input type="hidden" name="ino" value="${ino}">
+	<input type="hidden" name="unickname" value="${loginUser.nickname}" />
+	<input type="hidden" name="tel1" value="${loginUser.tel1}" />
+	<input type="hidden" name="tel2" value="${loginUser.tel2}" />
+	<input type="hidden" name="tel3" value="${loginUser.tel3}" />
+	<div class="container-calendar" style="width: 1000px; margin: 50px; ">
+		<div id="container-calendar" style="width: 60%; height: 90%; margin: 0 50px; ">
 			<div id="calendar"></div>
 		</div>
-		<div style="margin-top: 60px; margin-left: 60px; font-size: 1.2em;">[예약 날짜 선택]</div>
-		<div class="row">
-			<div class="col-md-4 offset-1">
-				<label for="start-date">시작 날짜:</label> 
-					<input type="text" id="start-date" class="form-control" readonly>
-			</div>
-			<div class="col-md-4 offset-1">
-				<label for="end-date">종료 날짜:</label> <input type="text" id="end-date"
-					class="form-control" readonly>
-			</div>
-			<div class="col-md-4 offset-1">
-				<label for="register">* 예약 신청 버튼을 누르면, 휴대폰 번호와 함께 예약 정보가
-					전송됩니다.</label>
-				<button class="btn btn-primary">예약 신청</button>
-			</div>
-		</div>
+		<!-- 로그인 안 한 경우 -->
+		<c:if test="${loginUser eq null}">
+			<div style="margin-top: 20px; margin-left: 50px; "> * 로그인을 하셔야 예약 신청이 가능합니다.</div>
+	   	</c:if>
+		
+		<!-- 로그인 한 경우 시터 계정일 때 -->
+		<c:if test="${loginUser ne null}">
+			<c:if test="${loginUser.ucheck eq 'S' }">
+				<div style="margin-top: 20px; margin-left: 50px;"> * 일반회원으로 로그인을 하셔야 예약 신청이 가능합니다.</div>
+			</c:if>
+		</c:if>
+			
+		<!-- 로그인 한 경우 일반 회원일 때 -->
+		<c:if test="${loginUser ne null}">
+			<c:if test="${loginUser.ucheck eq 'G' }">
+				<div style="margin-top: 60px; margin-left: 60px; font-size: 1.2em;">[예약 날짜 선택]</div>
+				<div class="row">
+					<div class="col-md-4 offset-1">
+						<label for="start-date">시작 날짜:</label> 
+							<input type="text" id="start-date" name="sdate" class="form-control" readonly>
+					</div>
+					<div class="col-md-4 offset-1">
+						<label for="end-date">종료 날짜:</label> <input type="text" id="end-date" name="fdate"
+							class="form-control" readonly>
+					</div>
+					<div class="col-md-4 offset-1">
+						<label for="register">* 예약 신청 버튼을 누르면, 휴대폰 번호와 함께 예약 정보가
+							전송됩니다.</label>
+						<button class="btn btn-primary" id="reserveButton">예약 신청</button>
+					</div>
+				</div>
+			</c:if>
+		</c:if>
 	</div>
 </form>
 <!-- ------------------------------------------------------------------------------ -->
@@ -549,13 +563,13 @@ td {
   });
 });
     
-    /* 달력 모양 -------------------------*/
-    document.addEventListener('DOMContentLoaded', function() {
+	/* 달력 */	
+	document.addEventListener('DOMContentLoaded', function() {
 		var calendarEl = document.getElementById('calendar');
 		var calendar = new FullCalendar.Calendar(calendarEl, {
-			height: 500,
-			contentHeight: 200,
-			
+			height : 500,
+			contentHeight : 200,
+
 			initialView : 'dayGridMonth', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
 			headerToolbar : { // 헤더에 표시할 툴 바
 				start : 'prev next today',
@@ -563,19 +577,66 @@ td {
 				end : 'dayGridMonth,dayGridWeek,dayGridDay'
 			},
 			titleFormat : function(date) {
-				return date.date.year + '년 ' + (parseInt(date.date.month) + 1) + '월';
+				return date.date.year + '년 ' + (parseInt(date.date.month) + 1)
+						+ '월';
 			},
 			//initialDate: '2021-07-15', // 초기 날짜 설정 (설정하지 않으면 오늘 날짜가 보인다.)
 			selectable : true, // 달력 일자 드래그 설정가능
 			droppable : true,
 			editable : true,
-			nowIndicator: true, // 현재 시간 마크
-			locale: 'ko' // 한국어 설정
+			nowIndicator : true, // 현재 시간 마크
+			locale : 'ko', // 한국어 설정
+			navLinks : true, // can click day/week names to navigate views
+			editable : true,
+			eventLimit : true, // allow "more" link when too many events
+			events : [ 
+				<%List<SitterVO> sitterList= (List<SitterVO>) request.getAttribute("sittervo");%>
+				<%if (sitterList != null) {%>
+					<%for (SitterVO vo : sitterList) {%>
+						<%Date oldDate = vo.getSdate();%>
+						<%Date newDate = vo.getFdate();%>
+						<%long diff = Math.abs(newDate.getTime() - oldDate.getTime());%>
+						<%double x = Math.floor(diff / (1000 * 60 * 60 * 24));%>
+						<%int y=(int)x;%>
+						<%int z=y;%>
+						<%if(y>0){ z=y+1; }%>
+						<%if(y<1){ z++; }%>
+						
+						<%SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");%>
+						
+						
+						<%Calendar cal = Calendar.getInstance();%>
+						<%cal.setTime(oldDate);%>
+						
+						
+						<%long col=Math.round(Math.random() * 0xffffff);%>
+						<%String co=Long.toString(col,16);%>
+						<%int q=1;%>
+						
+						<%for (int i=0; i<z; i++){%>
+						{	
+							<%int w=i;%>
+							<%if(i>=2){
+								w=i-q;
+								q++;
+							}%>
+
+							<%cal.add(Calendar.DATE,w);%>						
+							<%String test = simpleDateFormat.format(cal.getTime()); %>
+							
+			            	title : '<%=vo.getUnickname()%>',
+			                start : '<%=test%>',
+			                color : '#' + '<%=co%>'
+			             },
+					<%}
+					 }  
+				}%>
+			]
 		});
 		calendar.render();
 		calendar.updateSize();
 	});
-    
+	/* 달력 끝 */
   
 </script>
 

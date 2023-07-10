@@ -199,7 +199,14 @@ textarea {
 .lil-1:hover {
 	background-color: #B8DFD8;
 }
-
+.toInfo {
+	text-decoration: none;
+	color: #FF8989;
+}
+.toInfo:hover {
+	text-decoration: none;
+	color: #FF8989;
+}
 </style>
 
 <body>
@@ -214,8 +221,8 @@ textarea {
 
 			<div class="big">
 				<div class="container">
-
-					<div class="st_who">&nbsp;&nbsp;'${st_nickname}' 님과 함께하셨어요
+					<div class="st_who">&nbsp;&nbsp; 
+						<a href="${myctx}/shop/info/${ino}" class="toInfo"> '${st_nickname}' 님과 함께하셨어요</a>
 						♬&nbsp;&nbsp;</div>
 					<div class="row row1">
 						<div>${reviewBoard.title}</div>
@@ -248,7 +255,7 @@ textarea {
 							<div class="re-content">${reply[i].content}</div>
 							<div class="re-date">
 								${reply[i].wdate}
-								<c:if test="${sessionScope.loginUser eq reply[i].nickname}">
+								<c:if test="${sessionScope.writer eq reply[i].nickname}">
 									<div class="lil">
 										<button type="button" class="lil-1 editBtn" style="margin-right: 5px;" onclick="editReply('${reply[i].content}','${reply[i].rrno}','${reply[i].rno}')">수정</button>
 										<form action="${myctx}/deleteReply" name="delete_re" id="delete_re" method="post">
@@ -264,6 +271,7 @@ textarea {
 				</c:if>
 			</div>
 
+			<c:if test="${sessionScope.writer ne null}">
 			<form action="${myctx}/insertReply" name="rp" id="rp" method="post">
 				<div class="re-box">
 					<input type="hidden" name="rno" value="${rno}" />
@@ -282,13 +290,18 @@ textarea {
 					</div>
 				</div>
 			</form>
-
-
+			</c:if>
+			
+			<c:if test="${sessionScope.writer eq null}">
+				<div style="height: 150px;">&nbsp;</div>
+			</c:if>
+			
 			<!-- 로그인 정보와 글 쓴 사람 똑같을 때, 편집&삭제 버튼 보이기 -->
-			<c:if test="${sessionScope.loginUser eq reviewBoard.nickname}">
+			<c:if test="${sessionScope.writer eq reviewBoard.nickname}">
 				<div class="btns">
 				<form action="${myctx}/editReview" name="edit_rv" id="edit_rv" method="post">
 					<input type="hidden" name="rno" value="${rno}" />
+					<input type="hidden" name="snickname" value="${st_nickname}" />
 					<button type="submit" class="btn btn-info" style="width: 70px;">편집</button>
 				</form>
 				

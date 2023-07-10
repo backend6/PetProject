@@ -62,8 +62,7 @@
 	<insert id="addUsed" parameterType="Sitter">
 		insert into used 
 		values(#{unickname},#{snickname},#{pname},#{sdate},#{fdate},uno_seq.nextval,
-			(select pno from mypet where nickname=#{unickname} and pname=#{pname}),
-			(select ino from introduce where nickname=#{snickname})
+			(select pno from mypet where nickname=#{unickname} and pname=#{pname}))
 		)
 	</insert>
 	
@@ -75,8 +74,21 @@
 		select * from mypet where pno=#{value}
 	</select>
 	
-	<select id="icheck" resultType="_int" parameterType="string">
+	<select id="icheck" resultType="int" parameterType="string">
 		select ino from introduce where nickname=#{nickname}
+	</select>
+	
+	<delete id="delIntroduce" parameterType="_int">
+		delete from introduce where ino=#{ino}
+	</delete>
+	
+	<insert id="addPrice" parameterType="price">
+		insert into price
+		values (#{ino}, #{nickname}, #{spetday}, #{spetall}, #{mpetday}, #{mpetall}, #{lpetday}, #{lpetall})
+	</insert>
+	
+	<select id="getPrice" resultType="price" parameterType="string">
+		select * from price where nickname=#{nickname}
 	</select>
 	
 </mapper>

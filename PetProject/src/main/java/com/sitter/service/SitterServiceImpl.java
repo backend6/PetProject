@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.sitter.mapper.SitterMapper;
+import com.sitter.model.PriceVO;
 import com.sitter.model.SitterVO;
 import com.user.model.UserModelVO;
 import com.user.model.UserVO;
@@ -24,7 +25,7 @@ public class SitterServiceImpl implements SitterService {
 	
 	
 	@Override
-	public int sitterIntroduce(SitterVO sitter) {
+	public Integer sitterIntroduce(SitterVO sitter) {
 		
 		return sitterMapper.sitterIntroduce(sitter);
 	}
@@ -118,9 +119,30 @@ public class SitterServiceImpl implements SitterService {
 
 
 	@Override
-	public int icheck(String nickname) {
+	public Integer icheck(String nickname) {
 		
 		return this.sitterMapper.icheck(nickname);
+	}
+
+
+	@Override
+	public int delIntroduce(int ino) {
+
+		return this.sitterMapper.delIntroduce(ino);
+	}
+
+
+	@Override
+	public int addPrice(PriceVO price) {
+		
+		return this.sitterMapper.addPrice(price);
+	}
+
+
+	@Override
+	public PriceVO getPrice(String nickname) {
+		
+		return this.sitterMapper.getPrice(nickname);
 	}
 
 

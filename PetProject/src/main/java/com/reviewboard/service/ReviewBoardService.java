@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.find.model.IntroduceVO;
 import com.reviewboard.model.ReplyVO;
 import com.reviewboard.model.ReviewBoardVO;
 
@@ -36,5 +37,11 @@ public interface ReviewBoardService {
 	int deleteReply(int rrno); // rrno에 해당하는 댓글 삭제
 
 	int updateReply(ReplyVO rp); // rrno에 해당하는 댓글 수정
+
+	List<ReviewBoardVO> selectReviewByNickname(String nickname);
+	
+	List<IntroduceVO> selectIntroduce(); // 메인페이지에 info 넣기
+
+	String getSnicknameByIno(int ino);
 	
 }

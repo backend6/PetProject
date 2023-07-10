@@ -78,16 +78,24 @@
 		WHERE rrno = #{rrno}
 	</update>	
 	
+	<!-- 메인페이지에 펫시터 소개 넣기 -->
+	<select id="selectIntroduce" resultType="Find">
+		SELECT * FROM introduce order by ino desc
+	</select>
 	
+	<!-- 일반회원 마이페이지에 내가 쓴 리뷰 -->
+	<select id="selectReviewByNickname" resultType="ReviewBoard">
+		SELECT * FROM reple
+		WHERE nickname = #{nickname} 
+		ORDER BY rno desc	
+	</select>
+	
+	<select id="getSnicknameByIno" resultType="string" parameterType="_int">
+		SELECT nickname
+		from introduce
+		where ino = #{ino}
+	</select>
 </mapper>
-
-
-
-
-
-
-
-
 
 
 

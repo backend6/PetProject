@@ -36,8 +36,9 @@
 		background-color: #EBFFE3; 
 		border-radius:20px; 
 		margin-bottom:20px; 
-		width:80%;
+		width:75%;
 		padding: 10px;
+		text-align: center;
 	}
 	
 	a{ color:inherit; font-size: 1.2em; }
@@ -49,6 +50,7 @@
 		font-size: 1.2em;
 	}
 	
+	#t { width: 80%; margin: 0 auto;}
 	
 </style>
 
@@ -58,7 +60,7 @@
 	</div>
 		<div class="container" id="v1">
 		
-			<table class="table table-bordered">
+			<table class="table table-border" id="t">
 				<tr>
 					<td width="20%"><b>시작일</b></td>
 					<td width="20%"><b>종료일</b></td>

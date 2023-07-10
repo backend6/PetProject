@@ -40,4 +40,5 @@ public interface FindMapper {
 	List<ReviewBoardVO> selectRepleAll(int num);
 	
 	IntroduceVO selectIntroduceByIno(int ino);
+	
 }

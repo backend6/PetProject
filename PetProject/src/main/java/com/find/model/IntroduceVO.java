@@ -10,9 +10,10 @@ public class IntroduceVO {
 	private String title;
 	private String short_content;
 	private String addr;
-	private String category;
+	private String tag;
 	private String content;
 	private String license;
 	private String ifile;
 	private String wishNick;
+	private int wishIno;
 }
