@@ -2,6 +2,7 @@ package com.user.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,6 +27,9 @@ import com.find.model.IntroduceVO;
 import com.find.model.WishVO;
 import com.find.service.SitterFindService;
 import com.find.service.WishService;
+import com.reserve.service.ReserveService;
+import com.reviewboard.model.ReviewBoardVO;
+import com.reviewboard.service.ReviewBoardService;
 import com.sitter.model.SitterVO;
 import com.user.model.UserModelVO;
 import com.user.model.UserVO;
@@ -51,6 +55,12 @@ public class GeneralPageController {
 	@Resource(name = "sitterFindService")
 	private SitterFindService sitterFindService;
 	
+	@Resource(name = "ReserveService")
+	private ReserveService reserveService;
+	
+	@Resource(name="reviewBoardService")
+	private ReviewBoardService rbService;
+	
 	
 	@GetMapping("/page")
 	public String generalPage(Model m, HttpSession session) {
@@ -73,6 +83,20 @@ public class GeneralPageController {
 		// 이용내역 가져오기
 		List<SitterVO> used = this.service.getUsedHistory(unickname_fk);
 		m.addAttribute("used", used);
+		
+		// 내가 쓴 리뷰 가져오기
+		List<ReviewBoardVO> rbData = rbService.selectReviewByNickname(unickname_fk);
+		m.addAttribute("reviewBoard", rbData);
+			
+		List<String> snicknames = new ArrayList<>();
+				
+		for (ReviewBoardVO review : rbData) {
+		    int ino = review.getIno();
+		    String snickname = rbService.getSnicknameByIno(ino);
+		    snicknames.add(snickname);
+			}
+				
+		m.addAttribute("snicknames", snicknames);
 		
 		return "general/mypage_user";
 	}
@@ -245,8 +269,13 @@ public class GeneralPageController {
 	
 	
 	// 리뷰쓰기로 이동
-	 @GetMapping("/reviewBoardWrite") 
-	 public String goReview() {
+	 @PostMapping("/reviewBoardWrite") 
+	 public String goReview(Model m, @RequestParam("snickname") String snickname) {
+		 
+		 int ino = reserveService.getInoBySnickname(snickname);
+		 
+		 m.addAttribute("snickname", snickname);
+		 m.addAttribute("ino", ino);
 		 
 		 return "review/reviewBoardWrite"; 
 	 }

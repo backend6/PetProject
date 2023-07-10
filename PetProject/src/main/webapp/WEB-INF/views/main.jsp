@@ -19,6 +19,18 @@ a {
 	color: inherit;
 }
 
+.box1 {
+	border: 1px solid #FFD9C0;
+	background-color: #FAF0E4;
+	border-radius: 20px;
+	width: 230px;
+	height: 440px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 0 0 5px #FFD9C0;
+}
+
 .box {
 	border: 1px solid #F2BED1;
 	background-color: #F8E8EE;
@@ -30,6 +42,7 @@ a {
 	align-items: center;
 	box-shadow: 0 0 5px #F2BED1;
 }
+
 a:hover {
 	text-decoration: none;
 }
@@ -55,7 +68,17 @@ a:hover {
 .row1 {
 	height: 210px;
 }
-
+.row-2 {
+	height: 65px;
+	margin-top: 7px;
+	margin-bottom: 10px;
+	background-color: white;
+	padding: 5px 8px 5px 0px;
+	border-radius: 10px;
+	color: #643843;
+	box-shadow: 0 0 5px #FFD9C0;
+	border: 1px solid #FFD9C0;
+}
 .row2 {
 	height: 65px;
 	margin-top: 7px;
@@ -64,14 +87,26 @@ a:hover {
 	padding: 5px 8px 5px 0px;
 	border-radius: 10px;
 	color: #643843;
+	box-shadow: 0 0 5px #F2BED1;
+	border: 1px solid #F2BED1;
+}
+
+.row-3 {
+	height: 145px;
+	background-color: #FFFAF4; 
+	padding-top: 10px;
+	border-radius: 10px;
+	box-shadow: 0 0 5px #FFD9C0;	
+	border: 1px solid #FFD9C0;
 }
 
 .row3 {
 	height: 125px;
-	background-color: #FFFAF4;
+	background-color: #FFFAF4; 
+	box-shadow: 0 0 5px #F2BED1;
+	border: 1px solid #F2BED1;
 	padding-top: 10px;
 	padding-bottom: 10px;
-	border: 1px solid white;
 	border-radius: 10px;
 }
 
@@ -132,19 +167,37 @@ a:hover {
 					class="more">더보기 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></td>
 			</tr>
 			<tr style="height: 20px;"></tr>
+
 			<tr>
-				<td>
-					<div class="box">펫시터1</div>
-				</td>
-				<td>
-					<div class="box">펫시터2</div>
-				</td>
-				<td>
-					<div class="box">펫시터3</div>
-				</td>
-				<td>
-					<div class="box">펫시터4</div>
-				</td>
+				<c:if test="${introduce ne null and not empty introduce}">
+				<c:forEach var="i" begin="0" end="3">
+					<td>
+					
+						<div class="box1">
+							<div>
+								<div class="container" style="width: 210px;">
+									<div class="row row1">
+										<div class="col col1">
+											<a href="${myctx}/shop/info/${introduce[i].ino}"><img src="resources/upload/${introduce[i].ifile}"
+												alt="리뷰 이미지" class="rounded"></a>
+										</div>
+									</div>
+									<div class="row row-2" style="height: 40px;">
+										<div class="col">
+											<div class="who"><a href="${myctx}/shop/info/${introduce[i].ino}" class="st">&nbsp;${introduce[i].nickname} 시터님 ♥</a></div>
+										</div>
+									</div>
+									<div class="row row-3">
+										<div class="col col3">
+											<div><a href="${myctx}/shop/info/${introduce[i].ino}">${introduce[i].content}</a></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
+				</c:forEach>
+				</c:if>
 			</tr>
 		</table>
 		<br> <br>
@@ -173,7 +226,7 @@ a:hover {
 									<!-- 2행 -->
 									<div class="row row2">
 										<div class="col">
-											<div class="who"><a href="${myctx}/reviewBig?rno=${reviewBoard[i].rno}" class="st">&nbsp;${reviewBoard[i].nickname} 님의 후기♥</a></div>
+											<div class="who"><a href="${myctx}/reviewBig?rno=${reviewBoard[i].rno}" class="st">&nbsp;${reviewBoard[i].nickname} 님의 후기 ♥</a></div>
 											<div>
 												<c:set var="starCount" value="${reviewBoard[i].star}" />
 												<c:forEach var="j" begin="1" end="${starCount}">

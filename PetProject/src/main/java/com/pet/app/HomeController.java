@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.find.model.IntroduceVO;
 import com.reviewboard.model.ReviewBoardVO;
 import com.reviewboard.service.ReviewBoardService;
 
@@ -47,6 +48,9 @@ public class HomeController {
 		List<ReviewBoardVO> rbData = rbService.selectReviewBoard();
 		model.addAttribute("reviewBoard", rbData);
 	
+		List<IntroduceVO> infoData = rbService.selectIntroduce();
+		model.addAttribute("introduce", infoData);
+		
 		return "main";
 	}
 	

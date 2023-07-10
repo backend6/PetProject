@@ -23,6 +23,7 @@
 	#nicksp { color: #50AF49; }
 	
 	#menu { font-family: 'KOTRAHOPE'; font-size:2em; }
+	
 </style>
 
 <div id="box" class="text-center">

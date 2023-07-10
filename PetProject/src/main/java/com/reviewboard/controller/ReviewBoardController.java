@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.reserve.service.ReserveService;
 import com.reviewboard.model.ReplyVO;
 import com.reviewboard.model.ReviewBoardVO;
 import com.reviewboard.service.ReviewBoardService;
@@ -40,11 +41,8 @@ public class ReviewBoardController {
 	@Resource(name = "reviewBoardService")
 	private ReviewBoardService rbService;
 
-//	@GetMapping("/reviewBoardWrite")
-//	public String reviewBoardWrite() {
-//
-//		return "/review/reviewBoardWrite";
-//	}
+	@Resource(name = "ReserveService")
+	private ReserveService reserveService;
 	
 	@GetMapping("/reviewBig")
 	public String reviewBig(Model m, @RequestParam("rno") int rno, HttpSession session, HttpServletResponse response) {
@@ -59,21 +57,30 @@ public class ReviewBoardController {
 		m.addAttribute("st_nickname", st_nickname);
 		m.addAttribute("reply", rpData);
 		m.addAttribute("total", total);
-
+		
+		m.addAttribute("ino", reserveService.getInoBySnickname(st_nickname));
+		
 		UserVO uvo = (UserVO)session.getAttribute("loginUser");
-		session.setAttribute("writer", uvo.getNickname());
-
+		
+		if (uvo != null) {
+			session.setAttribute("writer", uvo.getNickname());
+		} else {
+			session.setAttribute("writer", null);
+		}
+		
 		return "/review/reviewBig";
 	}
 
 	@PostMapping("/insertReviewBoard")
 	public String insertReviewBoard(Model m, @ModelAttribute ReviewBoardVO rb,
-			@RequestParam("mfilename") MultipartFile mf, @RequestParam("star") String star, HttpSession session) {
+			@RequestParam("mfilename") MultipartFile mf, @RequestParam("star") String star, 
+			@RequestParam("ino") int ino, HttpSession session) {
 
-		rb.setIno(1);
+		rb.setIno(ino);
 		
 		UserVO uvo = (UserVO)session.getAttribute("loginUser");
 		session.setAttribute("writer", uvo.getNickname()); //?
+		System.out.println(uvo.getNickname());
 		
 		rb.setNickname(uvo.getNickname());
 		
@@ -134,11 +141,13 @@ public class ReviewBoardController {
 
 	// 수정 폼 보여주기
 	@PostMapping("/editReview")
-	public String editReview(Model m, @ModelAttribute ReviewBoardVO vo, @RequestParam("rno") int rno) {
+	public String editReview(Model m, @ModelAttribute ReviewBoardVO vo, 
+								@RequestParam("rno") int rno, @RequestParam("snickname") String snickname) {
 
 		ReviewBoardVO rbVO = this.rbService.selectReviewByRno(rno);
 
 		m.addAttribute("review", rbVO);
+		m.addAttribute("snickname", snickname);
 
 		return "review/reviewEdit";
 	}// --------------------------------------
@@ -146,9 +155,10 @@ public class ReviewBoardController {
 	// 수정 끝나서 다시 리뷰 보는 페이지로 돌아가기
 	@PostMapping("/updateReview")
 	public String updateReview(Model m, @ModelAttribute ReviewBoardVO vo, @RequestParam("rno") int rno,
-			@RequestParam("mfilename") MultipartFile mf, @RequestParam("star") String star, HttpSession session) {
+			@RequestParam("mfilename") MultipartFile mf, @RequestParam("star") String star,
+			@RequestParam("snickname") String snickname, HttpSession session) {
 
-		vo.setIno(1);
+		vo.setIno(reserveService.getInoBySnickname(snickname));
 		
 		UserVO uvo = (UserVO)session.getAttribute("loginUser");
 		vo.setNickname(uvo.getNickname());

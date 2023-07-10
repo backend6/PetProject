@@ -13,4 +13,5 @@ public class WishVO {
 	private int ino;			// 펫시터 소개 번호? - introduce_fk
 	private String saddr;		// 펫시터 지역
 	private String title;		// 펫시터 소개 제목
+	
 }

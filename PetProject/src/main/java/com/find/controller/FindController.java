@@ -3,6 +3,7 @@ package com.find.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -24,6 +25,8 @@ import com.find.service.FindService;
 import com.find.service.SitterFindService;
 import com.find.service.WishService;
 import com.reviewboard.model.ReviewBoardVO;
+import com.sitter.model.SitterVO;
+import com.sitter.service.SitterService;
 import com.user.model.UserVO;
 
 import lombok.extern.log4j.Log4j;
@@ -42,6 +45,9 @@ public class FindController {
 	
 	@Resource(name="wishService")
 	private WishService wishService;
+	
+	@Inject
+	private SitterService sitterService;
 	
 
 	// 페이징
@@ -133,7 +139,7 @@ public class FindController {
 		}catch(Exception e) {
 			wish = 0;
 		}
-		
+		System.out.println("wish="+wish);
 		try {
 			cntReple = this.fService.getCntReple(ino);
 		}catch(Exception e) {
@@ -174,6 +180,11 @@ public class FindController {
 		model.addAttribute("service",serviceList);
 		model.addAttribute("Img",img);
 		
+		/* 달력 데이터 */
+		List<SitterVO> svo = sitterService.getSitterUsed(nickname);
+		req.setAttribute("sittervo", svo);
+
+		
 		return "shop/detail";
 	}
 	
@@ -181,6 +192,8 @@ public class FindController {
 	@ResponseBody
 	@GetMapping(value="info/{ino}/heart.do", produces="application/json")
 	public ModelMap wishAdd(@PathVariable("ino") int ino, HttpSession session, Model m) {
+		//log.info("ino==="+ino);
+		System.out.println("ino=="+ino);
 		ModelMap map=new ModelMap();
 		
 		UserVO loginUser = (UserVO)session.getAttribute("loginUser");

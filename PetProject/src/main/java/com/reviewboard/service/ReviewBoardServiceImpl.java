@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import com.find.model.IntroduceVO;
 import com.reviewboard.mapper.ReviewBoardMapper;
 import com.reviewboard.model.ReplyVO;
 import com.reviewboard.model.ReviewBoardVO;
@@ -78,6 +79,21 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 	@Override
 	public int updateReply(ReplyVO rp) {
 		return this.reviewBoardMapper.updateReply(rp);
+	}
+
+	@Override
+	public List<IntroduceVO> selectIntroduce() {
+		return this.reviewBoardMapper.selectIntroduce();
+	}
+
+	@Override
+	public List<ReviewBoardVO> selectReviewByNickname(String nickname) {
+		return this.reviewBoardMapper.selectReviewByNickname(nickname);
+	}
+
+	@Override
+	public String getSnicknameByIno(int ino) {
+		return this.reviewBoardMapper.getSnicknameByIno(ino);
 	}
 
 

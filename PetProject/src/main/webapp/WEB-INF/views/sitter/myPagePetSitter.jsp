@@ -18,6 +18,18 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+<!-- 웹소켓 -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/sockjs.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/stomp.min.js"></script>
+<script type="text/javascript">
+	let win = null;
+	function open_chat() {
+		win = window.open("${myctx}/chat", "chat", "width=400, height=440, left=300, top=200");
+	} 
+</script>
+
 
 <style>
 .v{
@@ -32,10 +44,11 @@
 	padding:20px;
 	text-align:left;
 	line-height:1.7;
-	height:250px;
+	height:295px;
 	margin-bottom:30px;
 	border-radius:20px;
 }
+
 .v3{
 	background-color:rgb(243, 232, 166);
 	padding:20px;
@@ -117,13 +130,37 @@ a{
 
 #onPet:hover { cursor: pointer; font-weight:bold; }
 
-.t { margin: 0 auto; text-align: center;}
+.t { margin: 0 auto; text-align: center; width: 100%;}
 
 .small { font-size: 1.1em; }
 .medium { font-size: 1.2em; }
 .large { font-size: 1.3em; }
 
 #menu { font-family: 'KOTRAHOPE'; font-size:2.2em; }
+
+.btn-1 {
+	background-color: pink;
+	border: 2px solid white;
+	border-radius: 4px;
+	width: 100px;
+	height: 40px;
+}
+.btn2 {
+	margin-top: 5px;
+	background-color: #DBDFEA;
+}
+
+.btn-1:hover {
+	border: 3px solid white;
+	color: white;
+}
+
+#sbar { font-weight: bold; font-size: 1em; color: #5D5D5D; }
+
+.nick a { width: 100%; margin: 0 auto; }
+
+#iimg { width: 100%; height: 100%;}
+#introT .rr { padding-left: 5px; text-align: center; color: #5D5D5D; height: 95%;}
 
 </style>
 
@@ -206,9 +243,6 @@ a{
 </script>
 
 <script>
-	// 엥 이거 하면 달력 안뜨나 확인해바..
-	// 돌봄일정에서 이용자 닉네임 클릭하면 정보 팝업
-	let win = null;
 	function userAlert(value){
 		var url='${myctx}/sitter/user/userAlert?pno='+value;
 		win = window.open(url, "userAlert", "width=600, height=570, left=400, top=150");
@@ -217,7 +251,7 @@ a{
 
 <div class="v">
 	<div align="center" class="col-md-8 offset-md-2 my-4" >
-		<h2 id="menu">${loginUser.mid} 시터님 마이페이지 </h2>
+		<h2 id="menu">'${loginUser.nickname}' 시터님 마이페이지 </h2>
 	</div>
 	
 	<a href="${myctx}/sitter/user/editS">회원정보수정</a>
@@ -228,77 +262,139 @@ a{
 		<a href="${myctx}/sitter/user/introDetail">등록/수정</a>
 		<br>
 		<c:set var="sv" value="${svo}"/>
-		<c:if test="${not empty sv}">
-			<c:forEach var="introduce" items="${svo}">
-				<div class="i">
-					<img src="../../resources/upload/${introduce.ifile}" height=150px width=150px;>
-				</div>
-				<b>닉네임 : ${nickname} 님</b><!-- 로그인한 유저의 정보값 받아서 그중 닉네임 값 받아서 넣을 곳 -->
-				<br>
-				<b>지역 : ${introduce.addr}</b>
-				<br>
-				<b>소개 제목 : ${introduce.title}</b>
-				<br>
-				<b>간단한 소개 (2~3줄) : ${introduce.short_content}</b>
-				<br>
-				<b>태그 : ${introduce.tag}</b>
-			</c:forEach>
-		</c:if>
-		<c:if test="${empty sv}">
-			<b>등록된 내 소개가 없습니다 등록해주세요</b>
-		</c:if>
+		<table id="introT">
+			<c:if test="${not empty sv}">
+				<c:forEach var="introduce" items="${svo}">
+					<tr>
+						<td rowspan="5" width="25%">
+							<div>
+								<img src="../../resources/upload/${introduce.ifile}" id="iimg">
+							</div>
+						</td>
+						<td width="20%" class="rr">
+							<b>닉네임</b>
+						</td>
+						<td width="55%">
+							<b>${nickname} 님</b>
+						</td>
+					</tr>
+					<tr>
+						<td class="rr"><b>지역</b></td>
+						<td>
+							<b>${introduce.addr}</b>
+						</td>
+					</tr>
+					<tr>
+						<td class="rr"><b>소개 제목</b></td>
+						<td><b>${introduce.title}</b></td>
+					</tr>
+					<tr>
+						<td class="rr"><b>간단한 소개 (2~3줄)</b></td>
+						<td><b>${introduce.short_content}</b></td>
+					</tr>
+					<tr>
+						<td class="rr"><b>태그</b></td>
+						<td><b>${introduce.tag}</b></td>
+					</tr>
+				</c:forEach>
+			</c:if>
+			<c:if test="${empty sv}">
+				<tr>
+					<td><b>등록된 내 소개가 없습니다 등록해주세요</b></td>
+				</tr>
+			</c:if>
+		</table>
 	</div>
 	
 	<div class="v4">
 		<b style="font-size:1.1em;">이용 요금 설정</b>
-		<a href="${myctx}/sitter/user/record">설정하기</a>
+		<a href="${myctx}/sitter/user/price">등록 | 수정</a>
 		<br><br>
 		<table class="t">
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td style="font-size: 0.9em; color: darkgray;">1박케어 | 데이케어</td>
-			</tr>
-			<tr>
-				<td width="15%"><span class="small">🐕</span></td>
-				<td width="20%"><span class="small">소형견</span></td>
-				<td width="25%"><span class="small" style="color: gray;">7kg 미만</span></td>
-				<td width="40%"><span class="small">
-					가격 | 가격
-				</td>
-			</tr>
-			<tr>
-				<td width="15%"><span class="medium">🐕</span></td>
-				<td width="20%"><span class="medium">중형견</span></td>
-				<td width="25%"><span class="medium" style="color: gray;">7~14.9kg</span></td>
-				<td width="40%"><span class="medium">가격</td>
-			</tr>
-			<tr>
-				<td width="15%"><span class="large">🐕</span></td>
-				<td width="20%"><span class="large">대형견</span></td>
-				<td width="25%"><span class="large" style="color: gray;">15kg 이상</span></td>
-				<td width="40%"><span class="large">가격</td>
-			</tr>
+			<c:if test="${price.spetall eq null}">
+				<tr>
+					<td> 등록된 가격 정보가 없습니다.
+				</tr>
+			</c:if>
+			<c:if test="${price.spetall ne null}">
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td style="font-size: 0.9em; color: darkgray;">1박케어 | 데이케어</td>
+				</tr>
+				<tr>
+					<td width="15%"><span class="small">🐕</span></td>
+					<td width="20%"><span class="small">소형견</span></td>
+					<td width="25%"><span class="small" style="color: gray;">7kg 미만</span></td>
+					<td width="40%">
+						<span class="small">${price.spetall}원 | ${price.spetday}원</span>
+					</td>
+				</tr>
+				<tr>
+					<td width="15%"><span class="medium">🐕</span></td>
+					<td width="20%"><span class="medium">중형견</span></td>
+					<td width="25%"><span class="medium" style="color: gray;">7~14.9kg</span></td>
+					<td width="40%">
+						<span class="medium">${price.mpetall}원 | ${price.mpetday}원</span>
+					</td>
+				</tr>
+				<tr>
+					<td width="15%"><span class="large">🐕</span></td>
+					<td width="20%"><span class="large">대형견</span></td>
+					<td width="25%"><span class="large" style="color: gray;">15kg 이상</span></td>
+					<td width="40%">
+						<span class="large">${price.lpetall}원 | ${price.lpetday}원</span>
+					</td>
+				</tr>
+			</c:if>
 		</table>
 		
 	</div>
 	<div class="v5">
-		<form>
-		<b>채팅 내역 (스크롤)</b>
-			<a href="javascript:del()">삭제</a>
+		<b>돌봄 신청 내역</b>
 			<br><br>
 			<div class="i3">
-				<table>
-					<tr>
-						<td width="10%"><input type="checkbox" name="chat" value="#<!-- 값 들어갈 곳 -->"></td>
-						<td width="20%">닉네임<!-- 값 수정할 곳 --></td>
-						<td width="50%">------마지막 채팅---------<!-- 값 수정할 곳 --></td>
-						<td width="10%">날짜<!-- 값 수정할 곳 --></td>
-					</tr>
+				<table class="text-center">
+					<c:if test="${reserve eq null or empty reserve}">
+						<tr>
+							<td>예약 신청 내역이 없습니다.</td>
+						</tr>
+					</c:if>
+				
+					<c:if test="${reserve ne null and not empty reserve}">
+						<tr id="sbar">
+							<td width="20%">이용자 닉네임</td>
+							<td width="25%">전화번호</td>
+							<td width="40%">날짜</td>
+							<td></td>
+						</tr>
+						<c:forEach var="i" begin="0" end="${total-1}">
+							<tr>
+								<td width="20%">&nbsp;-&nbsp; ${reserve[i].unickname} 님</td>
+								<td width="25%">${reserve[i].tel1}-${reserve[i].tel2}-${reserve[i].tel3}</td>
+								<td width="40%">${reserve[i].sdate} ~ ${reserve[i].fdate}</td>
+								<td width="15%">
+									<div class="btns">
+										<form action="${myctx}/accept" name="accept" id="accept" method="post">
+											<input type="hidden" name="tno" value="${reserve[i].tno}" />
+											<input type="hidden" name="unickname" value="${reserve[i].unickname}" />
+											<input type="hidden" name="snickname" value="${reserve[i].snickname}" />
+											<input type="hidden" name="sdate" value="${reserve[i].sdate}" />
+											<input type="hidden" name="fdate" value="${reserve[i].fdate}" />
+											<button type="submit" class="btn-1">수락</button>
+										</form>	
+										<form action="${myctx}/reject" name="reject" id="reject" method="post">
+											<input type="hidden" name="tno" value="${reserve[i].tno}" />
+											<button type="submit" class="btn-1 btn2">거절</button>
+										</form>		
+									</div>
+								</td>
+							</tr>
+						</c:forEach>
+					</c:if>
 				</table>
 			</div>			
-		</form>
 	</div>
 	
 	<div class="v3">
@@ -324,7 +420,11 @@ a{
 					<fmt:formatDate value="${schedule.sdate}" pattern="MM월 dd일"/>				
 					 ~ <fmt:formatDate value="${schedule.fdate}" pattern="MM월 dd일"/>
 				 </b></td>
-				<td width="25%">'${schedule.unickname}'님</td>
+				<td width="25%">
+					<div class="nick">
+						'${schedule.unickname}'님</a>
+					</div>
+				</td>
 				<td width="25%" onclick="userAlert(${schedule.pno})" id="onPet">'${schedule.pname}'</td>
 			</tr>			
 		</c:forEach>

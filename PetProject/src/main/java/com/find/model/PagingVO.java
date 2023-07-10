@@ -8,7 +8,7 @@ import lombok.Data;
 public class PagingVO {
 
 	private int cpage;	// 현재 페이지
-	private int pageSize = 10;	// 한 페이지 당 글 수
+	private int pageSize = 5;	// 한 페이지 당 글 수
 	private int totalCount;	// 총 게시글 수
 	private int pageCount;	// 페이지 수
 	

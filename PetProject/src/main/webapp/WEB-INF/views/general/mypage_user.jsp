@@ -228,10 +228,12 @@ span.ingredient {
 #pimg { width: 100%; }
 
 .heart { width: 20px; }
+
 #wishT td {padding: 3px;}
 
 #usedC { color: #5D5D5D; font-weight: bold; }
 
+#usedT { margin-top: 10px; }
 #usedT td { padding: 5px; }
 
 
@@ -239,11 +241,33 @@ span.ingredient {
 
 #menu { font-family: 'KOTRAHOPE'; font-size:2.2em; }
 
+.row {
+	height: 50px;
+	padding-top: 9px;
+}
+
+.review {
+	float:left;
+}
+.review:hover {
+	text-decoration: none;
+	color: black;
+	font-weight: bold;
+}
+.name, .wdate {
+	text-align: center;
+}
+div.text-center {
+	color: #5D5D5D; 
+	font-weight: bold; 
+}
+
+#rdiv a { width: 100%; margin: 0 auto; text-align: center; }
 </style>
 
 <div class="t1">
 	<div align="center" class="col-md-8 offset-md-2 my-4" >
-		<h2 id="menu">${loginUser.mid}님 마이페이지 </h2>
+		<h2 id="menu">'${loginUser.nickname}'님 마이페이지 </h2>
 	</div>
 	<a href="${myctx}/general/user/editG">회원정보수정</a>
 	<br><br>
@@ -345,17 +369,17 @@ span.ingredient {
 				<c:forEach var="item" items="${used}">
 					<tr>
 						<td style="width:30%">
-							<div class="nick">
-								<a href="${myctx}/shop/info/<c:out value="${item.ino}" />">${item.snickname} 님</a>
-							</div>
+								${item.snickname} 님
 						</td>
 						<td style="width:45%">
 							<fmt:formatDate value="${item.sdate}" pattern="YY.MM.dd"/>				
 						 ~ <fmt:formatDate value="${item.fdate}" pattern="YY.MM.dd"/>
 						</td>
 						<td>
-							<button class="btn btn-outline-dark" style="padding: 3px; font-size: 0.9em;"
-								onclick="location.href='${myctx}/general/user/reviewBoardWrite'">리뷰 쓰기</button>
+							<form action="${myctx}/general/user/reviewBoardWrite" name="wf" id="wf" method="post">
+								<input type="hidden" name="snickname" value="${item.snickname}"/>
+								<button class="btn btn-outline-dark" style="padding: 5px; font-size: 0.9em;">리뷰 쓰기</button>
+							</form>
 						</td>
 					</tr>
 				</c:forEach>
@@ -365,24 +389,27 @@ span.ingredient {
 	
 	</div>
 	
+	<!-- --------------------------- 내가 쓴 리뷰 --------------------- -->
 	<div class="t5">
-		<b>채팅 내역</b>
-		<a href="#">삭제</a>
-		<br><br>
-		
-		<div class="chat" style="clear:both; font-size:1em;">
-			<div style="float:left; width: 20%;">
-				<input type="checkbox" name="service" value="#<!-- 값 들어갈 곳 -->">
-				<span><b>닉네임</b></span>
-			</div>
-			<div style="float:left; margin-bottom:15px; width:60%;">
-				<span>마지막 채팅</span>
-			</div>
-			<div style="float:left; margin-bottom:15px; width:20%;">
-				<span>2023-06-05</span>
-			</div>
+		<b>내가 쓴 리뷰</b>
+		<div class="container">
+            <div class="row" style="margin-top: 10px;">
+                <div class="col-4 text-center">펫시터 닉네임</div>
+                <div class="col-5 text-center">제목</div>
+                <div class="col-3 text-center">작성일</div>
+            </div>
+			
+			<c:forEach var="reviewBoard" items="${reviewBoard}" varStatus="status">
+	            <div class="row">
+	                <div class="col-4 col1 name">${snicknames[status.index]} 님</div>
+	                <div class="col-5 col1" id="rdiv">
+	                	<a href="${myctx}/reviewBig?rno=${reviewBoard.rno}" class="review">${reviewBoard.title}</a>
+	                </div>
+	                <div class="col-3 col1 wdate">${reviewBoard.wdate}</div>
+		        </div>
+	        </c:forEach>
 		</div>
-		
 	</div>
-	    
+	
+</div>
 <div style="clear:both; margin-bottom:50px"></div>

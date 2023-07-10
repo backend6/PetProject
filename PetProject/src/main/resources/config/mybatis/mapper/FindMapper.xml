@@ -112,7 +112,11 @@
 	</select>
 	
 	<select id="selectIntroduceByIno" resultType="Find" parameterType="_int">
-		select * from introduce where ino=#{value}
+		select 
+		    (select unickname from wish where ino=introduce.ino) wishNick, 
+		    (select ino from wish where snickname=introduce.nickname) wishIno,
+		    introduce.*
+		from introduce where ino=#{ino}
 	</select>
 	
 	<select id="selectImg" resultType="string" parameterType="_int">

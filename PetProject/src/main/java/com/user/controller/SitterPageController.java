@@ -25,6 +25,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.reserve.model.ReserveVO;
+import com.reserve.service.ReserveService;
+import com.sitter.model.PriceVO;
 import com.sitter.model.SitterVO;
 import com.sitter.service.SitterService;
 import com.user.model.UserModelVO;
@@ -43,6 +46,9 @@ public class SitterPageController {
 	
 	@Inject
 	private UserService userService;
+	
+	@Inject
+	private ReserveService reserveService;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -68,7 +74,7 @@ public class SitterPageController {
 		List<SitterVO> svo = sitterService.getSitterIntroduce(nickname);
 		List<SitterVO> svo2 = sitterService.getSitterUsed(nickname);
 		
-		int icheck = this.sitterService.icheck(nickname);
+		Integer icheck = this.sitterService.icheck(nickname);
 		m.addAttribute("icheck", icheck);
 
 		req.setAttribute("sittervo", svo2);
@@ -76,6 +82,16 @@ public class SitterPageController {
 		m.addAttribute("svo2", svo2);
 		m.addAttribute("nickname", nickname);
 		m.addAttribute("mid",mid);
+		
+		List<ReserveVO> reserveData = this.reserveService.selectTemBySnickname(nickname); // 펫시터 본인 마이페이지임..
+		m.addAttribute("reserve", reserveData);
+		
+		int total = reserveService.getTotalReserve(nickname);
+		m.addAttribute("total", total);
+		
+		// 이용 요금 보여주기
+		PriceVO price = this.sitterService.getPrice(nickname);
+		m.addAttribute("price", price);
 		
 		return "sitter/myPagePetSitter";
 	}
@@ -86,11 +102,70 @@ public class SitterPageController {
 		return "sitter/petSitterIntroduce";
 	}
 	
-	@GetMapping("/record")
-	public String SitterRecord() {
+	
+	@GetMapping("/introduceEdit")
+	public String SitterIntroduceEdit(Model m, HttpServletRequest req) {
 		
-		return "sitter/record";
+		HttpSession session = req.getSession();
+		UserVO usvo = (UserVO) session.getAttribute("loginUser");
+		String mid = usvo.getMid();		
+		String nickname = sitterService.getUserNickname(mid);
+		
+		List<SitterVO> svo = sitterService.getSitterIntroduce(nickname);
+		String arr = svo.get(0).getService();		
+		String [] arr2 = arr.split(",");
+		m.addAttribute("svo",svo);
+		m.addAttribute("arr2",arr2);
+		
+		return "sitter/petSitterIntroduceEdit";
 	}
+	
+	@PostMapping("/introduceDel")
+	public String introduceDel(Model m, int ino) {
+
+		System.out.println(ino);
+
+		int n = sitterService.delIntroduce(ino);
+		String str = (n > 0) ? "내 소개 삭제 완료" : "내 소개 삭제 실패";
+		String loc = (n > 0) ? "page" : "javascript:history.back()";
+
+		m.addAttribute("msg", str);
+		m.addAttribute("loc", loc);
+		return "message";
+	}
+	
+	
+	@GetMapping("/price")
+	public String SitterPrice() {
+		
+		return "sitter/priceSetting";
+	}
+	
+	
+	@PostMapping("/price")
+	public String priceProcess(Model m, @ModelAttribute PriceVO price, HttpSession session) {
+		
+		UserVO loginUser = (UserVO)session.getAttribute("loginUser");
+		
+		String unickname_fk = loginUser.getNickname();
+		
+		int ino = sitterService.icheck(unickname_fk);
+		
+		price.setIno(ino);
+		price.setNickname(unickname_fk);
+		
+		int n = sitterService.addPrice(price);
+		
+		String str = (n>0)? "이용요금 설정 완료":"이용요금 설정 실패";
+		String loc = (n>0)? "page":"javascript:history.back()";
+		
+		m.addAttribute("msg", str);
+		m.addAttribute("loc", loc);
+		
+		return "message";
+	}
+	
+	
 	
 	@GetMapping("/introDetail")
 	public String SitterIntroDetail(Model m, HttpServletRequest req) {
@@ -155,6 +230,7 @@ public class SitterPageController {
 	
 
 	// 소개 수정 폼
+	
 	
 	
 	
