@@ -463,7 +463,7 @@ td {
 			<table class="table table-borderless" id="review" style="width:100%">
 				<tr>
 					<td style="font-weight: bold; padding-bottom:1px;">${item.nickname}
-						<img id="st1" src="<%=request.getContextPath()%>/images/star3.png" alt="별" style="max-width: 2%; background-color: white;">
+						<img id="st1" src="<%=request.getContextPath()%>/images/star3.png" alt="별" style="max-width: 5%; background-color: white;">
 						x${item.star}
 			        </td>
 				</tr>
